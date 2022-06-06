@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navHome"
+        android:title="@string/bottom_navigation_menu_title_home" />
+
+    <item
+        android:id="@+id/navSearch"
+        android:enabled="true"
+        android:title="@string/bottom_navigation_menu_title_search" />
+
+    <item
+        android:id="@+id/navCart"
+        android:enabled="true"
+        android:title="@string/bottom_navigation_menu_title_cart" />
+
+    <item
+        android:id="@+id/navProfile"
+        android:enabled="true"
+        android:title="@string/bottom_navigation_menu_title_profile" />
+</menu>
