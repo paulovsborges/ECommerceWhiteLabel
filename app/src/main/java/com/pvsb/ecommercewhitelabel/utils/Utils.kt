@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel
+package com.pvsb.ecommercewhitelabel.utils
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
@@ -14,7 +14,7 @@ fun FragmentActivity.switchFragment(
     tag: String = "",
     animation: Boolean = false,
     stackName: String? = null,
-    addToStack: Boolean = true
+    addToStack: Boolean = false
 ) {
 
     supportFragmentManager.beginTransaction().apply {

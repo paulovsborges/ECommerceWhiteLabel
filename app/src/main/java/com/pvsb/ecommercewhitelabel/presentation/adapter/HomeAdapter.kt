@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.pvsb.ecommercewhitelabel.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
 import com.pvsb.ecommercewhitelabel.databinding.ListItemBinding
+import com.pvsb.ecommercewhitelabel.utils.ListAdapterDiffUtil
 
 class HomeAdapter(
     private val onItemClick: (MainHomeModel) -> Unit

@@ -10,7 +10,7 @@ class HomeUseCase @Inject constructor() {
     suspend fun mockData(): Flow<List<MainHomeModel>> = flow {
 
         val mockedData = listOf(
-            MainHomeModel("Apple airbuds oLiginal", "R$59.99"),
+            MainHomeModel("Apple airpods oLiginal", "R$59.99"),
             MainHomeModel("Mouse logitech mx ", "R$459.99"),
             MainHomeModel("Galaxy buds", "R$659.99"),
             MainHomeModel("Teclado corsair K55", "R$249.99")

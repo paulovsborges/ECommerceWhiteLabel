@@ -8,6 +8,7 @@ import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentCart
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentHome
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentProfile
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentSearch
+import com.pvsb.ecommercewhitelabel.utils.switchFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
