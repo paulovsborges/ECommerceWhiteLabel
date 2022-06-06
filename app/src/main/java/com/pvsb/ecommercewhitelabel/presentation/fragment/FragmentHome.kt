@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeVIewModel
+import com.pvsb.ecommercewhitelabel.switchFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +52,11 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: MainHomeModel) {
-        Toast.makeText(context, item.title, Toast.LENGTH_SHORT).show()
+        requireActivity().switchFragment(
+            FragmentProductDetails(),
+            R.id.mainContainer,
+            bundleOf("itemTest" to item)
+        )
     }
 
     override fun onDestroy() {
