@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1000057003449",
+    "project_id": "e-commerce-white-label",
+    "storage_bucket": "e-commerce-white-label.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000057003449:android:c37891e0f7986971e86a68",
+        "android_client_info": {
+          "package_name": "com.pvsb.ecommercewhitelabel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000057003449-26rf729h8p396glae585eeck9ltu2h0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWSFD17_cb5g-5Itf1i666G2sAEoVYOSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000057003449-26rf729h8p396glae585eeck9ltu2h0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
