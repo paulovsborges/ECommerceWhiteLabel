@@ -1,6 +1,8 @@
 package com.pvsb.ecommercewhitelabel.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -37,34 +39,20 @@ fun FragmentActivity.switchFragment(
     }
 }
 
-//fun Fragment.openFragmentFullScreen(
-//    fragment: Fragment,
-//    data: Bundle? = null,
-//    tag: String = "",
-//    animation: Boolean = false,
-//    stackName: String? = null,
-//    addToStack: Boolean = false
-//) {
-//
-//    val container = R.id.mainContainer
-//
-//    requireActivity().supportFragmentManager.beginTransaction().apply {
-//        replace(container, fragment, tag)
-//        if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//        if (addToStack) {
-//            childFragmentManager.findFragmentById(container)?.let {
-//                addToBackStack(stackName)
-//            }
-//        }
-//
-//        data?.let {
-//            fragment.arguments = it
-//        }
-//
-//        setReorderingAllowed(true)
-//        commit()
-//    }
-//}
+data class Test(
+    val name : String
+)
+
+fun Context.openActivity(activity: Class<*>, bundle : (() -> Bundle)? = null){
+
+    val intent = Intent(this, activity)
+
+    bundle?.invoke()?.let {
+        intent.putExtra(activity.simpleName, it)
+    }
+
+    startActivity(intent)
+}
 
 class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
 

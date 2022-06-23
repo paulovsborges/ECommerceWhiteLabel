@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ECommerceWhiteLabel</string>
 
-<!--    Bottom navigation menu names-->
+    <!--    Bottom navigation menu names-->
     <string name="bottom_navigation_menu_title_home">Home</string>
     <string name="bottom_navigation_menu_title_search">Search</string>
     <string name="bottom_navigation_menu_title_cart">Cart</string>
