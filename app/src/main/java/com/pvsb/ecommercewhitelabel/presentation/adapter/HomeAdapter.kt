@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideBuilder
 import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ListItemBinding
 import com.pvsb.ecommercewhitelabel.utils.ListAdapterDiffUtil
@@ -34,6 +36,11 @@ class HomeAdapter(
             binding.apply {
                 tvProductTitle.text = item.title
                 tvProductPrice.text = item.price.toString()
+
+                Glide.with(itemView.context)
+                    .load(item.imageUrl)
+                    .centerCrop()
+                    .into(ivProductImage)
             }
 
             itemView.setOnClickListener {

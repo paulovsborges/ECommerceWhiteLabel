@@ -2,6 +2,7 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 
@@ -19,6 +20,11 @@ class ActivityProductDetails : AppCompatActivity() {
         binding.apply {
             tvProductPrice.text = data?.price.toString()
             tvProductTitle.text = data?.title
+
+            Glide.with(this@ActivityProductDetails)
+                .load(data?.imageUrl)
+                .centerCrop()
+                .into(ivProductImage)
         }
     }
 }
