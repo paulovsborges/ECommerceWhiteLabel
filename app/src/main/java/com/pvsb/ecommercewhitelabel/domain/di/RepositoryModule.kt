@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.domain.di
 
-import com.pvsb.ecommercewhitelabel.domain.HomeRepository
-import com.pvsb.ecommercewhitelabel.domain.HomeRepositoryImpl
+import com.pvsb.ecommercewhitelabel.domain.repository.HomeRepository
+import com.pvsb.ecommercewhitelabel.domain.repository.HomeRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

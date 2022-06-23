@@ -1,14 +1,13 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationBarView
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
 import com.pvsb.ecommercewhitelabel.utils.switchFragment
+import com.pvsb.feat_cart.presentation.FragmentCart
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

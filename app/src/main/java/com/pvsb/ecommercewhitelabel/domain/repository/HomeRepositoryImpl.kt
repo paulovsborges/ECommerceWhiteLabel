@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.domain
+package com.pvsb.ecommercewhitelabel.domain.repository
 
 import com.google.firebase.firestore.DocumentReference
 import com.pvsb.ecommercewhitelabel.data.firestore.di.HomeDocumentReference

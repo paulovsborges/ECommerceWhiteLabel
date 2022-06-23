@@ -1,12 +1,11 @@
-package com.pvsb.ecommercewhitelabel.presentation.fragment
+package com.pvsb.feat_cart.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
-import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
+import com.pvsb.feat_cart.databinding.FragmentCartBinding
 
 class FragmentCart: Fragment() {
 
