@@ -33,7 +33,7 @@ class HomeAdapter(
 
             binding.apply {
                 tvProductTitle.text = item.title
-                tvProductPrice.text = item.price
+                tvProductPrice.text = item.price.toString()
             }
 
             itemView.setOnClickListener {

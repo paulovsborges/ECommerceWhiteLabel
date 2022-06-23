@@ -17,7 +17,7 @@ class ActivityProductDetails : AppCompatActivity() {
         val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
 
         binding.apply {
-            tvProductPrice.text = data?.price
+            tvProductPrice.text = data?.price.toString()
             tvProductTitle.text = data?.title
         }
     }

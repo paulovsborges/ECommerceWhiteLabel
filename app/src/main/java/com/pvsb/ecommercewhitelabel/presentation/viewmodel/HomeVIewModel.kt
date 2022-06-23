@@ -16,7 +16,7 @@ class HomeVIewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _homeData = MutableLiveData<List<ProductDTO>>()
-    val homeData: LiveData<List<ProductDTO>> = _homeData
+    val homeData: LiveData<List<ProductDTO>> get() =  _homeData
 
     fun getHomeData() {
         viewModelScope.launch {

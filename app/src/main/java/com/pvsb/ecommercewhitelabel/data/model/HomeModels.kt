@@ -7,8 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProductDTO(
     val title: String = "",
-    val price: String = "",
-
+    val price: Double = 0.0,
     @get:PropertyName("image_url")
     @set:PropertyName("image_url")
     var imageUrl: String = ""
