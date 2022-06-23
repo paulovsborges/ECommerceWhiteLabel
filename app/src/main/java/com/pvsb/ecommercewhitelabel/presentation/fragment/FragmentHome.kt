@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
+import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -49,7 +49,7 @@ class FragmentHome : Fragment() {
         }
     }
 
-    private fun navigateToDetails(item: MainHomeModel) {
+    private fun navigateToDetails(item: ProductDTO) {
         requireContext().openActivity(ActivityProductDetails::class.java){
             it.putExtra("PRODUCT_NAME", item)
         }

@@ -1,10 +1,13 @@
 package com.pvsb.ecommercewhitelabel.data.model
 
 import android.os.Parcelable
+import com.google.firebase.firestore.PropertyName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class MainHomeModel(
-    val title: String,
-    val price: String
+data class ProductDTO(
+    @get:PropertyName("name")
+    @set:PropertyName("name")
+    var title: String = "",
+    val price: String = ""
 ): Parcelable

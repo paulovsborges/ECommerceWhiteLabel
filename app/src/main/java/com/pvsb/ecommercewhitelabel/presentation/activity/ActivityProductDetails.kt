@@ -2,7 +2,7 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
+import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 
 class ActivityProductDetails : AppCompatActivity() {
@@ -14,7 +14,7 @@ class ActivityProductDetails : AppCompatActivity() {
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val data = intent?.getParcelableExtra<MainHomeModel>("PRODUCT_NAME")
+        val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
 
         binding.apply {
             tvProductPrice.text = data?.price
