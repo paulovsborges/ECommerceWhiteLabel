@@ -37,10 +37,6 @@ fun FragmentActivity.switchFragment(
     }
 }
 
-data class Test(
-    val name : String
-)
-
 fun Context.openActivity(activity: Class<*>, data : ((Intent) -> Unit)? = null){
 
     val intent = Intent(this, activity)

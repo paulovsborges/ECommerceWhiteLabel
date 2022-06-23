@@ -1,7 +1,6 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
