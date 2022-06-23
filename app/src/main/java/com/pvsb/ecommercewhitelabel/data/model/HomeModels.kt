@@ -6,8 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProductDTO(
-    @get:PropertyName("name")
-    @set:PropertyName("name")
-    var title: String = "",
-    val price: String = ""
-): Parcelable
+    val title: String = "",
+    val price: String = "",
+
+    @get:PropertyName("image_url")
+    @set:PropertyName("image_url")
+    var imageUrl: String = ""
+) : Parcelable
