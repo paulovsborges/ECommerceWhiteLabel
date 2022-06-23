@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.utils
+package com.pvsb.core.utils
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,6 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.repository
 
-import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
+import com.pvsb.core.firestore.model.ProductDTO
 
 interface HomeRepository {
 

@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.data.model
+package com.pvsb.core.firestore.model
 
 import android.os.Parcelable
 import com.google.firebase.firestore.PropertyName

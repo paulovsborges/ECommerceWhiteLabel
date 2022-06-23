@@ -1,8 +1,8 @@
 package com.pvsb.ecommercewhitelabel.domain.repository
 
 import com.google.firebase.firestore.DocumentReference
-import com.pvsb.ecommercewhitelabel.data.firestore.di.HomeDocumentReference
-import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
+import com.pvsb.core.firestore.di.HomeDocumentReference
+import com.pvsb.core.firestore.model.ProductDTO
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 

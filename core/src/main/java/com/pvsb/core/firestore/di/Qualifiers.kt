@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.data.firestore.di
+package com.pvsb.core.firestore.di
 
 import javax.inject.Qualifier
 

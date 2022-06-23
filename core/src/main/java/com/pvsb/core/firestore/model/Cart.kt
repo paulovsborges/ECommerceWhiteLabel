@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.data.model
+package com.pvsb.core.firestore.model
 
 data class CreateCartDTO(
     val id: Int = 0,

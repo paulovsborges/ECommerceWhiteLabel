@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder
-import com.pvsb.ecommercewhitelabel.data.model.ProductDTO
+import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ListItemBinding
-import com.pvsb.ecommercewhitelabel.utils.ListAdapterDiffUtil
+import com.pvsb.core.utils.ListAdapterDiffUtil
 
 class HomeAdapter(
     private val onItemClick: (ProductDTO) -> Unit
