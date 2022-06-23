@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DiffUtil
-import com.pvsb.ecommercewhitelabel.R
 
 fun FragmentActivity.switchFragment(
     fragment: Fragment,
@@ -43,13 +41,11 @@ data class Test(
     val name : String
 )
 
-fun Context.openActivity(activity: Class<*>, bundle : (() -> Bundle)? = null){
+fun Context.openActivity(activity: Class<*>, data : ((Intent) -> Unit)? = null){
 
     val intent = Intent(this, activity)
 
-    bundle?.invoke()?.let {
-        intent.putExtra(activity.simpleName, it)
-    }
+    data?.invoke(intent)
 
     startActivity(intent)
 }

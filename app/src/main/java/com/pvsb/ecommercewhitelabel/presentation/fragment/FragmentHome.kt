@@ -52,7 +52,9 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: MainHomeModel) {
-        requireContext().openActivity(ActivityProductDetails::class.java)
+        requireContext().openActivity(ActivityProductDetails::class.java){
+            it.putExtra("PRODUCT_NAME", item)
+        }
     }
 
     override fun onDestroy() {
