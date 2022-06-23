@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.pvsb.ecommercewhitelabel.data.model.MainHomeModel
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeVIewModel
-import com.pvsb.ecommercewhitelabel.utils.openFragmentFullScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,10 +48,10 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: MainHomeModel) {
-        openFragmentFullScreen(
-            FragmentProductDetails(),
-            bundleOf("itemTest" to item)
-        )
+//        openFragmentFullScreen(
+//            FragmentProductDetails(),
+//            bundleOf("itemTest" to item)
+//        )
     }
 
     override fun onDestroy() {

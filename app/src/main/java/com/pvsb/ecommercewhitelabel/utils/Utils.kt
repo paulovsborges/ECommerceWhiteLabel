@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DiffUtil
 import com.pvsb.ecommercewhitelabel.R
 
-fun Fragment.switchFragment(
+fun FragmentActivity.switchFragment(
     fragment: Fragment,
     container: Int,
     data: Bundle? = null,
@@ -19,11 +19,11 @@ fun Fragment.switchFragment(
     addToStack: Boolean = false
 ) {
 
-    childFragmentManager.beginTransaction().apply {
+    supportFragmentManager.beginTransaction().apply {
         replace(container, fragment, tag)
         if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         if (addToStack) {
-            childFragmentManager.findFragmentById(container)?.let {
+            supportFragmentManager.findFragmentById(container)?.let {
                 addToBackStack(stackName)
             }
         }
@@ -37,34 +37,34 @@ fun Fragment.switchFragment(
     }
 }
 
-fun Fragment.openFragmentFullScreen(
-    fragment: Fragment,
-    data: Bundle? = null,
-    tag: String = "",
-    animation: Boolean = false,
-    stackName: String? = null,
-    addToStack: Boolean = false
-) {
-
-    val container = R.id.mainContainer
-
-    requireActivity().supportFragmentManager.beginTransaction().apply {
-        replace(container, fragment, tag)
-        if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        if (addToStack) {
-            childFragmentManager.findFragmentById(container)?.let {
-                addToBackStack(stackName)
-            }
-        }
-
-        data?.let {
-            fragment.arguments = it
-        }
-
-        setReorderingAllowed(true)
-        commit()
-    }
-}
+//fun Fragment.openFragmentFullScreen(
+//    fragment: Fragment,
+//    data: Bundle? = null,
+//    tag: String = "",
+//    animation: Boolean = false,
+//    stackName: String? = null,
+//    addToStack: Boolean = false
+//) {
+//
+//    val container = R.id.mainContainer
+//
+//    requireActivity().supportFragmentManager.beginTransaction().apply {
+//        replace(container, fragment, tag)
+//        if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//        if (addToStack) {
+//            childFragmentManager.findFragmentById(container)?.let {
+//                addToBackStack(stackName)
+//            }
+//        }
+//
+//        data?.let {
+//            fragment.arguments = it
+//        }
+//
+//        setReorderingAllowed(true)
+//        commit()
+//    }
+//}
 
 class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
 

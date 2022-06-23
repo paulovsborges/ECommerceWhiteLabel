@@ -20,30 +20,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initialSetup()
-
+        setUpBottomNav()
     }
 
-    private fun initialSetup() {
-        supportFragmentManager.beginTransaction().apply {
-
-            add(R.id.mainContainer, MainFragment(), "main nav host")
-
-//            replace(R.id.mainContainer, MainFragment(), "main nav host")
-            commit()
+    private fun setUpBottomNav() {
+        val navBottomListener = NavigationBarView.OnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navHome -> {
+                    switchFragment(FragmentHome(), R.id.fcvMain)
+                    true
+                }
+                R.id.navSearch -> {
+                    switchFragment(FragmentSearch(), R.id.fcvMain)
+                    true
+                }
+                R.id.navCart -> {
+                    switchFragment(FragmentCart(), R.id.fcvMain)
+                    true
+                }
+                else -> {
+                    switchFragment(FragmentProfile(), R.id.fcvMain)
+                    true
+                }
+            }
         }
-    }
 
-    override fun onBackPressed() {
-
-        val fragmentsCount =
-            supportFragmentManager.findFragmentById(R.id.mainContainer)?.parentFragmentManager?.fragments?.size
-
-        fragmentsCount?.let {
-            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+        binding.mainBottomNav.apply {
+            setOnItemSelectedListener(navBottomListener)
+            selectedItemId = R.id.navHome
         }
-
-//        super.onBackPressed()
-
     }
 }
