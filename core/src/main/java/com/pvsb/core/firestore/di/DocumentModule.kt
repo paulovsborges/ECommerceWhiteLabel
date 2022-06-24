@@ -23,7 +23,7 @@ object DocumentModule {
     @CartDocumentReference
     fun provideCartDocument(store: FirebaseFirestore): DocumentReference {
 
-        val path = "data"
+        val path = "data/cart/"
         return store.document(path)
     }
 }

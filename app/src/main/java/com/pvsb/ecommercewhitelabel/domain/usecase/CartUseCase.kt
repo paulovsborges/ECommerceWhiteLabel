@@ -15,10 +15,10 @@ class CartUseCase @Inject constructor(
 
         val cart = CreateCartDTO(
             id = UUID.randomUUID().toString(),
-            totalPrice = 0.0,
-            isActive = false,
+//            totalPrice = 0.0,
+//            isActive = false,
 
-            )
+        )
         val res = repository.createCart(cart)
         emit(res)
     }

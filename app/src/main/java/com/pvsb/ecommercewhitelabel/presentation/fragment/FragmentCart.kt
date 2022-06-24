@@ -25,5 +25,4 @@ class FragmentCart: Fragment() {
         _binding = null
         super.onDestroy()
     }
-
 }
