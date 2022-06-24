@@ -7,7 +7,7 @@ import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
 import com.pvsb.core.utils.switchFragment
-import com.pvsb.feat_cart.presentation.FragmentCart
+import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentCart
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

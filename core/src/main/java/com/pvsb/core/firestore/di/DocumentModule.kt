@@ -13,9 +13,17 @@ object DocumentModule {
 
     @Provides
     @HomeDocumentReference
-    fun provideHomeDocument(store: FirebaseFirestore): DocumentReference{
+    fun provideHomeDocument(store: FirebaseFirestore): DocumentReference {
 
         val path = "data/home"
+        return store.document(path)
+    }
+
+    @Provides
+    @CartDocumentReference
+    fun provideCartDocument(store: FirebaseFirestore): DocumentReference {
+
+        val path = "data"
         return store.document(path)
     }
 }
