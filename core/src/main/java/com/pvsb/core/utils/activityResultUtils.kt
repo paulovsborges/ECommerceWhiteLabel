@@ -12,6 +12,7 @@ fun <T : Any> Fragment.setUpActivityListener(
 ): ActivityResultLauncher<Intent> =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
+        @Suppress("UNCHECKED_CAST")
         val data = it.data?.extras?.get(extraKey) as T
 
         if (it.resultCode == Activity.RESULT_OK) {
