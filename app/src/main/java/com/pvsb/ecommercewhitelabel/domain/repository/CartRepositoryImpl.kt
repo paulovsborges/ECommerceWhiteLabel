@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.repository
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.pvsb.core.firestore.di.CartDocumentReference
 import com.pvsb.core.firestore.model.CreateCartDTO
@@ -20,9 +21,11 @@ class CartRepositoryImpl @Inject constructor(
                 .set(cart)
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(cart.id))
+                    Log.d(javaClass.simpleName, "createCart: Success")
                 }
                 .addOnFailureListener {
                     continuation.resumeWith(Result.failure(it))
+                    Log.d(javaClass.simpleName, "createCart: Error")
                 }
         }
     }

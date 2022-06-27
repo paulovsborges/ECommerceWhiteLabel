@@ -1,6 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -20,6 +21,8 @@ class ActivityProductDetails : AppCompatActivity() {
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpObservers()
+
         val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
 
         binding.apply {
@@ -34,6 +37,12 @@ class ActivityProductDetails : AppCompatActivity() {
             btnBuy.setOnClickListener {
                 cartViewModel.createCart()
             }
+        }
+    }
+
+    private fun setUpObservers() {
+        cartViewModel.cartId.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
     }
 }
