@@ -19,10 +19,9 @@ class CartUseCase @Inject constructor(
         val cart = CreateCartDTO(
             id = UUID.randomUUID().toString()
         )
+
         val res = repository.createCart(cart)
 
-//        return flow {
         emit(res)
-//        }
     }.flowOn(Dispatchers.Unconfined)
 }

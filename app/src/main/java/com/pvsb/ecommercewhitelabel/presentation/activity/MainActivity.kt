@@ -2,12 +2,10 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.navigation.NavigationBarView
 import com.pvsb.core.utils.createBottomNavListener
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
-import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentCart
 import dagger.hilt.android.AndroidEntryPoint
 
