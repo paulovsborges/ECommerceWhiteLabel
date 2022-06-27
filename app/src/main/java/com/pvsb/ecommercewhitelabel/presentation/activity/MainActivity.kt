@@ -3,6 +3,7 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.navigation.NavigationBarView
+import com.pvsb.core.utils.createBottomNavListener
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
@@ -23,26 +24,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpBottomNav() {
-        val navBottomListener = NavigationBarView.OnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navHome -> {
-                    switchFragment(FragmentHome(), R.id.fcvMain)
-                    true
-                }
-                R.id.navSearch -> {
-                    switchFragment(FragmentSearch(), R.id.fcvMain)
-                    true
-                }
-                R.id.navCart -> {
-                    switchFragment(FragmentCart(), R.id.fcvMain)
-                    true
-                }
-                else -> {
-                    switchFragment(FragmentProfile(), R.id.fcvMain)
-                    true
-                }
-            }
-        }
+        val navBottomListener = createBottomNavListener(
+            R.id.fcvMain, mapOf(
+                R.id.navHome to FragmentHome(),
+                R.id.navSearch to FragmentSearch(),
+                R.id.navCart to FragmentCart(),
+                R.id.navProfile to FragmentProfile()
+            )
+        )
 
         binding.mainBottomNav.apply {
             setOnItemSelectedListener(navBottomListener)

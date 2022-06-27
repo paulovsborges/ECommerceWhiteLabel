@@ -9,4 +9,7 @@
 
 <!--    Product Details-->
     <string name="product_details_button_purchase_text">Buy</string>
+
+<!--    search-->
+    <string name="search_button_open_filters_text">Filters</string>
 </resources>
