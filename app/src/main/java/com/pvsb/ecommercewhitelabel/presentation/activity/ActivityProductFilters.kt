@@ -1,11 +1,14 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.pvsb.core.firestore.model.ProductFilters
 import com.pvsb.core.utils.MockFactory
+import com.pvsb.core.utils.ResultCode
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductFiltersBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.ProductFilterAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.FiltersViewModel
@@ -30,7 +33,16 @@ class ActivityProductFilters : AppCompatActivity() {
         binding.rvMain.adapter = mAdapter
 
         binding.btnApplyFilters.setOnClickListener {
-            Toast.makeText(this, "${viewModel.selectedFilters.size}", Toast.LENGTH_SHORT).show()
+
+            val test = viewModel.selectedFilters.size
+
+            val intent = Intent().apply {
+                putExtra(this@ActivityProductFilters.javaClass.simpleName, test)
+            }
+
+            setResult(ResultCode.OK, intent)
+
+            finish()
         }
     }
 
