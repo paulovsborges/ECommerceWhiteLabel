@@ -10,8 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.pvsb.core.utils.ResultCode
-import com.pvsb.core.utils.openActivity
+import com.pvsb.core.utils.setUpActivityListener
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductFilters
 
@@ -37,16 +36,11 @@ class FragmentSearch : Fragment() {
             setActivityResult()
         }
 
-        resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == ResultCode.OK) {
-
-                    val data =
-                        it.data?.extras?.get(ActivityProductFilters().javaClass.simpleName) as Int
-
-                    Toast.makeText(requireContext(), "$data", Toast.LENGTH_SHORT).show()
-                }
-            }
+        resultLauncher = setUpActivityListener<String>(
+            extraKey = ActivityProductFilters().javaClass.simpleName
+        ) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setActivityResult() {
