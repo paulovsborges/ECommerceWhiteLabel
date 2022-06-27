@@ -12,4 +12,5 @@
 
 <!--    search-->
     <string name="search_button_open_filters_text">Filters</string>
+    <string name="search_button_apply_filters_text">Apply</string>
 </resources>

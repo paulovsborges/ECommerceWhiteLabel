@@ -8,7 +8,9 @@ import com.pvsb.core.firestore.model.ProductFilters
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.databinding.FiltersListItemBinding
 
-class ProductFilterAdapter :
+class ProductFilterAdapter(
+    private val filterSelected: (ProductFilters) -> Unit
+) :
     ListAdapter<ProductFilters, ProductFilterAdapter.ViewHolder>(ListAdapterDiffUtil<ProductFilters>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +27,7 @@ class ProductFilterAdapter :
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: FiltersListItemBinding) :
+    inner class ViewHolder(private val binding: FiltersListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ProductFilters) {
@@ -37,6 +39,12 @@ class ProductFilterAdapter :
 
                 cbFilterSelection.setOnCheckedChangeListener { _, checked ->
                     item.isChecked = checked
+                }
+
+                itemView.setOnClickListener {
+                    cbFilterSelection.isChecked = !item.isChecked
+                    filterSelected.invoke(item)
+                    notifyDataSetChanged()
                 }
             }
         }
