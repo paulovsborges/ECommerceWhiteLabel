@@ -36,10 +36,10 @@ class FragmentSearch : Fragment() {
             setActivityResult()
         }
 
-        resultLauncher = setUpActivityListener<String>(
+        resultLauncher = setUpActivityListener<Int>(
             extraKey = ActivityProductFilters().javaClass.simpleName
         ) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 

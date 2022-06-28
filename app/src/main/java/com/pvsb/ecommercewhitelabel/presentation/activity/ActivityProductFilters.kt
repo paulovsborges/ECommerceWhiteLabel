@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import com.pvsb.core.firestore.model.ProductFilters
 import com.pvsb.core.utils.MockFactory
+import com.pvsb.core.utils.setResultAndFinish
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductFiltersBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.ProductFilterAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.FiltersViewModel
@@ -32,15 +35,18 @@ class ActivityProductFilters : AppCompatActivity() {
 
         binding.btnApplyFilters.setOnClickListener {
 
-            val test = viewModel.selectedFilters.size.toString()
+            val test = viewModel.selectedFilters.size
 
-            val intent = Intent().apply {
-                putExtra(this@ActivityProductFilters.javaClass.simpleName, test)
-            }
+            setResultAndFinish(test)
 
-            setResult(Activity.RESULT_OK, intent)
-
-            finish()
+        //
+//            val intent = Intent().apply {
+//                putExtra(this@ActivityProductFilters.javaClass.simpleName, test)
+//            }
+//
+//            setResult(Activity.RESULT_OK, intent)
+//
+//            finish()
         }
     }
 
