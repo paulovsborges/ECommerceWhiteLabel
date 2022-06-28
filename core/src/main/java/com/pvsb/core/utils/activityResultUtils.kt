@@ -13,22 +13,24 @@ import kotlinx.serialization.json.Json
 import kotlin.reflect.KClass
 
 inline fun <reified T : Any> Fragment.setUpActivityListener(
-    extraKey: String,
+    target: FragmentActivity,
     crossinline resultOk: (T) -> Unit,
 ): ActivityResultLauncher<Intent> =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+
+        val tag = target.javaClass.simpleName
 
         if (it.resultCode == Activity.RESULT_OK) {
 
             if (!isPrimitiveType(T::class)) {
 
-                val data = it.data?.extras?.get(extraKey) as String
+                val data = it.data?.extras?.get(tag) as String
                 val value = Json.decodeFromString<T>(data)
                 resultOk.invoke(value)
             } else {
 
                 @Suppress("UNCHECKED_CAST")
-                val data = it.data?.extras?.get(extraKey) as? T
+                val data = it.data?.extras?.get(tag) as? T
 
                 data?.let {
                     resultOk.invoke(data)

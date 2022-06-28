@@ -35,7 +35,7 @@ class FragmentSearch : Fragment() {
         }
 
         resultLauncher = setUpActivityListener<String>(
-            ActivityProductFilters().javaClass.simpleName
+            ActivityProductFilters()
         ) {
             Toast.makeText(
                 requireContext(),
