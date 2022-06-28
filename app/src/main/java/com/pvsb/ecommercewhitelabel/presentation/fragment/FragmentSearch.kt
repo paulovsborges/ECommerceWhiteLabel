@@ -1,6 +1,5 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.pvsb.core.utils.setUpActivityListener
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
@@ -36,10 +34,14 @@ class FragmentSearch : Fragment() {
             setActivityResult()
         }
 
-        resultLauncher = setUpActivityListener<Int>(
-            extraKey = ActivityProductFilters().javaClass.simpleName
+        resultLauncher = setUpActivityListener<String>(
+            ActivityProductFilters().javaClass.simpleName
         ) {
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "count $it",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -53,5 +55,4 @@ class FragmentSearch : Fragment() {
         _binding = null
         super.onDestroy()
     }
-
 }

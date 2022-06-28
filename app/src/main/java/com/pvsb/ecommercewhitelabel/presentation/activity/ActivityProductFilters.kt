@@ -1,14 +1,11 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.core.widget.doAfterTextChanged
 import com.pvsb.core.firestore.model.ProductFilters
 import com.pvsb.core.utils.MockFactory
+import com.pvsb.core.utils.Testing
 import com.pvsb.core.utils.setResultAndFinish
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductFiltersBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.ProductFilterAdapter
@@ -37,16 +34,9 @@ class ActivityProductFilters : AppCompatActivity() {
 
             val test = viewModel.selectedFilters.size
 
-            setResultAndFinish(test)
+            val obj = Testing(test, javaClass.simpleName)
 
-        //
-//            val intent = Intent().apply {
-//                putExtra(this@ActivityProductFilters.javaClass.simpleName, test)
-//            }
-//
-//            setResult(Activity.RESULT_OK, intent)
-//
-//            finish()
+            setResultAndFinish(test.toString())
         }
     }
 

@@ -2,27 +2,37 @@ package com.pvsb.core.utils
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.reflect.KClass
 
-fun <T : Any> Fragment.setUpActivityListener(
+inline fun <reified T : Any> Fragment.setUpActivityListener(
     extraKey: String,
-    resultOk: (T) -> Unit
+    crossinline resultOk: (T) -> Unit,
 ): ActivityResultLauncher<Intent> =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
-        @Suppress("UNCHECKED_CAST")
-        val data = it.data?.extras?.get(extraKey) as? T
-
         if (it.resultCode == Activity.RESULT_OK) {
-            data?.let {
-                resultOk.invoke(data)
+
+            if (!isPrimitiveType(T::class)) {
+
+                val data = it.data?.extras?.get(extraKey) as String
+                val value = Json.decodeFromString<T>(data)
+                resultOk.invoke(value)
+            } else {
+
+                @Suppress("UNCHECKED_CAST")
+                val data = it.data?.extras?.get(extraKey) as? T
+
+                data?.let {
+                    resultOk.invoke(data)
+                }
             }
         }
     }
@@ -58,3 +68,21 @@ inline fun <reified T> FragmentActivity.setResultAndFinish(data: T) {
     setResult(Activity.RESULT_OK, intent)
     finish()
 }
+
+inline fun isPrimitiveType(obj: KClass<*>): Boolean {
+
+    val types = mutableSetOf<KClass<*>>()
+    types.add(String::class)
+    types.add(Boolean::class)
+    types.add(Int::class)
+    types.add(Float::class)
+    types.add(Double::class)
+
+    return types.contains(obj)
+}
+
+@Serializable
+data class Testing(
+    val count: Int,
+    val from: String
+)
