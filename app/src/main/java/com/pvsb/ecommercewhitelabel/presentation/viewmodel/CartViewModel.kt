@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

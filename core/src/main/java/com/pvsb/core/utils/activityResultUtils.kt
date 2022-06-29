@@ -13,12 +13,10 @@ import kotlinx.serialization.json.Json
 import kotlin.reflect.KClass
 
 inline fun <reified T : Any> Fragment.setUpActivityListener(
-    target: FragmentActivity,
+    tag: String,
     crossinline resultOk: (T) -> Unit,
 ): ActivityResultLauncher<Intent> =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-
-        val tag = target.javaClass.simpleName
 
         if (it.resultCode == Activity.RESULT_OK) {
 
@@ -71,7 +69,7 @@ inline fun <reified T> FragmentActivity.setResultAndFinish(data: T) {
     finish()
 }
 
-inline fun isPrimitiveType(obj: KClass<*>): Boolean {
+fun isPrimitiveType(obj: KClass<*>): Boolean {
 
     val types = mutableSetOf<KClass<*>>()
     types.add(String::class)

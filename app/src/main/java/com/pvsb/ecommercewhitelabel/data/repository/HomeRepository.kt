@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.domain.repository
+package com.pvsb.ecommercewhitelabel.data.repository
 
 import com.pvsb.core.firestore.model.ProductDTO
 

@@ -1,6 +1,5 @@
-package com.pvsb.ecommercewhitelabel.domain.repository
+package com.pvsb.ecommercewhitelabel.data.repository
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.pvsb.core.firestore.di.CartDocumentReference
 import com.pvsb.core.firestore.model.CreateCartDTO
@@ -12,20 +11,20 @@ class CartRepositoryImpl @Inject constructor(
     @CartDocumentReference private val document: DocumentReference
 ) : CartRepository {
 
-    override suspend fun createCart(cart: CreateCartDTO): String {
+    override suspend fun populateCart(cartId: String, cart: CreateCartDTO): String {
         return suspendCoroutine { continuation ->
+
+            val cartDocument = System.currentTimeMillis().toString()
 
             document
                 .collection(CART_COLLECTION)
-                .document(System.currentTimeMillis().toString())
+                .document(cartDocument)
                 .set(cart)
                 .addOnSuccessListener {
-                    continuation.resumeWith(Result.success(cart.id))
-                    Log.d(javaClass.simpleName, "createCart: Success")
+                    continuation.resumeWith(Result.success(cartDocument))
                 }
                 .addOnFailureListener {
                     continuation.resumeWith(Result.failure(it))
-                    Log.d(javaClass.simpleName, "createCart: Error")
                 }
         }
     }

@@ -1,13 +1,17 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.pvsb.core.utils.createBottomNavListener
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.lifecycle.lifecycleScope
+import com.pvsb.core.utils.*
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentCart
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,6 +38,21 @@ class MainActivity : AppCompatActivity() {
         binding.mainBottomNav.apply {
             setOnItemSelectedListener(navBottomListener)
             selectedItemId = R.id.navHome
+        }
+    }
+
+    private fun test() {
+
+        lifecycleScope.launch {
+            putValueOnDataStore<String>(keyName = stringPreferencesKey("key"), value = "value")
+
+            getValueFromDataStore(keyName = stringPreferencesKey("key"), defaultValue =  ""){
+                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+            }
+
+            removeValueFromDataStore(keyName = stringPreferencesKey("key"))
+
+            clearDataStore()
         }
     }
 }

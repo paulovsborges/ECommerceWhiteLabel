@@ -5,4 +5,6 @@ object Constants {
     object FireStore {
         const val CART_COLLECTION = "user_cart/"
     }
+
+    const val CART_ID = "CART_ID"
 }

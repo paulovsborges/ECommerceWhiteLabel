@@ -1,9 +1,9 @@
-package com.pvsb.ecommercewhitelabel.domain.di
+package com.pvsb.ecommercewhitelabel.data.di
 
-import com.pvsb.ecommercewhitelabel.domain.repository.HomeRepository
-import com.pvsb.ecommercewhitelabel.domain.repository.HomeRepositoryImpl
-import com.pvsb.ecommercewhitelabel.domain.repository.CartRepository
-import com.pvsb.ecommercewhitelabel.domain.repository.CartRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.HomeRepository
+import com.pvsb.ecommercewhitelabel.data.repository.HomeRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
+import com.pvsb.ecommercewhitelabel.data.repository.CartRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

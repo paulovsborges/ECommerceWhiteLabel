@@ -16,7 +16,9 @@ class FragmentSearch : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
-    private var resultLauncher: ActivityResultLauncher<Intent>? = null
+    private var resultLauncher: ActivityResultLauncher<Intent> = setUpActivityListener(
+        ActivityProductFilters::class.java.simpleName, ::handleActivityResult
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,20 +35,18 @@ class FragmentSearch : Fragment() {
         binding.btnFilters.setOnClickListener {
             setActivityResult()
         }
+    }
 
-        resultLauncher = setUpActivityListener<String>(
-            ActivityProductFilters()
-        ) {
-            Toast.makeText(
-                requireContext(),
-                "count $it",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    private fun handleActivityResult(data: String) {
+        Toast.makeText(
+            requireContext(),
+            "count $data",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun setActivityResult() {
-        resultLauncher?.launch(
+        resultLauncher.launch(
             Intent(requireContext(), ActivityProductFilters::class.java)
         )
     }
