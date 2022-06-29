@@ -5,10 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 val Context.dataStoreImpl get() = DataStorePreferences(this)
 
@@ -18,7 +15,9 @@ suspend fun <T> Context.getValueFromDataStore(
     value: (T) -> Unit
 ) {
 
-    dataStoreImpl.getValue(keyName, defaultValue).collectLatest {
+    dataStoreImpl.getValue(keyName, defaultValue)
+        .take(1)
+        .collectLatest {
         value.invoke(it)
     }
 }

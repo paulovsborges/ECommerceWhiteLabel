@@ -42,7 +42,24 @@ class ActivityProductDetails : AppCompatActivity() {
                 .into(ivProductImage)
 
             btnBuy.setOnClickListener {
-                cartViewModel.createCart()
+                handleCart()
+            }
+        }
+    }
+
+    private fun handleCart() {
+
+        lifecycleScope.launch {
+            getValueFromDataStore(stringPreferencesKey(CART_ID), "") {
+                if (it.isEmpty()) {
+                    cartViewModel.createCart()
+                } else {
+                    Toast.makeText(
+                        this@ActivityProductDetails,
+                        "cart already created",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

@@ -27,4 +27,10 @@ class CartViewModel @Inject constructor(
             }
         }
     }
+
+    fun populateCart(productId: String, cartId: String) {
+        viewModelScope.launch {
+
+        }
+    }
 }
