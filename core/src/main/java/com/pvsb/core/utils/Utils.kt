@@ -54,9 +54,3 @@ class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
 }
-
-sealed class ResultState {
-    object Initial : ResultState()
-    data class Success<T>(val data: T) : ResultState()
-    data class Error<T : Exception>(val exception: T) : ResultState()
-}
