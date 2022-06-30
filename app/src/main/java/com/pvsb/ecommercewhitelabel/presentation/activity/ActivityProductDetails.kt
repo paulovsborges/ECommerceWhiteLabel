@@ -59,26 +59,27 @@ class ActivityProductDetails : AppCompatActivity() {
 
             btnBuy.setOnClickListener {
 
-                handleCart(product.id, 1)
+                handleCart(product, 1)
             }
         }
     }
 
-    private fun handleCart(productId: Int, amount: Int) {
+    private fun handleCart(product: ProductDTO, amount: Int) {
 
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(CART_ID)) {
                 if (it.isNullOrEmpty()) {
 
-                    val product = CartProductsDTO(
-                        productId, amount
+                    val cartProduct = CartProductsDTO(
+                        product, amount
                     )
 
                     val obj = PopulateCartDTO(
-                        listOf(product)
+                        listOf(cartProduct)
                     )
 
                     cartViewModel.createCart(obj)
+
                     Toast.makeText(
                         this@ActivityProductDetails,
                         "cart created",
@@ -87,7 +88,7 @@ class ActivityProductDetails : AppCompatActivity() {
                 } else {
 
                     val obj = CartProductsDTO(
-                        productId, amount
+                        product, amount
                     )
 
                     cartViewModel.addProductToCart(it, obj)

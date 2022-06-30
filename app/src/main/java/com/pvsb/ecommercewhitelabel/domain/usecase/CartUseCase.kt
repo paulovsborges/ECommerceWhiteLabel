@@ -5,10 +5,7 @@ import com.pvsb.core.firestore.model.CreateCartDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class CartUseCase @Inject constructor(
@@ -17,8 +14,9 @@ class CartUseCase @Inject constructor(
 
     suspend fun createCart(cart: PopulateCartDTO): Flow<String> = flow {
         val id = System.currentTimeMillis().toString()
-        populateCart(id, cart).collectLatest {
+        populateCart(id, cart).first {
             if (it) emit(id)
+            true
         }
     }
 

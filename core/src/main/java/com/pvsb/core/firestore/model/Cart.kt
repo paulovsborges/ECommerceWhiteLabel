@@ -13,6 +13,6 @@ data class PopulateCartDTO(
 data class CartProductsDTO(
     @get:PropertyName("product_id")
     @set:PropertyName("product_id")
-    var productId: Int,
+    var product: ProductDTO,
     var amount: Int
 )
