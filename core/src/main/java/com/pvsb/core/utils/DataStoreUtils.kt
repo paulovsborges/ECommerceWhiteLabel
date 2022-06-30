@@ -9,44 +9,46 @@ import kotlinx.coroutines.flow.*
 
 val Context.dataStoreImpl get() = DataStorePreferences(this)
 
-suspend fun <T> Context.getValueFromDataStore(
+suspend fun <T> Context.getValueDS(
     keyName: Preferences.Key<T>,
-    defaultValue: T,
     value: (T) -> Unit
 ) {
 
-    dataStoreImpl.getValue(keyName, defaultValue)
-        .take(1)
-        .collectLatest {
-        value.invoke(it)
-    }
+    dataStoreImpl.getValue(keyName)
+        .first {
+            it?.let { valueDs ->
+                value.invoke(valueDs)
+            }
+            true
+        }
 }
 
-suspend fun <T> Context.putValueOnDataStore(keyName: Preferences.Key<T>, value: T) {
+suspend fun <T> Context.putValueDS(keyName: Preferences.Key<T>, value: T) {
     dataStoreImpl.putValue(keyName, value)
 }
 
-suspend fun <T> Context.removeValueFromDataStore(keyName: Preferences.Key<T>) {
+suspend fun <T> Context.removeValueDS(keyName: Preferences.Key<T>) {
     dataStoreImpl.removeValue(keyName)
 }
 
-suspend fun Context.clearDataStore() {
+suspend fun Context.clearDS() {
     dataStoreImpl.clear()
 }
 
 class DataStorePreferences(private val context: Context) {
 
     private companion object {
+        @JvmStatic
         val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "e_commerce")
     }
 
-    fun <T> getValue(keyName: Preferences.Key<T>, defaultValue: T): Flow<T> {
+    fun <T> getValue(keyName: Preferences.Key<T>): Flow<T?> {
         return context.dataStore.data
             .catch {
                 throw it
             }
             .map {
-                val result = it[keyName] ?: defaultValue
+                val result = it[keyName]
                 result
             }
     }

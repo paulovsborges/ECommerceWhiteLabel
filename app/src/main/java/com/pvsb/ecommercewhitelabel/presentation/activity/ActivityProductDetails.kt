@@ -9,13 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.core.utils.Constants.CART_ID
-import com.pvsb.core.utils.getValueFromDataStore
-import com.pvsb.core.utils.putValueOnDataStore
+import com.pvsb.core.utils.getValueDS
+import com.pvsb.core.utils.putValueDS
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class ActivityProductDetails : AppCompatActivity() {
@@ -50,7 +49,7 @@ class ActivityProductDetails : AppCompatActivity() {
     private fun handleCart() {
 
         lifecycleScope.launch {
-            getValueFromDataStore(stringPreferencesKey(CART_ID), "") {
+            getValueDS(stringPreferencesKey(CART_ID), "") {
                 if (it.isEmpty()) {
                     cartViewModel.createCart()
                 } else {
@@ -67,7 +66,7 @@ class ActivityProductDetails : AppCompatActivity() {
     private fun setUpObservers() {
         cartViewModel.cartId.observe(this) {
             lifecycleScope.launch {
-                putValueOnDataStore(stringPreferencesKey(CART_ID), it)
+                putValueDS(stringPreferencesKey(CART_ID), it)
             }
         }
     }

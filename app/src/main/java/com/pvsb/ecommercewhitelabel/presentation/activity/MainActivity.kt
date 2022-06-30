@@ -44,15 +44,15 @@ class MainActivity : AppCompatActivity() {
     private fun test() {
 
         lifecycleScope.launch {
-            putValueOnDataStore<String>(keyName = stringPreferencesKey("key"), value = "value")
+            putValueDS(keyName = stringPreferencesKey("key"), value = "value")
 
-            getValueFromDataStore(keyName = stringPreferencesKey("key"), defaultValue =  ""){
+            getValueDS(keyName = stringPreferencesKey("key")) {
                 Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
             }
 
-            removeValueFromDataStore(keyName = stringPreferencesKey("key"))
+            removeValueDS(keyName = stringPreferencesKey("key"))
 
-            clearDataStore()
+            clearDS()
         }
     }
 }
