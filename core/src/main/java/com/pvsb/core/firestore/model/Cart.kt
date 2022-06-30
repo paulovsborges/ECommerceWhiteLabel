@@ -6,6 +6,10 @@ data class CreateCartDTO(
     val id: String = ""
 )
 
+data class PopulateCartDTO(
+    val products: List<CartProductsDTO>
+)
+
 data class CartProductsDTO(
     @get:PropertyName("product_id")
     @set:PropertyName("product_id")
