@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.core.utils.Constants.CART_ID
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.closeActivityAndNavigate
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.putValueDS
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
@@ -49,15 +51,19 @@ class ActivityProductDetails : AppCompatActivity() {
     private fun handleCart() {
 
         lifecycleScope.launch {
-            getValueDS(stringPreferencesKey(CART_ID), "") {
-                if (it.isEmpty()) {
+            getValueDS(stringPreferencesKey(CART_ID)) {
+                if (it.isNullOrEmpty()) {
                     cartViewModel.createCart()
-                } else {
                     Toast.makeText(
                         this@ActivityProductDetails,
-                        "cart already created",
+                        "cart created",
                         Toast.LENGTH_SHORT
                     ).show()
+                } else {
+                    closeActivityAndNavigate(
+                        MainActivity(),
+                        BOTTOM_NAV_CART
+                    )
                 }
             }
         }

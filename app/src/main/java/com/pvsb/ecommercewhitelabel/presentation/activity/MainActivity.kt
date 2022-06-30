@@ -5,7 +5,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.navigation.NavigationBarView
 import com.pvsb.core.utils.*
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_SEARCH
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.*
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpBottomNav()
+        navigateByAction()
     }
 
     private fun setUpBottomNav() {
@@ -41,18 +46,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun test() {
+    private fun navigateByAction() {
 
-        lifecycleScope.launch {
-            putValueDS(keyName = stringPreferencesKey("key"), value = "value")
+        val action = intent?.action
 
-            getValueDS(keyName = stringPreferencesKey("key")) {
-                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+        val destinations = mapOf(
+            BOTTOM_NAV_CART to R.id.navCart,
+            BOTTOM_NAV_SEARCH to R.id.navSearch,
+            BOTTOM_NAV_PROFILE to R.id.navProfile
+        )
+
+        action?.let {
+            destinations[it].let { menu ->
+                binding.mainBottomNav.selectedItemId = menu ?: R.id.navHome
             }
-
-            removeValueDS(keyName = stringPreferencesKey("key"))
-
-            clearDS()
         }
     }
 }

@@ -11,14 +11,12 @@ val Context.dataStoreImpl get() = DataStorePreferences(this)
 
 suspend fun <T> Context.getValueDS(
     keyName: Preferences.Key<T>,
-    value: (T) -> Unit
+    value: (T?) -> Unit
 ) {
 
     dataStoreImpl.getValue(keyName)
         .first {
-            it?.let { valueDs ->
-                value.invoke(valueDs)
-            }
+            value.invoke(it)
             true
         }
 }

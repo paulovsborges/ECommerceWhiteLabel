@@ -1,9 +1,12 @@
 package com.pvsb.core.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import kotlinx.serialization.Serializable
@@ -79,6 +82,19 @@ fun isPrimitiveType(obj: KClass<*>): Boolean {
     types.add(Double::class)
 
     return types.contains(obj)
+}
+
+fun FragmentActivity.closeActivityAndNavigate(
+    activity: AppCompatActivity,
+    action: String
+) {
+
+    val intent = Intent(this, activity::class.java).apply {
+        this.action = action
+    }
+
+    startActivity(intent)
+    finish()
 }
 
 @Serializable
