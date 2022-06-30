@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface CartRepository {
 
-    suspend fun populateCart(cartId: String, cart: PopulateCartDTO): Boolean
+    suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean
 
     suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Boolean
 }

@@ -13,7 +13,7 @@ class CartRepositoryImpl @Inject constructor(
     @CartDocumentReference private val document: DocumentReference
 ) : CartRepository {
 
-    override suspend fun populateCart(cartId: String, cart: PopulateCartDTO): Boolean {
+    override suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean {
         return suspendCoroutine { continuation ->
 
             document

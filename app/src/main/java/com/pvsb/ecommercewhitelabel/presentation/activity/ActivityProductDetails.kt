@@ -110,7 +110,7 @@ class ActivityProductDetails : AppCompatActivity() {
             }
         }
 
-        cartViewModel.populateCart.observe(this) {
+        cartViewModel.addProductToCart.observe(this) {
             closeActivityAndNavigate(
                 MainActivity(),
                 BOTTOM_NAV_CART
