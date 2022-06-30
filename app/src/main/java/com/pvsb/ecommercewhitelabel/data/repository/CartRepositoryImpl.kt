@@ -44,4 +44,24 @@ class CartRepositoryImpl @Inject constructor(
                 }
         }
     }
+
+    override suspend fun getCartContent(cartId: String): PopulateCartDTO {
+        return suspendCoroutine { continuation ->
+            document.collection(CART_COLLECTION)
+                .document(cartId)
+                .get()
+                .addOnSuccessListener { document ->
+                    val data = document.toObject(PopulateCartDTO::class.java)
+
+                    data?.let {
+                        continuation.resumeWith(Result.success(data))
+                    } ?: kotlin.run {
+                        continuation.resumeWith(Result.failure(Exception("Error to load data")))
+                    }
+                }
+                .addOnFailureListener {
+                    continuation.resumeWith(Result.failure(it))
+                }
+        }
+    }
 }

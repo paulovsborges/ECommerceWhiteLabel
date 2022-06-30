@@ -7,10 +7,14 @@
     <string name="bottom_navigation_menu_title_cart">Cart</string>
     <string name="bottom_navigation_menu_title_profile">Profile</string>
 
-<!--    Product Details-->
+    <!--    Product Details-->
     <string name="product_details_button_purchase_text">Buy</string>
 
-<!--    search-->
+    <!--    search-->
     <string name="search_button_open_filters_text">Filters</string>
     <string name="search_button_apply_filters_text">Apply</string>
+
+    <!--    Cart-->
+
+    <string name="cart_button_purchase_text">Continue purchase</string>
 </resources>

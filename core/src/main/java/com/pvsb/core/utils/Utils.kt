@@ -46,6 +46,11 @@ fun Context.openActivity(activity: Class<*>, data: ((Intent) -> Unit)? = null) {
     startActivity(intent)
 }
 
+fun Double.formatCurrency(): String {
+
+    return "R$${this}"
+}
+
 class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
 
     override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =

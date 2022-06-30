@@ -23,6 +23,9 @@ class CartViewModel @Inject constructor(
     private val _addProductToCart = MutableLiveData<Boolean>()
     val addProductToCart: LiveData<Boolean> = _addProductToCart
 
+    private val _cartContent = MutableLiveData<PopulateCartDTO>()
+    val cartContent: LiveData<PopulateCartDTO> = _cartContent
+
     fun createCart(cart: PopulateCartDTO) {
         viewModelScope.launch {
 
@@ -37,6 +40,15 @@ class CartViewModel @Inject constructor(
             useCase.addProductToCart(cartId, product).collectLatest {
                 _addProductToCart.value = it
             }
+        }
+    }
+
+    fun getCartContent(cartId: String) {
+        viewModelScope.launch {
+            useCase.getCartContent(cartId)
+                .collectLatest {
+                    _cartContent.value = it
+                }
         }
     }
 }

@@ -4,13 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.pvsb.core.utils.Constants.CART_ID
+import com.pvsb.core.utils.getValueDS
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
+import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
+import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class FragmentCart: Fragment() {
+@AndroidEntryPoint
+class FragmentCart : Fragment() {
 
-    private var _binding : FragmentCartBinding? = null
+    private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: CartViewModel by viewModels()
+    private val mAdapter = CartProductsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +31,35 @@ class FragmentCart: Fragment() {
     ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initialSetUp()
+    }
+
+    private fun initialSetUp() {
+        binding.apply {
+            rvProducts.adapter = mAdapter
+        }
+
+        lifecycleScope.launch {
+            requireContext().getValueDS(stringPreferencesKey(CART_ID)) {
+                it?.let { id ->
+                    viewModel.getCartContent(id)
+                }
+            }
+        }
+
+        setUpObservers()
+    }
+
+    private fun setUpObservers() {
+
+        viewModel.cartContent.observe(viewLifecycleOwner) {
+            mAdapter.submitList(it.products)
+        }
     }
 
     override fun onDestroy() {
