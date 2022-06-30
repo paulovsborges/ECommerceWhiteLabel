@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pvsb.core.firestore.model.CartProductsDTO
+import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency
+import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.CartListProductItemBinding
+import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 
 class CartProductsAdapter :
     ListAdapter<CartProductsDTO, CartProductsAdapter.ViewHolder>(ListAdapterDiffUtil<CartProductsDTO>()) {
@@ -34,12 +37,23 @@ class CartProductsAdapter :
 
                 Glide.with(itemView.context)
                     .load(item.product.imageUrl)
-                    .centerInside()
                     .centerCrop()
                     .into(ivProduct)
 
-                tvProductName.text = item.product.title
+                val title = if (item.product.title.length > 10) {
+                    "${item.product.title.take(15)} ..."
+                } else {
+                    item.product.title
+                }
+
+                tvProductName.text = title
                 tvProductPrice.text = item.product.price.formatCurrency()
+            }
+
+            itemView.setOnClickListener {
+                itemView.context.openActivity(ActivityProductDetails::class.java) {
+                    it.putExtra(PRODUCT_NAME, item.product)
+                }
             }
         }
     }

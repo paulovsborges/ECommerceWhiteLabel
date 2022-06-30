@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -51,7 +52,7 @@ class FragmentHome : Fragment() {
 
     private fun navigateToDetails(item: ProductDTO) {
         requireContext().openActivity(ActivityProductDetails::class.java){
-            it.putExtra("PRODUCT_NAME", item)
+            it.putExtra(PRODUCT_NAME, item)
         }
     }
 
