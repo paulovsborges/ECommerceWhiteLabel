@@ -14,4 +14,9 @@ object Constants {
 
     const val PRODUCT_NAME = "PRODUCT_NAME"
     const val CART_ID = "CART_ID"
+
+    object BackStackConst{
+
+        const val PAYMENT_BACK_STACK = "PAYMENT_BACK_STACK"
+    }
 }

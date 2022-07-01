@@ -28,5 +28,6 @@
 
         <activity android:name=".presentation.activity.ActivityProductDetails" />
         <activity android:name=".presentation.activity.ActivityProductFilters" />
+        <activity android:name=".presentation.activity.PaymentActivity" />
     </application>
 </manifest>

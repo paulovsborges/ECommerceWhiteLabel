@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.getValueDS
+import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
+import com.pvsb.ecommercewhitelabel.presentation.activity.PaymentActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,10 @@ class FragmentCart : Fragment() {
     private fun initialSetUp() {
         binding.apply {
             rvProducts.adapter = mAdapter
+
+            btnPurchase.setOnClickListener {
+                requireContext().openActivity(PaymentActivity::class.java)
+            }
         }
 
         lifecycleScope.launch {

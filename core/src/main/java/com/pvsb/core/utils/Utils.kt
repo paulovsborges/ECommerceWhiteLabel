@@ -15,14 +15,14 @@ fun FragmentActivity.switchFragment(
     data: Bundle? = null,
     tag: String = "",
     animation: Boolean = false,
-    stackName: String? = null,
-    addToStack: Boolean = false
+    stackName: String? = null
 ) {
 
     supportFragmentManager.beginTransaction().apply {
         replace(container, fragment, tag)
         if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        if (addToStack) {
+
+        stackName?.let {
             supportFragmentManager.findFragmentById(container)?.let {
                 addToBackStack(stackName)
             }
