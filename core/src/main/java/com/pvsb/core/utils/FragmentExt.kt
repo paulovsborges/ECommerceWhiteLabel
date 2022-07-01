@@ -20,7 +20,7 @@ fun Fragment.switchFragment(
     animation: Boolean = false
 ) {
 
-    activity?.supportFragmentManager?.let { fm ->
+    parentFragmentManager.let { fm ->
         fm.beginTransaction().apply {
 
             val parentContainerId = (view?.parent as? ViewGroup)?.id
