@@ -1,8 +1,11 @@
 package com.pvsb.core.utils
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 
 fun Fragment.popBackStack() {
@@ -40,5 +43,20 @@ fun Fragment.switchFragment(
                 commit()
             }
         }
+    }
+}
+
+fun Fragment.closeActivityAndNavigate(
+    activity: AppCompatActivity,
+    action: String
+) {
+
+    this.activity?.apply {
+        val intent = Intent(this, activity::class.java).apply {
+            this.action = action
+        }
+
+        startActivity(intent)
+        finish()
     }
 }
