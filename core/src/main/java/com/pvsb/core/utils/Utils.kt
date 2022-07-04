@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DiffUtil
+import java.util.*
 
 fun FragmentActivity.switchFragment(
     fragment: Fragment,
@@ -38,17 +39,14 @@ fun FragmentActivity.switchFragment(
 }
 
 fun Context.openActivity(activity: Class<*>, data: ((Intent) -> Unit)? = null) {
-
     val intent = Intent(this, activity)
-
     data?.invoke(intent)
-
     startActivity(intent)
 }
 
 fun Double.formatCurrency(): String {
-
-    return "R$${this}"
+    val formatted = String.format("%.2f", this)
+    return "R$${formatted}"
 }
 
 class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {

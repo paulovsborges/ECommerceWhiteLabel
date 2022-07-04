@@ -20,11 +20,24 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean {
         return suspendCoroutine { continuation ->
 
-            db.collection("data/")
+            val docRef = db
+                .collection("data/")
                 .document("cart/")
                 .collection(CART_COLLECTION)
                 .document(cartId)
-                .set(cart)
+
+            db
+                .runTransaction { transaction ->
+                    transaction.set(docRef, cart)
+
+                    val product: CartProductsDTO = cart.products.first()
+
+                    transaction.update(
+                        docRef,
+                        "total",
+                        FieldValue.increment(product.product.price)
+                    )
+                }
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(true))
                 }

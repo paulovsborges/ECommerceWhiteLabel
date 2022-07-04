@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.utils.Constants.CART_ID
+import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
@@ -66,6 +67,7 @@ class FragmentCart : Fragment() {
 
         viewModel.cartContent.observe(viewLifecycleOwner) {
             mAdapter.submitList(it.products)
+            binding.tvCartValue.text = it.total.formatCurrency()
         }
     }
 
