@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.openActivity
@@ -24,7 +25,7 @@ class FragmentCart : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CartViewModel by viewModels()
-    private val mAdapter = CartProductsAdapter()
+    private val mAdapter = CartProductsAdapter(::deleteProduct)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +67,10 @@ class FragmentCart : Fragment() {
         viewModel.cartContent.observe(viewLifecycleOwner) {
             mAdapter.submitList(it.products)
         }
+    }
+
+    private fun deleteProduct(product: CartProductsDTO) {
+
     }
 
     override fun onDestroy() {

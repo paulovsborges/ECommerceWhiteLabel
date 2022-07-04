@@ -3,7 +3,8 @@ package com.pvsb.core.firestore.model
 import com.google.firebase.firestore.PropertyName
 
 data class PopulateCartDTO(
-    val products: List<CartProductsDTO> = mutableListOf()
+    val products: List<CartProductsDTO> = mutableListOf(),
+    val total: Double = 0.0
 )
 
 data class CartProductsDTO(

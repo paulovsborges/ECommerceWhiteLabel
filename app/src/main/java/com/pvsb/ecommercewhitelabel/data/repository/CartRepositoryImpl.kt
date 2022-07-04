@@ -2,6 +2,8 @@ package com.pvsb.ecommercewhitelabel.data.repository
 
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.pvsb.core.firestore.di.CartDocumentReference
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
@@ -13,10 +15,13 @@ class CartRepositoryImpl @Inject constructor(
     @CartDocumentReference private val document: DocumentReference
 ) : CartRepository {
 
+    private val db = Firebase.firestore
+
     override suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean {
         return suspendCoroutine { continuation ->
 
-            document
+            db.collection("data/")
+                .document("cart/")
                 .collection(CART_COLLECTION)
                 .document(cartId)
                 .set(cart)
@@ -32,10 +37,29 @@ class CartRepositoryImpl @Inject constructor(
     override suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Boolean {
         return suspendCoroutine { continuation ->
 
-            document
+            val docRef = db
+                .collection("data/")
+                .document("cart/")
                 .collection(CART_COLLECTION)
                 .document(cartId)
-                .update("products", FieldValue.arrayUnion(product))
+
+            db
+                .runTransaction { transaction ->
+                    val snapShot = transaction.get(docRef)
+                    val currentValue = snapShot.getDouble("total")
+
+                    if (currentValue != null) {
+                        transaction.update(
+                            docRef,
+                            "total",
+                            FieldValue.increment(product.product.price)
+                        )
+                    } else {
+                        transaction.update(docRef, " total", product.product.price)
+                    }
+
+                    transaction.update(docRef, "products", FieldValue.arrayUnion(product))
+                }
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(true))
                 }
@@ -47,7 +71,9 @@ class CartRepositoryImpl @Inject constructor(
 
     override suspend fun getCartContent(cartId: String): PopulateCartDTO {
         return suspendCoroutine { continuation ->
-            document.collection(CART_COLLECTION)
+            db.collection("data/")
+                .document("cart/")
+                .collection(CART_COLLECTION)
                 .document(cartId)
                 .get()
                 .addOnSuccessListener { document ->
@@ -62,6 +88,26 @@ class CartRepositoryImpl @Inject constructor(
                 .addOnFailureListener {
                     continuation.resumeWith(Result.failure(it))
                 }
+        }
+    }
+
+    override suspend fun deleteProduct(cartId: String, value: Double): Boolean {
+        return suspendCoroutine { continuation ->
+            val docRef = db.collection(CART_COLLECTION).document(cartId)
+
+            db
+                .runTransaction { transaction ->
+                    val snapShot = transaction.get(docRef)
+
+                    snapShot.getDouble("total")?.let { currentValue ->
+                        val newValue = currentValue + value
+                        transaction.update(docRef, "total", newValue)
+                    }
+                }
+                .addOnCompleteListener {
+
+                }
+
         }
     }
 }

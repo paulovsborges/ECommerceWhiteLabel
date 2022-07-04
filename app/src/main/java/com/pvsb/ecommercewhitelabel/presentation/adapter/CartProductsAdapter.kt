@@ -2,6 +2,7 @@ package com.pvsb.ecommercewhitelabel.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,7 +14,9 @@ import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.CartListProductItemBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 
-class CartProductsAdapter :
+class CartProductsAdapter(
+    private val onDelete: (CartProductsDTO) -> Unit
+) :
     ListAdapter<CartProductsDTO, CartProductsAdapter.ViewHolder>(ListAdapterDiffUtil<CartProductsDTO>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,8 +32,9 @@ class CartProductsAdapter :
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: CartListProductItemBinding) :
+    inner class ViewHolder(private val binding: CartListProductItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(item: CartProductsDTO) {
 
             binding.apply {
@@ -54,6 +58,12 @@ class CartProductsAdapter :
                 itemView.context.openActivity(ActivityProductDetails::class.java) {
                     it.putExtra(PRODUCT_NAME, item.product)
                 }
+            }
+
+            itemView.setOnLongClickListener {
+                onDelete.invoke(item)
+
+                true
             }
         }
     }
