@@ -32,6 +32,7 @@
         <entry key="app/src/main/res/layout/full_screen_activity.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.33" />
         <entry key="app/src/main/res/menu/main_bottom_navigation_menu.xml" value="0.35885416666666664" />
+        <entry key="core/src/main/res/layout/fragment_loading.xml" value="0.2937152629328773" />
         <entry key="feat-cart/src/main/res/layout/fragment_cart.xml" value="0.35885416666666664" />
       </map>
     </option>

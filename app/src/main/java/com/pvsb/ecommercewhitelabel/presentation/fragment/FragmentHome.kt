@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.core.utils.Constants.PRODUCT_NAME
+import com.pvsb.core.utils.hideLoading
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeVIewModel
 import com.pvsb.core.utils.openActivity
+import com.pvsb.core.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +37,7 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoading()
         initialSetUp()
     }
 
@@ -46,12 +49,13 @@ class FragmentHome : Fragment() {
 
     private fun setObservers() {
         viewModel.homeData.observe(viewLifecycleOwner) {
+            hideLoading()
             mAdapter.submitList(it)
         }
     }
 
     private fun navigateToDetails(item: ProductDTO) {
-        requireContext().openActivity(ActivityProductDetails::class.java){
+        requireContext().openActivity(ActivityProductDetails::class.java) {
             it.putExtra(PRODUCT_NAME, item)
         }
     }

@@ -2,6 +2,7 @@ package com.pvsb.core.utils
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -59,4 +60,12 @@ fun Fragment.closeActivityAndNavigate(
         startActivity(intent)
         finish()
     }
+}
+
+fun Fragment.showLoading() {
+    activity?.showLoading()
+}
+
+fun Fragment.hideLoading() {
+    activity?.hideLoading()
 }
