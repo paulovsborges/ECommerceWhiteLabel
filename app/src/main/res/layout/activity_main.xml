@@ -17,6 +17,8 @@
         android:id="@+id/mainBottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/lightest_grey"
+        android:elevation="10dp"
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_bottom_navigation_menu" />

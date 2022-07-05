@@ -16,4 +16,13 @@
     <color name="translucid_white">#BFFFFFFF</color>
     <color name="translucid_black">#BF000000</color>
     <color name="transparent">#00FFFFFF</color>
+
+    <color name="red_vivid">#E22211</color>
+    <color name="orange_vivid">#F04903</color>
+    <color name="dark1">#3C3741</color>
+    <color name="dark2">#25373D</color>
+    <color name="dark3">#282830</color>
+    <color name="dark4">#60646D</color>
+    <color name="dark5">#3E4651</color>
+    <color name="dark6">#3E4651</color>
 </resources>
