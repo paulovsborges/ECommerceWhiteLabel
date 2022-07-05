@@ -3,6 +3,7 @@ package com.pvsb.ecommercewhitelabel.data.repository
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
@@ -58,17 +59,23 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                     val snapShot = transaction.get(docRef)
                     val currentValue = snapShot.getDouble("total")
 
-                    if (currentValue != null) {
-                        transaction.update(
-                            docRef,
-                            "total",
-                            FieldValue.increment(product.product.price)
-                        )
-                    } else {
-                        transaction.update(docRef, " total", product.product.price)
-                    }
+                    val data = snapShot.toObject(PopulateCartDTO::class.java)
 
-                    transaction.update(docRef, "products", FieldValue.arrayUnion(product))
+                    if (data?.products?.contains(product) == true) {
+                        throw Exception("Product is already added on the cart")
+                    } else {
+                        if (currentValue != null) {
+                            transaction.update(
+                                docRef,
+                                "total",
+                                FieldValue.increment(product.product.price)
+                            )
+                        } else {
+                            transaction.update(docRef, " total", product.product.price)
+                        }
+
+                        transaction.update(docRef, "products", FieldValue.arrayUnion(product))
+                    }
                 }
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(true))

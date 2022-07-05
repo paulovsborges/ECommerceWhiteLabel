@@ -39,9 +39,13 @@ class CartViewModel @Inject constructor(
 
     fun addProductToCart(cartId: String, product: CartProductsDTO) {
         viewModelScope.launch {
-            useCase.addProductToCart(cartId, product).collectLatest {
-                _addProductToCart.value = it
-            }
+            useCase.addProductToCart(cartId, product)
+                .catch {
+                    Log.d("cartVM", "${it.message}")
+                }
+                .collectLatest {
+                    _addProductToCart.value = it
+                }
         }
     }
 
