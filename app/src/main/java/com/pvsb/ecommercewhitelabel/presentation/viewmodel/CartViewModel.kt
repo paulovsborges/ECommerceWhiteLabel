@@ -62,7 +62,7 @@ class CartViewModel @Inject constructor(
                     Log.d("DELETE_PRODUCT", "failure $it")
                 }
                 .collectLatest {
-                    Log.d("DELETE_PRODUCT", "success $it")
+                    getCartContent(cartId)
                 }
         }
     }

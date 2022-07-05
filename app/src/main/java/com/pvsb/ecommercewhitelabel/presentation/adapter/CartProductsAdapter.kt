@@ -62,7 +62,6 @@ class CartProductsAdapter(
 
             itemView.setOnLongClickListener {
                 onDelete.invoke(item)
-
                 true
             }
         }
