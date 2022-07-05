@@ -1,6 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,7 +73,13 @@ class FragmentCart : Fragment() {
     }
 
     private fun deleteProduct(product: CartProductsDTO) {
-
+        lifecycleScope.launch {
+            context?.getValueDS(stringPreferencesKey(CART_ID)) {
+                it?.let { cartId ->
+                    viewModel.deleteProduct(cartId, product)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

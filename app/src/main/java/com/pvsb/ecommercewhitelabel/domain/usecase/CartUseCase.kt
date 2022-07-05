@@ -3,9 +3,11 @@ package com.pvsb.ecommercewhitelabel.domain.usecase
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class CartUseCase @Inject constructor(
@@ -30,8 +32,13 @@ class CartUseCase @Inject constructor(
         emit(res)
     }
 
-    suspend fun getCartContent(cartId: String): Flow<PopulateCartDTO> = flow{
+    suspend fun getCartContent(cartId: String): Flow<PopulateCartDTO> = flow {
         val res = repository.getCartContent(cartId)
+        emit(res)
+    }
+
+    suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<Boolean> = flow {
+        val res = repository.deleteProduct(cartId, product)
         emit(res)
     }
 }

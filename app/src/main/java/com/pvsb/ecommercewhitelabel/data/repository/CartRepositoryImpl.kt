@@ -1,19 +1,16 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firestore.di.CartDocumentReference
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.core.utils.Constants.FireStore.CART_COLLECTION
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
-class CartRepositoryImpl @Inject constructor(
-    @CartDocumentReference private val document: DocumentReference
-) : CartRepository {
+class CartRepositoryImpl @Inject constructor() : CartRepository {
 
     private val db = Firebase.firestore
 
@@ -104,23 +101,49 @@ class CartRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteProduct(cartId: String, value: Double): Boolean {
+    override suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Boolean {
         return suspendCoroutine { continuation ->
-            val docRef = db.collection(CART_COLLECTION).document(cartId)
+            val docRef = db
+                .collection("data/")
+                .document("cart/")
+                .collection(CART_COLLECTION)
+                .document(cartId)
 
             db
                 .runTransaction { transaction ->
                     val snapShot = transaction.get(docRef)
+                    val data = snapShot.toObject(PopulateCartDTO::class.java)
 
-                    snapShot.getDouble("total")?.let { currentValue ->
-                        val newValue = currentValue + value
-                        transaction.update(docRef, "total", newValue)
+                    data?.products?.find {
+                        it.product == product.product
+                    }?.let {
+
+                        FieldPath.of("products")
+
+                        val productToDelete =
+                            mutableMapOf<String, Any>("products" to FieldValue.arrayRemove(it))
+
+                        transaction.update(docRef, productToDelete)
+                    }
+
+                    data?.total?.let { total ->
+
+                        val newTotal = total - product.product.price
+
+                        transaction.update(
+                            docRef,
+                            "total",
+                            newTotal
+                        )
                     }
                 }
-                .addOnCompleteListener {
 
+                .addOnSuccessListener {
+                    continuation.resumeWith(Result.success(true))
                 }
-
+                .addOnFailureListener {
+                    continuation.resumeWith(Result.failure(it))
+                }
         }
     }
 }

@@ -11,5 +11,5 @@ interface CartRepository {
 
     suspend fun getCartContent(cartId: String): PopulateCartDTO
 
-    suspend fun deleteProduct(cartId: String, value: Double): Boolean
+    suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Boolean
 }

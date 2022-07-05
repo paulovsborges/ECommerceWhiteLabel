@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,6 +50,19 @@ class CartViewModel @Inject constructor(
             useCase.getCartContent(cartId)
                 .collectLatest {
                     _cartContent.value = it
+                }
+        }
+    }
+
+    fun deleteProduct(cartId: String, product: CartProductsDTO) {
+        viewModelScope.launch {
+            useCase.deleteProduct(cartId, product)
+
+                .catch {
+                    Log.d("DELETE_PRODUCT", "failure $it")
+                }
+                .collectLatest {
+                    Log.d("DELETE_PRODUCT", "success $it")
                 }
         }
     }
