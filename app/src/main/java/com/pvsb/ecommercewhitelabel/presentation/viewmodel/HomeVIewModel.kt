@@ -1,27 +1,34 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pvsb.core.firestore.model.ProductDTO
-import com.pvsb.ecommercewhitelabel.data.repository.HomeRepository
+import com.pvsb.core.utils.ResponseState
+import com.pvsb.ecommercewhitelabel.domain.usecase.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeVIewModel @Inject constructor(
-    private val repository: HomeRepository
+    private val useCase: HomeUseCase
 ) : ViewModel() {
 
-    private val _homeData = MutableLiveData<List<ProductDTO>>()
-    val homeData: LiveData<List<ProductDTO>> get() =  _homeData
+    private val _homeContent = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val homeContent: StateFlow<ResponseState> = _homeContent
 
     fun getHomeData() {
         viewModelScope.launch {
-            val response = repository.getProducts()
-            _homeData.value = response
+            useCase.getProducts()
+//                .catch {
+//                    _homeContent.value = it
+//                }
+                .collectLatest {
+                    _homeContent.value = it
+                }
         }
     }
 }

@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.core.utils.Constants.PRODUCT_NAME
+import com.pvsb.core.utils.ResponseState
 import com.pvsb.core.utils.hideLoading
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
@@ -16,6 +19,9 @@ import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeVIewModel
 import com.pvsb.core.utils.openActivity
 import com.pvsb.core.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentHome : Fragment() {
@@ -37,7 +43,6 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showLoading()
         initialSetUp()
     }
 
@@ -48,9 +53,29 @@ class FragmentHome : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.homeData.observe(viewLifecycleOwner) {
-            hideLoading()
-            mAdapter.submitList(it)
+
+        lifecycleScope.launch {
+            viewModel.homeContent.collectLatest { state ->
+                when (state) {
+                    is ResponseState.Loading -> {
+                        showLoading()
+                    }
+                    is ResponseState.Complete.Success<*> -> {
+                        val result = state.data as? ResponseState.Complete.Success<List<ProductDTO>>
+                        mAdapter.submitList(result?.data)
+                        hideLoading()
+                    }
+                    is ResponseState.Complete.Fail -> {
+                        hideLoading()
+                        Toast.makeText(
+                            requireContext(),
+                            state.exception.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> Unit
+                }
+            }
         }
     }
 

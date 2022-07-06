@@ -1,8 +1,8 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.utils.ResponseState
 
 interface HomeRepository {
 
-    suspend fun getProducts() : List<ProductDTO>
+    suspend fun getProducts() : ResponseState
 }
