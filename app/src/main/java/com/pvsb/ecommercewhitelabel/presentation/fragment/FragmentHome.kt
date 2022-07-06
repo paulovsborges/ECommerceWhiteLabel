@@ -11,15 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PRODUCT_NAME
-import com.pvsb.core.utils.ResponseState
-import com.pvsb.core.utils.hideLoading
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeViewModel
-import com.pvsb.core.utils.openActivity
-import com.pvsb.core.utils.showLoading
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -56,23 +53,33 @@ class FragmentHome : Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeContent.collectLatest { state ->
-                    when (state) {
-                        is ResponseState.Init -> {}
-                        is ResponseState.Loading -> {
-                            showLoading()
-                        }
-                        is ResponseState.Complete.Success<*> -> {
-                            (state.data as? ResponseState.Complete.Success<List<ProductDTO>>)?.also { result ->
-                                mAdapter.submitList(result.data)
-                            }
-                            hideLoading()
-                        }
-                        is ResponseState.Complete.Empty -> {}
-                        is ResponseState.Complete.Fail -> {
-                            Toast.makeText(requireContext(), state.exception.message, Toast.LENGTH_SHORT).show()
-                            hideLoading()
-                        }
-                    }
+                    state.handleResponseState<List<ProductDTO>>(
+                        fragment = this@FragmentHome,
+                        onSuccess = {
+                            mAdapter.submitList(it)
+                        }, onError = {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }, onEmpty = {
+
+                        })
+
+//                    when (state) {
+//                        is ResponseState.Init -> {}
+//                        is ResponseState.Loading -> {
+//                            showLoading()
+//                        }
+//                        is ResponseState.Complete.Success<*> -> {
+//                            (state.data as? ResponseState.Complete.Success<List<ProductDTO>>)?.also { result ->
+//                                mAdapter.submitList(result.data)
+//                            }
+//                            hideLoading()
+//                        }
+//                        is ResponseState.Complete.Empty -> {}
+//                        is ResponseState.Complete.Fail -> {
+//                            Toast.makeText(requireContext(), state.exception.message, Toast.LENGTH_SHORT).show()
+//                            hideLoading()
+//                        }
+//                    }
                 }
             }
         }

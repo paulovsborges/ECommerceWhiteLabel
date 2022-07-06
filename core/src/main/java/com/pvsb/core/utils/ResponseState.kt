@@ -5,7 +5,7 @@ sealed class ResponseState {
     object Loading : ResponseState()
     sealed class Complete : ResponseState() {
         object Empty : Complete()
-        class Success<T>(val data: T) : Complete()
+        data class Success<T>(val data: T) : Complete()
         class Fail(val exception: Throwable) : Complete()
     }
 }
