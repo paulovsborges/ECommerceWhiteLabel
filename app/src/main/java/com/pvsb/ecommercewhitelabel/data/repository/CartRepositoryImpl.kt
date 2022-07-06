@@ -116,41 +116,37 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .collection(CART_COLLECTION)
                 .document(cartId)
 
-            db
-                .runTransaction { transaction ->
-                    val snapShot = transaction.get(docRef)
-                    val data = snapShot.toObject(PopulateCartDTO::class.java)
+            db.runTransaction { transaction ->
+                val snapShot = transaction.get(docRef)
+                val data = snapShot.toObject(PopulateCartDTO::class.java)
 
-                    data?.products?.find {
-                        it.product == product.product
-                    }?.let {
+                data?.products?.find {
+                    it.product == product.product
+                }?.let {
 
-                        FieldPath.of("products")
+                    FieldPath.of("products")
 
-                        val productToDelete =
-                            mutableMapOf<String, Any>("products" to FieldValue.arrayRemove(it))
+                    val productToDelete =
+                        mutableMapOf<String, Any>("products" to FieldValue.arrayRemove(it))
 
-                        transaction.update(docRef, productToDelete)
-                    }
-
-                    data?.total?.let { total ->
-
-                        val newTotal = total - product.product.price
-
-                        transaction.update(
-                            docRef,
-                            "total",
-                            newTotal
-                        )
-                    }
+                    transaction.update(docRef, productToDelete)
                 }
 
-                .addOnSuccessListener {
-                    continuation.resumeWith(Result.success(true))
+                data?.total?.let { total ->
+
+                    val newTotal = total - product.product.price
+
+                    transaction.update(
+                        docRef,
+                        "total",
+                        newTotal
+                    )
                 }
-                .addOnFailureListener {
-                    continuation.resumeWith(Result.failure(it))
-                }
+            }.addOnSuccessListener {
+                continuation.resumeWith(Result.success(true))
+            }.addOnFailureListener {
+                continuation.resumeWith(Result.failure(it))
+            }
         }
     }
 }

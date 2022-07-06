@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeVIewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCase
 ) : ViewModel() {
 

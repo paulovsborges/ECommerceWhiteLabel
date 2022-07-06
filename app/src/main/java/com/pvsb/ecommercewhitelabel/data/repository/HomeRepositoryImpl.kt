@@ -1,18 +1,19 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.google.firebase.firestore.DocumentReference
-import com.pvsb.core.firestore.di.HomeDocumentReference
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.pvsb.core.firestore.model.ProductDTO
 import com.pvsb.core.utils.ResponseState
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
-class HomeRepositoryImpl @Inject constructor(
-    @HomeDocumentReference private val document: DocumentReference
-) : HomeRepository {
+class HomeRepositoryImpl @Inject constructor() : HomeRepository {
+
+    private val db = Firebase.firestore
+    private val homeRef = db.collection("data").document("home")
 
     override suspend fun getProducts(): ResponseState {
-        val productsReference = document.collection("products")
+        val productsReference = homeRef.collection("products")
 
         return suspendCoroutine { continuation ->
             productsReference.get().addOnSuccessListener { documents ->

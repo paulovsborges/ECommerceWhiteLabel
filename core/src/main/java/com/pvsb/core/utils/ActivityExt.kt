@@ -16,6 +16,7 @@ fun FragmentActivity.showLoading() {
 }
 
 fun FragmentActivity.hideLoading() {
-    val loading = supportFragmentManager.findFragmentByTag("loading") as? FragmentLoading
-    loading?.dismiss()
+    (supportFragmentManager.findFragmentByTag("loading") as? FragmentLoading)?.also { loading ->
+        loading.dismiss()
+    }
 }
