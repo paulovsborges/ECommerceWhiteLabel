@@ -53,33 +53,13 @@ class FragmentHome : Fragment() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeContent.collectLatest { state ->
-                    state.handleResponseState<List<ProductDTO>>(
-                        fragment = this@FragmentHome,
-                        onSuccess = {
+                    handleResponse<List<ProductDTO>>(
+                        state, onSuccess = {
                             mAdapter.submitList(it)
                         }, onError = {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }, onEmpty = {
-
-                        })
-
-//                    when (state) {
-//                        is ResponseState.Init -> {}
-//                        is ResponseState.Loading -> {
-//                            showLoading()
-//                        }
-//                        is ResponseState.Complete.Success<*> -> {
-//                            (state.data as? ResponseState.Complete.Success<List<ProductDTO>>)?.also { result ->
-//                                mAdapter.submitList(result.data)
-//                            }
-//                            hideLoading()
-//                        }
-//                        is ResponseState.Complete.Empty -> {}
-//                        is ResponseState.Complete.Fail -> {
-//                            Toast.makeText(requireContext(), state.exception.message, Toast.LENGTH_SHORT).show()
-//                            hideLoading()
-//                        }
-//                    }
+                        }
+                    )
                 }
             }
         }

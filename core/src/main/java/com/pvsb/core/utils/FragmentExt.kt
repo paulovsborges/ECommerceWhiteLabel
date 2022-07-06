@@ -69,3 +69,26 @@ fun Fragment.showLoading() {
 fun Fragment.hideLoading() {
     activity?.hideLoading()
 }
+
+fun <T> Fragment.handleResponse(
+    state: ResponseState,
+    onSuccess: (T) -> Unit,
+    onError: (Throwable) -> Unit,
+    onEmpty: (() -> Unit)? = null
+) {
+
+    state.handleResponseState<T>(
+        onLoading = {
+            if (it) showLoading() else hideLoading()
+        },
+        onSuccess = {
+            onSuccess.invoke(it)
+        },
+        onError = {
+            onError.invoke(it)
+        },
+        onEmpty = {
+            onEmpty?.invoke()
+        }
+    )
+}

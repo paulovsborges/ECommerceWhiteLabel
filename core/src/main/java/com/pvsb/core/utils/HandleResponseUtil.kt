@@ -1,18 +1,18 @@
 package com.pvsb.core.utils
 
-import androidx.fragment.app.Fragment
-
 fun <T> ResponseState.handleResponseState(
-    fragment: Fragment,
-    autoLoading: Boolean = true,
+    onLoading: (Boolean) -> Unit,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit,
     onEmpty: (() -> Unit)? = null
 ) {
+
+    var showLoading = true
+
     when (this) {
         is ResponseState.Init -> {}
         is ResponseState.Loading -> {
-            if (autoLoading) fragment.showLoading()
+            onLoading.invoke(showLoading)
         }
         is ResponseState.Complete -> {
             when (this) {
@@ -28,7 +28,8 @@ fun <T> ResponseState.handleResponseState(
                     }
                 }
             }
-            if (autoLoading) fragment.hideLoading()
+            showLoading = false
+            onLoading.invoke(showLoading)
         }
     }
 }
