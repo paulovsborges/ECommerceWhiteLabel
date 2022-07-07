@@ -12,20 +12,17 @@ class CartUseCase @Inject constructor(
     private val repository: CartRepository
 ) {
 
-    suspend fun createCart(cart: PopulateCartDTO): Flow<ResponseState> = flow {
+    suspend fun createCart(cartId: String, cart: PopulateCartDTO): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
-        val id = System.currentTimeMillis().toString()
-        createCart(id, cart).first {
-            if (it) emit(ResponseState.Complete.Success(id))
-            true
+        val cartCreated = repository.createCart(cartId, cart)
+
+        if (cartCreated) {
+            emit(ResponseState.Complete.Success(cartId))
+        } else {
+            emit(ResponseState.Complete.Fail(Exception("Cart not created")))
         }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
-    }
-
-    private suspend fun createCart(cartId: String, cart: PopulateCartDTO): Flow<Boolean> = flow {
-        val res = repository.createCart(cartId, cart)
-        emit(res)
     }
 
     suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Flow<ResponseState> =

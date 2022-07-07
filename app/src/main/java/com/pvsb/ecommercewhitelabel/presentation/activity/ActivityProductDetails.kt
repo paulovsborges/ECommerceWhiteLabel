@@ -74,6 +74,7 @@ class ActivityProductDetails : AppCompatActivity() {
             getValueDS(stringPreferencesKey(CART_ID)) {
                 if (it.isNullOrEmpty()) {
 
+                    val id = System.currentTimeMillis().toString()
                     val cartProduct = CartProductsDTO(
                         product, amount
                     )
@@ -82,7 +83,7 @@ class ActivityProductDetails : AppCompatActivity() {
                         listOf(cartProduct)
                     )
 
-                    cartViewModel.createCart(obj)
+                    cartViewModel.createCart(id, obj)
 
                     Toast.makeText(
                         this@ActivityProductDetails,

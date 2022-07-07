@@ -31,9 +31,9 @@ class CartViewModel @Inject constructor(
     private val _cartContent = MutableStateFlow<ResponseState>(ResponseState.Init)
     val cartContent: StateFlow<ResponseState> = _cartContent
 
-    fun createCart(cart: PopulateCartDTO) {
+    fun createCart(cartId: String, cart: PopulateCartDTO) {
         viewModelScope.launch {
-            useCase.createCart(cart).collectLatest {
+            useCase.createCart(cartId, cart).collectLatest {
                 _initialCart.value = it
             }
         }
@@ -42,8 +42,8 @@ class CartViewModel @Inject constructor(
     fun addProductToCart(cartId: String, product: CartProductsDTO) {
         viewModelScope.launch {
             useCase.addProductToCart(cartId, product).collectLatest {
-                    _addProductToCart.value = it
-                }
+                _addProductToCart.value = it
+            }
         }
     }
 
