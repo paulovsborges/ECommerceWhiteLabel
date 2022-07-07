@@ -37,13 +37,20 @@ class CartUseCase @Inject constructor(
             emit(ResponseState.Complete.Fail(it))
         }
 
-    suspend fun getCartContent(cartId: String): Flow<PopulateCartDTO> = flow {
+    suspend fun getCartContent(cartId: String): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
         val res = repository.getCartContent(cartId)
-        emit(res)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
     }
 
-    suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<Boolean> = flow {
-        val res = repository.deleteProduct(cartId, product)
-        emit(res)
-    }
+    suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
+        flow {
+            emit(ResponseState.Loading)
+            val res = repository.deleteProduct(cartId, product)
+            emit(ResponseState.Complete.Success(res))
+        }.catch {
+            emit(ResponseState.Complete.Fail(it))
+        }
 }

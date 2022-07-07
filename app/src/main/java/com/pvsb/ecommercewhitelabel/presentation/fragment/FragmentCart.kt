@@ -5,20 +5,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firestore.model.CartProductsDTO
+import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.getValueDS
+import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.PaymentActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -65,10 +71,20 @@ class FragmentCart : Fragment() {
     }
 
     private fun setUpObservers() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.cartContent.collectLatest { state ->
+                    handleResponse<PopulateCartDTO>(state,
+                        onSuccess = {
+                            mAdapter.submitList(it.products)
+                            binding.tvCartValue.text = it.total.formatCurrency()
+                        }, onError = {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }, onEmpty = {
 
-        viewModel.cartContent.observe(viewLifecycleOwner) {
-            mAdapter.submitList(it.products)
-            binding.tvCartValue.text = it.total.formatCurrency()
+                        })
+                }
+            }
         }
     }
 
