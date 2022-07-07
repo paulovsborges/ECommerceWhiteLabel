@@ -13,8 +13,11 @@ class CartUseCase @Inject constructor(
 ) {
 
     suspend fun createCart(cartId: String, cart: PopulateCartDTO): Flow<ResponseState> = flow {
+
         emit(ResponseState.Loading)
-        val cartCreated = repository.createCart(cartId, cart)
+        val product = cart.products.first()
+        val valueToIncrement = product.amount * product.product.price
+        val cartCreated = repository.createCart(cartId, cart, valueToIncrement)
 
         if (cartCreated) {
             emit(ResponseState.Complete.Success(cartId))

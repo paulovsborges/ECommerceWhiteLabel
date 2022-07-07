@@ -15,7 +15,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
 
     private val db = Firebase.firestore
 
-    override suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean {
+    override suspend fun createCart(cartId: String, cart: PopulateCartDTO, value: Double): Boolean {
         return suspendCoroutine { continuation ->
 
             val docRef = db
@@ -28,12 +28,10 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .runTransaction { transaction ->
                     transaction.set(docRef, cart)
 
-                    val product: CartProductsDTO = cart.products.first()
-
                     transaction.update(
                         docRef,
                         "total",
-                        FieldValue.increment(product.product.price)
+                        FieldValue.increment(value)
                     )
                 }
                 .addOnSuccessListener {

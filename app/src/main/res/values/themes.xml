@@ -9,4 +9,15 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor">@color/dark3</item>
     </style>
+
+    <style name="OutlinedTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="colorPrimary">@color/orange_vivid</item>
+        <item name="colorOnSecondary">@color/orange_vivid</item>
+        <item name="colorOnSurface">@color/orange_vivid</item>
+        <item name="boxStrokeColor">@color/orange_vivid</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="colorError">@color/red_vivid</item>
+        <item name="textAppearanceSubtitle1">@color/red_vivid</item>
+        <item name="textAppearanceCaption">@color/dark3</item>
+    </style>
 </resources>

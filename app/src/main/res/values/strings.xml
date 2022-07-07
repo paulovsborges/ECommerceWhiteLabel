@@ -9,6 +9,8 @@
 
     <!--    Product Details-->
     <string name="product_details_button_purchase_text">Buy</string>
+    <string name="product_details_quantity_hint">quantity</string>
+    <string name="product_details_quantity_default_value">1</string>
 
     <!--    search-->
     <string name="search_button_open_filters_text">Filters</string>

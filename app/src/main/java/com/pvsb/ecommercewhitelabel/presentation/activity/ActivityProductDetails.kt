@@ -13,12 +13,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
 import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
-import com.pvsb.core.utils.closeActivityAndNavigate
-import com.pvsb.core.utils.getValueDS
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.putValueDS
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +50,7 @@ class ActivityProductDetails : AppCompatActivity() {
     private fun initialSetUp(product: ProductDTO) {
         binding.apply {
 
-            tvProductPrice.text = product.price.toString()
+            tvProductPrice.text = product.price.formatCurrency()
             tvProductTitle.text = product.title
 
             Glide.with(this@ActivityProductDetails)
@@ -62,8 +59,8 @@ class ActivityProductDetails : AppCompatActivity() {
                 .into(ivProductImage)
 
             btnBuy.setOnClickListener {
-
-                handleCart(product, 1)
+                val amount = tiProductAmount.editText?.text.toString().toInt()
+                handleCart(product, amount)
             }
         }
     }

@@ -5,7 +5,7 @@ import com.pvsb.core.firestore.model.PopulateCartDTO
 
 interface CartRepository {
 
-    suspend fun createCart(cartId: String, cart: PopulateCartDTO): Boolean
+    suspend fun createCart(cartId: String, cart: PopulateCartDTO, value: Double): Boolean
 
     suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Boolean
 

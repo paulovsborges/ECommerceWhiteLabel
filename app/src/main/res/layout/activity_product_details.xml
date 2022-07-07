@@ -34,27 +34,43 @@
         app:layout_constraintTop_toBottomOf="@id/tvProductTitle"
         tools:text="R$979.99" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnBuy"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/product_details_button_purchase_text"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@color/lightest_grey"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiProductAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBuy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/product_details_button_purchase_text"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiProductAmount"
+            style="@style/OutlinedTextField"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:hint="@string/product_details_quantity_hint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@string/product_details_quantity_default_value"
+                android:textAlignment="center" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
