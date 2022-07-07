@@ -31,7 +31,8 @@ class CartUseCase @Inject constructor(
     suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
         flow {
             emit(ResponseState.Loading)
-            val res = repository.addProductToCart(cartId, product)
+            val valueToIncrement = product.amount * product.product.price
+            val res = repository.addProductToCart(cartId, product, valueToIncrement)
             emit(ResponseState.Complete.Success(res))
         }.catch {
             emit(ResponseState.Complete.Fail(it))
@@ -48,7 +49,8 @@ class CartUseCase @Inject constructor(
     suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
         flow {
             emit(ResponseState.Loading)
-            val res = repository.deleteProduct(cartId, product)
+            val valueToRemove = product.amount * product.product.price
+            val res = repository.deleteProduct(cartId, product, valueToRemove)
             emit(ResponseState.Complete.Success(res))
         }.catch {
             emit(ResponseState.Complete.Fail(it))

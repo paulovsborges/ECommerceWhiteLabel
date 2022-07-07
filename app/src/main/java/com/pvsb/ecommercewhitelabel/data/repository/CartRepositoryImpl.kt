@@ -43,7 +43,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Boolean {
+    override suspend fun addProductToCart(cartId: String, product: CartProductsDTO, value: Double): Boolean {
         return suspendCoroutine { continuation ->
 
             val docRef = db
@@ -66,10 +66,10 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                             transaction.update(
                                 docRef,
                                 "total",
-                                FieldValue.increment(product.product.price)
+                                FieldValue.increment(value)
                             )
                         } else {
-                            transaction.update(docRef, " total", product.product.price)
+                            transaction.update(docRef, " total", value)
                         }
 
                         transaction.update(docRef, "products", FieldValue.arrayUnion(product))
@@ -106,7 +106,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Boolean {
+    override suspend fun deleteProduct(cartId: String, product: CartProductsDTO, value: Double): Boolean {
         return suspendCoroutine { continuation ->
             val docRef = db
                 .collection("data/")
@@ -132,7 +132,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
 
                 data?.total?.let { total ->
 
-                    val newTotal = total - product.product.price
+                    val newTotal = total - value
 
                     transaction.update(
                         docRef,
