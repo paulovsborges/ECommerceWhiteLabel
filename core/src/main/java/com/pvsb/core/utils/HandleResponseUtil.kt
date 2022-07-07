@@ -23,8 +23,9 @@ fun <T> ResponseState.handleResponseState(
                     onError.invoke(exception)
                 }
                 is ResponseState.Complete.Success<*> -> {
-                    (data as? ResponseState.Complete.Success<T>)?.also { response ->
-                        onSuccess.invoke(response.data)
+                    val result = this.data as? T
+                    result?.let {
+                        onSuccess.invoke(result)
                     }
                 }
             }
