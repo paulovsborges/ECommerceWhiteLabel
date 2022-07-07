@@ -60,7 +60,6 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .runTransaction { transaction ->
                     val snapShot = transaction.get(docRef)
                     val currentValue = snapShot.getDouble("total")
-
                     val data = snapShot.toObject(PopulateCartDTO::class.java)
                     val products = data?.products?.map { it.product.title }
 
