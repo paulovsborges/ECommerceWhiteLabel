@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.pvsb.core.firestore.model.ProductFilters
+import com.pvsb.core.firebase.model.ProductFilters
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.databinding.FiltersListItemBinding
 

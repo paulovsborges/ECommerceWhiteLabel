@@ -1,6 +1,6 @@
 package com.pvsb.ecommercewhitelabel.usecase
 
-import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.firebase.model.PopulateCartDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase

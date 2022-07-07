@@ -3,10 +3,9 @@ package com.pvsb.ecommercewhitelabel.data.repository
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firestore.model.CartProductsDTO
-import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.firebase.model.CartProductsDTO
+import com.pvsb.core.firebase.model.PopulateCartDTO
 import com.pvsb.core.utils.Constants.FireStore.CART_COLLECTION
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine

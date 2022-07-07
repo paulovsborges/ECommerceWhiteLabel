@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.pvsb.core.firestore.model.CartProductsDTO
-import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.firebase.model.CartProductsDTO
+import com.pvsb.core.firebase.model.PopulateCartDTO
 
 interface CartRepository {
 

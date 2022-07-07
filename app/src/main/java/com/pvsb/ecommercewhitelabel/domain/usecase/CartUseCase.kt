@@ -1,10 +1,9 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
-import com.pvsb.core.firestore.model.CartProductsDTO
-import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.firebase.model.CartProductsDTO
+import com.pvsb.core.firebase.model.PopulateCartDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

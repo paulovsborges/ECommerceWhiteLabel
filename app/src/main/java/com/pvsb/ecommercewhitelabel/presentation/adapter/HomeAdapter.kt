@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
-import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ListItemBinding
 import com.pvsb.core.utils.ListAdapterDiffUtil
 

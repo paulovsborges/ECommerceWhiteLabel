@@ -19,4 +19,10 @@
     <!--    Cart-->
     <string name="cart_button_purchase_text">Continue purchase</string>
     <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
+
+<!--    Profile-->
+    <string name="profile_sign_up_text_field_email_hint">E-mail</string>
+    <string name="profile_sign_up_text_field_password_hint">Password</string>
+    <string name="profile_sign_up_btn_login_text">Login</string>
+    <string name="profile_sign_up_btn_create_account_text">Create Account</string>
 </resources>

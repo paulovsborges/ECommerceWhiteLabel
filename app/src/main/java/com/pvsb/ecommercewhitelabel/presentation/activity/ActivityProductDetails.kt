@@ -5,25 +5,21 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.pvsb.core.firestore.model.CartProductsDTO
-import com.pvsb.core.firestore.model.PopulateCartDTO
-import com.pvsb.core.firestore.model.ProductDTO
+import com.pvsb.core.firebase.model.CartProductsDTO
+import com.pvsb.core.firebase.model.PopulateCartDTO
+import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.withIndex
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
