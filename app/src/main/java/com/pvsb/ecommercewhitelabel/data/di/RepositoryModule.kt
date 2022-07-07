@@ -1,9 +1,6 @@
 package com.pvsb.ecommercewhitelabel.data.di
 
-import com.pvsb.ecommercewhitelabel.data.repository.HomeRepository
-import com.pvsb.ecommercewhitelabel.data.repository.HomeRepositoryImpl
-import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
-import com.pvsb.ecommercewhitelabel.data.repository.CartRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +15,7 @@ interface RepositoryModule {
 
     @Binds
     fun provideCartImpl(impl: CartRepositoryImpl): CartRepository
+
+    @Binds
+    fun provideAuthImpl(impl: AuthRepositoryImpl): AuthRepository
 }

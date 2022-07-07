@@ -8,22 +8,31 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CreateAccountResDTO
+import com.pvsb.core.firebase.model.LoginReqDTO
+import com.pvsb.core.firebase.model.LoginResDTO
+import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.setUpActivityListener
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
+import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class FragmentProfile : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth: FirebaseAuth
-    private var resultLauncher: ActivityResultLauncher<Intent> = setUpActivityListener(
-        ActivityCreateAccount::class.java.simpleName, ::doLoginAfterCreateAccount
-    )
+    private val viewModel: ProfileVIewModel by viewModels()
+    private var createAccountListenerLauncher: ActivityResultLauncher<Intent> =
+        setUpActivityListener(
+            ActivityCreateAccount::class.java.simpleName, ::doLoginAfterCreateAccount
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +46,9 @@ class FragmentProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
         binding.vfMain.displayedChild = LOGIN_LAYOUT
         setUpLoginScreen()
+        setUpObservers()
     }
 
     private fun setUpLoginScreen() {
@@ -50,7 +59,12 @@ class FragmentProfile : Fragment() {
             }
 
             btnCreateAccount.setOnClickListener {
-                resultLauncher.launch(Intent(requireContext(), ActivityCreateAccount::class.java))
+                createAccountListenerLauncher.launch(
+                    Intent(
+                        requireContext(),
+                        ActivityCreateAccount::class.java
+                    )
+                )
             }
         }
     }
@@ -60,26 +74,39 @@ class FragmentProfile : Fragment() {
         binding.apply {
             val email = tiEmail.editText?.text.toString()
             val password = tiPassword.editText?.text.toString()
-
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), it.user?.uid, Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                }
+            val req = LoginReqDTO(email, password)
+            viewModel.doLogin(req)
         }
     }
 
     private fun doLoginAfterCreateAccount(data: CreateAccountResDTO) {
-        auth.signInWithEmailAndPassword(data.email, data.password)
-            .addOnSuccessListener {
-                Toast.makeText(requireContext(), "USER LOGGED ${data.userId}", Toast.LENGTH_SHORT)
-                    .show()
+
+        binding.apply {
+            tiEmail.editText?.text?.clear()
+            tiPassword.editText?.text?.clear()
+        }
+
+        val req = LoginReqDTO(
+            data.email, data.password
+        )
+
+        viewModel.doLogin(req)
+    }
+
+    private fun setUpObservers() {
+
+        viewModel.doLogin
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<LoginResDTO>(state,
+                    onSuccess = {
+                        Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT).show()
+                    },
+                    onError = {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    })
             }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-            }
+            .launchIn(lifecycleScope)
     }
 
     private companion object {
