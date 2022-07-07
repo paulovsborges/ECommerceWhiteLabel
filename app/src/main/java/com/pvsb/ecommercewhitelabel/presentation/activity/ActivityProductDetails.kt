@@ -120,8 +120,7 @@ class ActivityProductDetails : AppCompatActivity() {
                                 this@ActivityProductDetails,
                                 it.message,
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         })
                     }
                 }
@@ -138,35 +137,11 @@ class ActivityProductDetails : AppCompatActivity() {
                                 this@ActivityProductDetails,
                                 it.message,
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                         })
                     }
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                cartViewModel.addProductToCart.collectLatest { state ->
-//                    handleResponse<Boolean>(state, onSuccess = {
-//                        closeActivityAndNavigate(
-//                            MainActivity(),
-//                            BOTTOM_NAV_CART
-//                        )
-//                    }, onError = {
-//                        Toast.makeText(this@ActivityProductDetails, it.message, Toast.LENGTH_SHORT)
-//                            .show()
-//                    })
-//                }
-//            }
-//        }
-
-//        cartViewModel.addProductToCart.observe(this) {
-//            closeActivityAndNavigate(
-//                MainActivity(),
-//                BOTTOM_NAV_CART
-//            )
-//        }
     }
 }
