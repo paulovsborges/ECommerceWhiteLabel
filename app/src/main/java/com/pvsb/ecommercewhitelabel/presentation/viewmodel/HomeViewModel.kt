@@ -23,9 +23,6 @@ class HomeViewModel @Inject constructor(
     fun getHomeData() {
         viewModelScope.launch {
             useCase.getProducts()
-//                .catch {
-//                    _homeContent.value = it
-//                }
                 .collectLatest {
                     _homeContent.value = it
                 }

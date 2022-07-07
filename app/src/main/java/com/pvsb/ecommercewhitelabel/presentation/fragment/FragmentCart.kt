@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firestore.model.CartProductsDTO
@@ -25,6 +26,8 @@ import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -71,24 +74,27 @@ class FragmentCart : Fragment() {
     }
 
     private fun setUpObservers() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cartContent.collectLatest { state ->
-                    handleResponse<PopulateCartDTO>(state,
-                        onSuccess = {
-                            binding.vfMain.displayedChild = DATA_STATE
-                            binding.clMainContent.visibility = View.VISIBLE
-                            mAdapter.submitList(it.products)
-                            binding.tvCartValue.text = it.total.formatCurrency()
-                        }, onError = {
-                            binding.vfMain.displayedChild = EMPTY_STATE
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }, onEmpty = {
-                            binding.vfMain.displayedChild = EMPTY_STATE
-                        })
-                }
-            }
-        }
+
+        viewModel.cartContent
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<PopulateCartDTO>(state,
+                    onSuccess = {
+                        binding.apply {
+                            vfMain.displayedChild = DATA_STATE
+                            clMainContent.visibility = View.VISIBLE
+                            tvCartValue.text = it.total.formatCurrency()
+                        }
+
+                        mAdapter.submitList(it.products)
+                    }, onError = {
+                        binding.vfMain.displayedChild = EMPTY_STATE
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }, onEmpty = {
+                        binding.vfMain.displayedChild = EMPTY_STATE
+                    })
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun deleteProduct(product: CartProductsDTO) {

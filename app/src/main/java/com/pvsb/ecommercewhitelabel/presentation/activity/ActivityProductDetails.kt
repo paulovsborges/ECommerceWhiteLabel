@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
@@ -20,6 +21,9 @@ import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.withIndex
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -100,46 +104,39 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun setUpObservers() {
+        cartViewModel.initialCart
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<String>(state, onSuccess = {
+                    putValueDS(stringPreferencesKey(CART_ID), it)
+                    closeActivityAndNavigate(
+                        MainActivity(),
+                        BOTTOM_NAV_CART
+                    )
+                }, {
+                    Toast.makeText(
+                        this@ActivityProductDetails,
+                        it.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                })
+            }.launchIn(lifecycleScope)
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                launch {
-                    cartViewModel.initialCart.collectLatest { state ->
-                        handleResponse<String>(state, onSuccess = {
-                            putValueDS(stringPreferencesKey(CART_ID), it)
-
-                            closeActivityAndNavigate(
-                                MainActivity(),
-                                BOTTOM_NAV_CART
-                            )
-                        }, {
-                            Toast.makeText(
-                                this@ActivityProductDetails,
-                                it.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        })
-                    }
-                }
-
-                launch {
-                    cartViewModel.addProductToCart.collectLatest { state ->
-                        handleResponse<Boolean>(state, onSuccess = {
-                            closeActivityAndNavigate(
-                                MainActivity(),
-                                BOTTOM_NAV_CART
-                            )
-                        }, onError = {
-                            Toast.makeText(
-                                this@ActivityProductDetails,
-                                it.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        })
-                    }
-                }
-            }
-        }
+        cartViewModel.addProductToCart
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<Boolean>(state, onSuccess = {
+                    closeActivityAndNavigate(
+                        MainActivity(),
+                        BOTTOM_NAV_CART
+                    )
+                }, onError = {
+                    Toast.makeText(
+                        this@ActivityProductDetails,
+                        it.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                })
+            }.launchIn(lifecycleScope)
     }
 }

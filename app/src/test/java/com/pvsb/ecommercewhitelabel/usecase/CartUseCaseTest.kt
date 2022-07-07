@@ -28,11 +28,13 @@ class CartUseCaseTest {
     @Test
     fun `when init cart is success`() = runTest {
 
+        val value = 0.0
         val cart = mockk<PopulateCartDTO>()
         val cartId = "1"
         var emissionsCount = 0
 
-        coEvery { repository.createCart(cartId, cart) } returns true
+
+        coEvery { repository.createCart(cartId, cart, value) } returns true
 
         val result = useCase.createCart(cartId, cart)
 
@@ -51,16 +53,17 @@ class CartUseCaseTest {
 
         Assert.assertTrue(emissionsCount == 2)
 
-        coVerify { repository.createCart(cartId, cart) }
+        coVerify { repository.createCart(cartId, cart, value) }
     }
 
     @Test
     fun `when init cart is fail`() = runTest {
         val cart = mockk<PopulateCartDTO>()
         val cartId = "1"
+        val value = 0.0
         var emissionsCount = 0
 
-        coEvery { repository.createCart(cartId, cart) } returns false
+        coEvery { repository.createCart(cartId, cart, value) } returns false
         val result = useCase.createCart(cartId, cart)
 
         result.collectLatest { state ->

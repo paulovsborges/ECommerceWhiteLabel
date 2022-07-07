@@ -43,7 +43,11 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun addProductToCart(cartId: String, product: CartProductsDTO, value: Double): Boolean {
+    override suspend fun addProductToCart(
+        cartId: String,
+        product: CartProductsDTO,
+        value: Double
+    ): Boolean {
         return suspendCoroutine { continuation ->
 
             val docRef = db
@@ -58,8 +62,9 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                     val currentValue = snapShot.getDouble("total")
 
                     val data = snapShot.toObject(PopulateCartDTO::class.java)
+                    val products = data?.products?.map { it.product.title }
 
-                    if (data?.products?.contains(product) == true) {
+                    if (products?.contains(product.product.title) == true) {
                         throw Exception("Product is already added on the cart")
                     } else {
                         if (currentValue != null) {
@@ -106,7 +111,11 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
         }
     }
 
-    override suspend fun deleteProduct(cartId: String, product: CartProductsDTO, value: Double): Boolean {
+    override suspend fun deleteProduct(
+        cartId: String,
+        product: CartProductsDTO,
+        value: Double
+    ): Boolean {
         return suspendCoroutine { continuation ->
             val docRef = db
                 .collection("data/")
