@@ -102,17 +102,6 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun setUpObservers() {
-//        cartViewModel.initialCart.observe(this) {
-//            lifecycleScope.launch {
-//
-//                putValueDS(stringPreferencesKey(CART_ID), it)
-//
-//                closeActivityAndNavigate(
-//                    MainActivity(),
-//                    BOTTOM_NAV_CART
-//                )
-//            }
-//        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -125,13 +114,12 @@ class ActivityProductDetails : AppCompatActivity() {
                             BOTTOM_NAV_CART
                         )
                     }, {
-
+                        Toast.makeText(this@ActivityProductDetails, it.message, Toast.LENGTH_SHORT)
+                            .show()
                     })
                 }
             }
         }
-
-
 
         cartViewModel.addProductToCart.observe(this) {
             closeActivityAndNavigate(
