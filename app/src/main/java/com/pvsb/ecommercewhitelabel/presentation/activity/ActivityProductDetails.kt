@@ -105,27 +105,68 @@ class ActivityProductDetails : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                cartViewModel.initialCart.collectLatest { state ->
-                    handleResponse<String>(state, onSuccess = {
-                        putValueDS(stringPreferencesKey(CART_ID), it)
 
-                        closeActivityAndNavigate(
-                            MainActivity(),
-                            BOTTOM_NAV_CART
-                        )
-                    }, {
-                        Toast.makeText(this@ActivityProductDetails, it.message, Toast.LENGTH_SHORT)
-                            .show()
-                    })
+                launch {
+                    cartViewModel.initialCart.collectLatest { state ->
+                        handleResponse<String>(state, onSuccess = {
+                            putValueDS(stringPreferencesKey(CART_ID), it)
+
+                            closeActivityAndNavigate(
+                                MainActivity(),
+                                BOTTOM_NAV_CART
+                            )
+                        }, {
+                            Toast.makeText(
+                                this@ActivityProductDetails,
+                                it.message,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        })
+                    }
+                }
+
+                launch {
+                    cartViewModel.addProductToCart.collectLatest { state ->
+                        handleResponse<Boolean>(state, onSuccess = {
+                            closeActivityAndNavigate(
+                                MainActivity(),
+                                BOTTOM_NAV_CART
+                            )
+                        }, onError = {
+                            Toast.makeText(
+                                this@ActivityProductDetails,
+                                it.message,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        })
+                    }
                 }
             }
         }
 
-        cartViewModel.addProductToCart.observe(this) {
-            closeActivityAndNavigate(
-                MainActivity(),
-                BOTTOM_NAV_CART
-            )
-        }
+//        lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                cartViewModel.addProductToCart.collectLatest { state ->
+//                    handleResponse<Boolean>(state, onSuccess = {
+//                        closeActivityAndNavigate(
+//                            MainActivity(),
+//                            BOTTOM_NAV_CART
+//                        )
+//                    }, onError = {
+//                        Toast.makeText(this@ActivityProductDetails, it.message, Toast.LENGTH_SHORT)
+//                            .show()
+//                    })
+//                }
+//            }
+//        }
+
+//        cartViewModel.addProductToCart.observe(this) {
+//            closeActivityAndNavigate(
+//                MainActivity(),
+//                BOTTOM_NAV_CART
+//            )
+//        }
     }
 }

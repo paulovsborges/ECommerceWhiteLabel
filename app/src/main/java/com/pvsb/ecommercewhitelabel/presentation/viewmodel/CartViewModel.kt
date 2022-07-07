@@ -25,15 +25,14 @@ class CartViewModel @Inject constructor(
     private val _initialCart = MutableStateFlow<ResponseState>(ResponseState.Init)
     val initialCart: StateFlow<ResponseState> = _initialCart
 
-    private val _addProductToCart = MutableLiveData<Boolean>()
-    val addProductToCart: LiveData<Boolean> = _addProductToCart
+    private val _addProductToCart = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val addProductToCart: StateFlow<ResponseState> = _addProductToCart
 
     private val _cartContent = MutableLiveData<PopulateCartDTO>()
     val cartContent: LiveData<PopulateCartDTO> = _cartContent
 
     fun createCart(cart: PopulateCartDTO) {
         viewModelScope.launch {
-
             useCase.createCart(cart).collectLatest {
                 _initialCart.value = it
             }
@@ -42,11 +41,7 @@ class CartViewModel @Inject constructor(
 
     fun addProductToCart(cartId: String, product: CartProductsDTO) {
         viewModelScope.launch {
-            useCase.addProductToCart(cartId, product)
-                .catch {
-                    Log.d("cartVM", "${it.message}")
-                }
-                .collectLatest {
+            useCase.addProductToCart(cartId, product).collectLatest {
                     _addProductToCart.value = it
                 }
         }
@@ -64,10 +59,6 @@ class CartViewModel @Inject constructor(
     fun deleteProduct(cartId: String, product: CartProductsDTO) {
         viewModelScope.launch {
             useCase.deleteProduct(cartId, product)
-
-                .catch {
-                    Log.d("DELETE_PRODUCT", "failure $it")
-                }
                 .collectLatest {
                     getCartContent(cartId)
                 }
