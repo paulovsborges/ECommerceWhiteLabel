@@ -41,7 +41,12 @@ class CartUseCase @Inject constructor(
     suspend fun getCartContent(cartId: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getCartContent(cartId)
-        emit(ResponseState.Complete.Success(res))
+
+        if (res.products.isEmpty()) {
+            emit(ResponseState.Complete.Empty)
+        } else {
+            emit(ResponseState.Complete.Success(res))
+        }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }

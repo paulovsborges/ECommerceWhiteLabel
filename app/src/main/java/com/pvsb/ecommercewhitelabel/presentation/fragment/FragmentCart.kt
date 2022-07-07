@@ -76,12 +76,15 @@ class FragmentCart : Fragment() {
                 viewModel.cartContent.collectLatest { state ->
                     handleResponse<PopulateCartDTO>(state,
                         onSuccess = {
+                            binding.vfMain.displayedChild = DATA_STATE
+                            binding.clMainContent.visibility = View.VISIBLE
                             mAdapter.submitList(it.products)
                             binding.tvCartValue.text = it.total.formatCurrency()
                         }, onError = {
+                            binding.vfMain.displayedChild = EMPTY_STATE
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                         }, onEmpty = {
-
+                            binding.vfMain.displayedChild = EMPTY_STATE
                         })
                 }
             }
@@ -96,6 +99,11 @@ class FragmentCart : Fragment() {
                 }
             }
         }
+    }
+
+    companion object {
+        const val DATA_STATE = 0
+        const val EMPTY_STATE = 1
     }
 
     override fun onDestroy() {

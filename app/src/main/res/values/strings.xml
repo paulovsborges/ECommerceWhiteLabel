@@ -17,6 +17,6 @@
     <string name="search_button_apply_filters_text">Apply</string>
 
     <!--    Cart-->
-
     <string name="cart_button_purchase_text">Continue purchase</string>
+    <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
 </resources>

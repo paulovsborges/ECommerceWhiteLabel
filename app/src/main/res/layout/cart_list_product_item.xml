@@ -44,6 +44,18 @@
             app:layout_constraintTop_toBottomOf="@id/tvProductName"
             tools:text="R$495" />
 
+        <TextView
+            android:id="@+id/tvProductQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/myriadpro_semibold"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/ivProduct"
+            app:layout_constraintTop_toBottomOf="@id/tvProductPrice"
+            tools:text="R$495" />
+
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

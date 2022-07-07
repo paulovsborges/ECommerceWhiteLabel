@@ -11,6 +11,7 @@ import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.openActivity
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.CartListProductItemBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 
@@ -52,6 +53,10 @@ class CartProductsAdapter(
 
                 tvProductName.text = title
                 tvProductPrice.text = item.product.price.formatCurrency()
+                tvProductQuantity.text = itemView.context.getString(
+                    R.string.cart_button_list_item_amount_placeholder,
+                    item.amount.toString()
+                )
             }
 
             itemView.setOnClickListener {
