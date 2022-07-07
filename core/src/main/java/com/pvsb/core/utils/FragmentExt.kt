@@ -70,11 +70,11 @@ fun Fragment.hideLoading() {
     activity?.hideLoading()
 }
 
-fun <T> Fragment.handleResponse(
+suspend fun <T> Fragment.handleResponse(
     state: ResponseState,
-    onSuccess: (T) -> Unit,
-    onError: (Throwable) -> Unit,
-    onEmpty: (() -> Unit)? = null
+    onSuccess: suspend (T) -> Unit,
+    onError: suspend (Throwable) -> Unit,
+    onEmpty: (suspend () -> Unit)? = null
 ) {
 
     state.handleResponseState<T>(

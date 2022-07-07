@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,8 +22,8 @@ class CartViewModel @Inject constructor(
     private val useCase: CartUseCase
 ) : ViewModel() {
 
-    private val _initialCart = MutableLiveData<String>()
-    val initialCart: LiveData<String> = _initialCart
+    private val _initialCart = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val initialCart: StateFlow<ResponseState> = _initialCart
 
     private val _addProductToCart = MutableLiveData<Boolean>()
     val addProductToCart: LiveData<Boolean> = _addProductToCart

@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.pvsb.core.firestore.model.CartProductsDTO
@@ -15,10 +17,12 @@ import com.pvsb.core.utils.Constants.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.core.utils.closeActivityAndNavigate
 import com.pvsb.core.utils.getValueDS
+import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.putValueDS
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -98,17 +102,36 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun setUpObservers() {
-        cartViewModel.initialCart.observe(this) {
-            lifecycleScope.launch {
+//        cartViewModel.initialCart.observe(this) {
+//            lifecycleScope.launch {
+//
+//                putValueDS(stringPreferencesKey(CART_ID), it)
+//
+//                closeActivityAndNavigate(
+//                    MainActivity(),
+//                    BOTTOM_NAV_CART
+//                )
+//            }
+//        }
 
-                putValueDS(stringPreferencesKey(CART_ID), it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                cartViewModel.initialCart.collectLatest { state ->
+                    handleResponse<String>(state, onSuccess = {
+                        putValueDS(stringPreferencesKey(CART_ID), it)
 
-                closeActivityAndNavigate(
-                    MainActivity(),
-                    BOTTOM_NAV_CART
-                )
+                        closeActivityAndNavigate(
+                            MainActivity(),
+                            BOTTOM_NAV_CART
+                        )
+                    }, {
+
+                    })
+                }
             }
         }
+
+
 
         cartViewModel.addProductToCart.observe(this) {
             closeActivityAndNavigate(

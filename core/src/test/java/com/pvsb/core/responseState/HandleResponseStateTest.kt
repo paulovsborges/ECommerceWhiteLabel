@@ -17,7 +17,7 @@ class HandleResponseStateTest {
     @Test
     fun `should return a complete success state`() = runTest {
 
-        val expectedResult = "Hello"
+        val expectedResult = "hello"
         var showLoading = true
         var emissionCount = 0
 
@@ -119,5 +119,4 @@ class HandleResponseStateTest {
         emit(ResponseState.Loading)
         emit(ResponseState.Complete.Empty)
     }
-
 }

@@ -1,10 +1,10 @@
 package com.pvsb.core.utils
 
-fun <T> ResponseState.handleResponseState(
+suspend fun <T> ResponseState.handleResponseState(
     onLoading: (Boolean) -> Unit,
-    onSuccess: (T) -> Unit,
-    onError: (Throwable) -> Unit,
-    onEmpty: (() -> Unit)? = null
+    onSuccess: suspend (T) -> Unit,
+    onError: suspend (Throwable) -> Unit,
+    onEmpty: (suspend () -> Unit)? = null
 ) {
 
     var showLoading = true

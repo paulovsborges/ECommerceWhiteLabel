@@ -2,24 +2,25 @@ package com.pvsb.ecommercewhitelabel.domain.usecase
 
 import com.pvsb.core.firestore.model.CartProductsDTO
 import com.pvsb.core.firestore.model.PopulateCartDTO
+import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class CartUseCase @Inject constructor(
     private val repository: CartRepository
 ) {
 
-    suspend fun createCart(cart: PopulateCartDTO): Flow<String> = flow {
+    suspend fun createCart(cart: PopulateCartDTO): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
         val id = System.currentTimeMillis().toString()
         createCart(id, cart).first {
-            if (it) emit(id)
+            if (it) emit(ResponseState.Complete.Success(id))
             true
         }
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
     }
 
     private suspend fun createCart(cartId: String, cart: PopulateCartDTO): Flow<Boolean> = flow {
