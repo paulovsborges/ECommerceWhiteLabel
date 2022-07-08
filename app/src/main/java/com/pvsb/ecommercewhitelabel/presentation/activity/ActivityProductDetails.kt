@@ -13,7 +13,7 @@ import com.pvsb.core.firebase.model.CartProductsDTO
 import com.pvsb.core.firebase.model.PopulateCartDTO
 import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.*
-import com.pvsb.core.utils.Constants.CART_ID
+import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel

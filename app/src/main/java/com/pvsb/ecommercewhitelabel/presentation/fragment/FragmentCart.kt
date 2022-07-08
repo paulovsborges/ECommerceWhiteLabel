@@ -12,7 +12,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CartProductsDTO
 import com.pvsb.core.firebase.model.PopulateCartDTO
-import com.pvsb.core.utils.Constants.CART_ID
+import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse

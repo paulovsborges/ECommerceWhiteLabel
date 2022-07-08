@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Theme.ECommerceWhiteLabel" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/orange_vivid</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -29,5 +30,27 @@
         <item name="android:backgroundTint">@color/dark2</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="ProfileAccessButtons">
+        <item name="android:padding">10dp</item>
+        <item name="fontFamily">@font/myriadpro_semibold</item>
+        <item name="iconSize">50dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="textAllCaps">false</item>
+        <item name="iconGravity">end</item>
+        <item name="iconTint">@color/black</item>
+        <item name="strokeColor">@color/dark1</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+    </style>
+
+    <style name="TitleTextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">@font/myriadpro_semibold</item>
+        <item name="android:textColor">@color/dark1</item>
     </style>
 </resources>

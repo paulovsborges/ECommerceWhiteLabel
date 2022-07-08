@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.view.isVisible
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -14,7 +16,10 @@ import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CreateAccountResDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
 import com.pvsb.core.firebase.model.LoginResDTO
+import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
+import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.putValueDS
 import com.pvsb.core.utils.setUpActivityListener
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
@@ -22,6 +27,7 @@ import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentProfile : Fragment() {
@@ -31,7 +37,7 @@ class FragmentProfile : Fragment() {
     private val viewModel: ProfileVIewModel by viewModels()
     private var createAccountListenerLauncher: ActivityResultLauncher<Intent> =
         setUpActivityListener(
-            ActivityCreateAccount::class.java.simpleName, ::doLoginAfterCreateAccount
+            ActivityCreateAccount::class.java.simpleName, ::doLoginAfterAccountCreation
         )
 
     override fun onCreateView(
@@ -46,13 +52,28 @@ class FragmentProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vfMain.displayedChild = LOGIN_LAYOUT
+        initialSetUp()
         setUpLoginScreen()
         setUpObservers()
     }
 
-    private fun setUpLoginScreen() {
+    private fun initialSetUp() {
         binding.apply {
+            lifecycleScope.launch {
+                requireContext().getValueDS(stringPreferencesKey(USER_ID)) {
+                    vfMain.displayedChild = if (it.isNullOrEmpty()) {
+                        LOGIN_LAYOUT
+                    } else {
+                        PROFILE_LAYOUT
+                    }
+                    root.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun setUpLoginScreen() {
+        binding.iclLoginLayout.apply {
 
             btnLogin.setOnClickListener {
                 doLogin()
@@ -71,7 +92,7 @@ class FragmentProfile : Fragment() {
 
     private fun doLogin() {
 
-        binding.apply {
+        binding.iclLoginLayout.apply {
             val email = tiEmail.editText?.text.toString()
             val password = tiPassword.editText?.text.toString()
             val req = LoginReqDTO(email, password)
@@ -79,9 +100,9 @@ class FragmentProfile : Fragment() {
         }
     }
 
-    private fun doLoginAfterCreateAccount(data: CreateAccountResDTO) {
+    private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
 
-        binding.apply {
+        binding.iclLoginLayout.apply {
             tiEmail.editText?.text?.clear()
             tiPassword.editText?.text?.clear()
         }
@@ -100,6 +121,11 @@ class FragmentProfile : Fragment() {
             .onEach { state ->
                 handleResponse<LoginResDTO>(state,
                     onSuccess = {
+
+                        requireContext().putValueDS(stringPreferencesKey(USER_ID), it.userId)
+
+                        binding.vfMain.displayedChild = PROFILE_LAYOUT
+
                         Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT).show()
                     },
                     onError = {
