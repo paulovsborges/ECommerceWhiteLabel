@@ -51,19 +51,16 @@ class FragmentProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initialSetUp()
-        setUpObservers()
     }
 
     private fun initialSetUp() {
         binding.apply {
             lifecycleScope.launch {
                 requireContext().getValueDS(stringPreferencesKey(USER_ID)) {
-                    vfMain.displayedChild = if (it.isNullOrEmpty()) {
+                    if (it.isNullOrEmpty()) {
                         initialLoginSetup()
-                        LOGIN_LAYOUT
                     } else {
                         initialProfileSetup()
-                        PROFILE_LAYOUT
                     }
                     root.visibility = View.VISIBLE
                 }
@@ -72,6 +69,7 @@ class FragmentProfile : Fragment() {
     }
 
     private fun initialProfileSetup() {
+        binding.vfMain.displayedChild = PROFILE_LAYOUT
         binding.iclProfileLayout.apply {
             btnLogout.setOnClickListener {
                 doLogout()
@@ -80,6 +78,8 @@ class FragmentProfile : Fragment() {
     }
 
     private fun initialLoginSetup() {
+        binding.vfMain.displayedChild = LOGIN_LAYOUT
+        setUpObservers()
         binding.iclLoginLayout.apply {
 
             btnLogin.setOnClickListener {
@@ -126,8 +126,7 @@ class FragmentProfile : Fragment() {
             requireContext().removeValueDS(stringPreferencesKey(USER_ID))
             requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
         }
-
-        binding.vfMain.displayedChild = LOGIN_LAYOUT
+        initialLoginSetup()
     }
 
     private fun setUpObservers() {
@@ -138,8 +137,8 @@ class FragmentProfile : Fragment() {
                 handleResponse<LoginResDTO>(state,
                     onSuccess = {
                         requireContext().putValueDS(stringPreferencesKey(USER_ID), it.userId)
-                        binding.vfMain.displayedChild = PROFILE_LAYOUT
                         Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT).show()
+                        initialProfileSetup()
                     },
                     onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
