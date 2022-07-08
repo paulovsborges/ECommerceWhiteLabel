@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.core.view.isVisible
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,11 +15,9 @@ import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CreateAccountResDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
 import com.pvsb.core.firebase.model.LoginResDTO
+import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
-import com.pvsb.core.utils.getValueDS
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.putValueDS
-import com.pvsb.core.utils.setUpActivityListener
+import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
@@ -53,7 +50,6 @@ class FragmentProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initialSetUp()
-        setUpLoginScreen()
         setUpObservers()
     }
 
@@ -62,8 +58,10 @@ class FragmentProfile : Fragment() {
             lifecycleScope.launch {
                 requireContext().getValueDS(stringPreferencesKey(USER_ID)) {
                     vfMain.displayedChild = if (it.isNullOrEmpty()) {
+                        initialLoginSetup()
                         LOGIN_LAYOUT
                     } else {
+                        initialProfileSetup()
                         PROFILE_LAYOUT
                     }
                     root.visibility = View.VISIBLE
@@ -72,7 +70,15 @@ class FragmentProfile : Fragment() {
         }
     }
 
-    private fun setUpLoginScreen() {
+    private fun initialProfileSetup() {
+        binding.iclProfileLayout.apply {
+            btnLogout.setOnClickListener {
+                doLogout()
+            }
+        }
+    }
+
+    private fun initialLoginSetup() {
         binding.iclLoginLayout.apply {
 
             btnLogin.setOnClickListener {
@@ -112,6 +118,15 @@ class FragmentProfile : Fragment() {
         )
 
         viewModel.doLogin(req)
+    }
+
+    private fun doLogout() {
+        lifecycleScope.launch {
+            requireContext().removeValueDS(stringPreferencesKey(USER_ID))
+            requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
+        }
+
+        binding.vfMain.displayedChild = LOGIN_LAYOUT
     }
 
     private fun setUpObservers() {

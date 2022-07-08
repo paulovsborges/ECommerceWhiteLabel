@@ -26,10 +26,19 @@ class ActivityCreateAccount : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        initialSetup()
         setUpObservers()
-        binding.btnCreateAccount.setOnClickListener {
-            createAccountAndFinish()
+    }
+
+    private fun initialSetup() {
+        binding.apply {
+            ivBack.setOnClickListener {
+                onBackPressed()
+            }
+
+            btnCreateAccount.setOnClickListener {
+                createAccountAndFinish()
+            }
         }
     }
 
