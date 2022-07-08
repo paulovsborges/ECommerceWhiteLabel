@@ -22,6 +22,7 @@ import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -132,22 +133,19 @@ class FragmentProfile : Fragment() {
     private fun setUpObservers() {
 
         viewModel.doLogin
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<LoginResDTO>(state,
                     onSuccess = {
-
                         requireContext().putValueDS(stringPreferencesKey(USER_ID), it.userId)
-
                         binding.vfMain.displayedChild = PROFILE_LAYOUT
-
                         Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT).show()
                     },
                     onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     })
             }
-            .launchIn(lifecycleScope)
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private companion object {
