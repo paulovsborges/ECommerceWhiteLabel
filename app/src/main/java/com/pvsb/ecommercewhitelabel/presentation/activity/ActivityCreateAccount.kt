@@ -38,7 +38,7 @@ class ActivityCreateAccount : AppCompatActivity() {
     private fun initialSetup() {
         binding.apply {
             ivBack.setOnClickListener {
-                onBackPressed()
+                finish()
             }
 
             btnCreateAccount.setOnClickListener {
