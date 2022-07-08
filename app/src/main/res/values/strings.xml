@@ -22,6 +22,8 @@
 
     <!--    Profile-->
     <string name="profile_sign_up_text_field_email_hint">E-mail</string>
+    <string name="profile_sign_up_text_field_name_hint">Name</string>
+    <string name="profile_sign_up_text_field_birth_date_hint">Birth date</string>
     <string name="profile_sign_up_text_field_password_hint">Password</string>
     <string name="profile_sign_up_btn_login_text">Login</string>
     <string name="profile_sign_up_btn_create_account_text">Create Account</string>

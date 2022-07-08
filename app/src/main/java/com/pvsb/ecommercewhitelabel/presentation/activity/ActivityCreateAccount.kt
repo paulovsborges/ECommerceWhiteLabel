@@ -1,9 +1,14 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CreateAccountReqDTO
@@ -38,6 +43,19 @@ class ActivityCreateAccount : AppCompatActivity() {
 
             btnCreateAccount.setOnClickListener {
                 createAccountAndFinish()
+            }
+
+            tiBirthDate.editText?.doAfterTextChanged {
+                val mask = "##/##/####"
+
+                it?.let {
+                    val editLength = it.length
+                    if (editLength > 1 && editLength < mask.length) {
+                        if (mask.elementAt(editLength) != '#') {
+                            it.append(mask.elementAt(editLength))
+                        }
+                    }
+                }
             }
         }
     }
