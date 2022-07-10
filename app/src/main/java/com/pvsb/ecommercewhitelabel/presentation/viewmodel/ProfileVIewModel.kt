@@ -16,8 +16,8 @@ class ProfileVIewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ) : ViewModel() {
 
-    private val _doLogin = MutableSharedFlow<ResponseState>()
-    val doLogin: SharedFlow<ResponseState> = _doLogin
+    private val _doLogin = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val doLogin: StateFlow<ResponseState> = _doLogin
 
     private val _createAccount = MutableStateFlow<ResponseState>(ResponseState.Init)
     val createAccount: StateFlow<ResponseState> = _createAccount
@@ -25,7 +25,7 @@ class ProfileVIewModel @Inject constructor(
     fun doLogin(data: LoginReqDTO) {
         viewModelScope.launch {
             authUseCase.doLogin(data).collectLatest {
-                _doLogin.emit(it)
+                _doLogin.value = it
             }
         }
     }
