@@ -10,8 +10,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firebase.model.CreateAccountResDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
 import com.pvsb.core.firebase.model.LoginResDTO
@@ -131,20 +133,27 @@ class FragmentProfile : Fragment() {
 
     private fun setUpObservers() {
 
-        viewModel.doLogin
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { state ->
-                handleResponse<LoginResDTO>(state,
-                    onSuccess = {
-                        requireContext().putValueDS(stringPreferencesKey(USER_ID), it.userId)
-                        Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT).show()
-                        initialProfileSetup()
-                    },
-                    onError = {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    })
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.doLogin
+                    .collect { state ->
+                        handleResponse<LoginResDTO>(state,
+                            onSuccess = {
+                                requireContext().putValueDS(
+                                    stringPreferencesKey(USER_ID),
+                                    it.userId
+                                )
+                                Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT)
+                                    .show()
+                                initialProfileSetup()
+                            },
+                            onError = {
+                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            })
+                    }
             }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+        }
     }
 
     private companion object {
