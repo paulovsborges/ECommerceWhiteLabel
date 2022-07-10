@@ -52,6 +52,7 @@ class FragmentProfile : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpObservers()
         initialSetUp()
     }
 
@@ -81,7 +82,6 @@ class FragmentProfile : Fragment() {
 
     private fun initialLoginSetup() {
         binding.vfMain.displayedChild = LOGIN_LAYOUT
-        setUpObservers()
         binding.iclLoginLayout.apply {
 
             btnLogin.setOnClickListener {
@@ -133,27 +133,25 @@ class FragmentProfile : Fragment() {
 
     private fun setUpObservers() {
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.doLogin
-                    .collect { state ->
-                        handleResponse<LoginResDTO>(state,
-                            onSuccess = {
-                                requireContext().putValueDS(
-                                    stringPreferencesKey(USER_ID),
-                                    it.userId
-                                )
-                                Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT)
-                                    .show()
-                                initialProfileSetup()
-                            },
-                            onError = {
-                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            })
-                    }
+        viewModel.doLogin
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { state ->
+                handleResponse<LoginResDTO>(state,
+                    onSuccess = {
+                        requireContext().putValueDS(
+                            stringPreferencesKey(USER_ID),
+                            it.userId
+                        )
+                        Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT)
+                            .show()
+                        initialProfileSetup()
+                    },
+                    onError = {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    })
             }
-        }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private companion object {
