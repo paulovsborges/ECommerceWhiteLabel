@@ -60,6 +60,18 @@ class FragmentProfile : Fragment() {
         super.onStart()
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
     private fun initialSetUp() {
         binding.apply {
             lifecycleScope.launch {
@@ -136,7 +148,7 @@ class FragmentProfile : Fragment() {
     }
 
     private fun setUpObservers() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.doLogin
                     .collect { state ->
