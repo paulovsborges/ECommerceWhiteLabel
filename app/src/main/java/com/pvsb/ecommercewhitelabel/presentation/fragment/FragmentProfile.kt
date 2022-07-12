@@ -16,9 +16,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firebase.model.CreateAccountResDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
 import com.pvsb.core.firebase.model.LoginResDTO
+import com.pvsb.core.firebase.model.UserPersonalData
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserRegistration
@@ -94,6 +96,19 @@ class FragmentProfile : Fragment() {
             btnRegistration.setOnClickListener {
                 requireContext().openActivity(ActivityUserRegistration::class.java)
             }
+
+            lifecycleScope.launch {
+                requireContext().getValueDS(stringPreferencesKey(USER_NAME)) {
+                    it?.let {
+
+                        val name = it.replaceFirstChar { fChar ->
+                            fChar.uppercase()
+                        }
+
+                        tvUserName.text = getString(R.string.profile_user_greetings, name)
+                    }
+                }
+            }
         }
     }
 
@@ -153,14 +168,18 @@ class FragmentProfile : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.doLogin
                     .collect { state ->
-                        handleResponse<LoginResDTO>(state,
+                        handleResponse<UserPersonalData>(state,
                             onSuccess = {
                                 requireContext().putValueDS(
                                     stringPreferencesKey(USER_ID),
                                     it.userId
                                 )
-                                Toast.makeText(requireContext(), it.userId, Toast.LENGTH_SHORT)
-                                    .show()
+
+                                requireContext().putValueDS(
+                                    stringPreferencesKey(USER_NAME),
+                                    it.name
+                                )
+
                                 initialProfileSetup()
                             },
                             onError = {

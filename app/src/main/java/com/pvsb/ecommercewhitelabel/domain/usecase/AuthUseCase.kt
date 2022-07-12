@@ -37,5 +37,5 @@ class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
         }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
-    }
+    }.flowOn(Dispatchers.IO)
 }

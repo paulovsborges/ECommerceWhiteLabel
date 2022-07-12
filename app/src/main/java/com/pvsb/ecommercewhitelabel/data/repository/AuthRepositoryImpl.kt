@@ -11,18 +11,30 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
 
     private val auth = Firebase.auth
 
-    override suspend fun doLogin(data: LoginReqDTO): LoginResDTO {
+    override suspend fun doLogin(data: LoginReqDTO): UserPersonalData {
         return suspendCoroutine { continuation ->
 
             val email = data.email
             val password = data.password
 
+            val db = Firebase.firestore
+
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                     it.user?.uid?.let { userId ->
-
-                        val result = LoginResDTO(email, password, userId)
-                        continuation.resumeWith(Result.success(result))
+                        db.collection("users")
+                            .document(userId)
+                            .get().addOnSuccessListener { document ->
+                                document.toObject(CreateUserCollectionReqDTO::class.java)
+                                    ?.let { userData ->
+                                        continuation.resumeWith(Result.success(userData.personalData))
+                                    } ?: kotlin.run {
+                                    continuation.resumeWith(Result.failure(Exception("No user data")))
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                continuation.resumeWith(Result.failure(e))
+                            }
                     }
                 }
                 .addOnFailureListener {

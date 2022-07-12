@@ -4,7 +4,7 @@ import com.pvsb.core.firebase.model.*
 
 interface AuthRepository {
 
-    suspend fun doLogin(data: LoginReqDTO): LoginResDTO
+    suspend fun doLogin(data: LoginReqDTO): UserPersonalData
 
     suspend fun createAccount(data: CreateAccountReqDTO): CreateAccountResDTO
 
