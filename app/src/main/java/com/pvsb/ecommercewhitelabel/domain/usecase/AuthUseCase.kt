@@ -1,7 +1,9 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
 import com.pvsb.core.firebase.model.CreateAccountReqDTO
+import com.pvsb.core.firebase.model.CreateUserCollectionReqDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
+import com.pvsb.core.firebase.model.UserPersonalData
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +26,15 @@ class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
     suspend fun createAccount(data: CreateAccountReqDTO): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.createAccount(data)
-        emit(ResponseState.Complete.Success(res))
+        val userData = UserPersonalData(res.userId, data.name, data.birth)
+        val collectionData = CreateUserCollectionReqDTO(userData)
+        val userCollectionRes = repository.createUserCollection(collectionData)
+
+        if (userCollectionRes) {
+            emit(ResponseState.Complete.Success(res))
+        } else {
+            throw Exception()
+        }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }

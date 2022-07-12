@@ -23,8 +23,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .collection(CART_COLLECTION)
                 .document(cartId)
 
-            db
-                .runTransaction { transaction ->
+            db.runTransaction { transaction ->
                     transaction.set(docRef, cart)
 
                     transaction.update(
@@ -55,8 +54,7 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .collection(CART_COLLECTION)
                 .document(cartId)
 
-            db
-                .runTransaction { transaction ->
+            db.runTransaction { transaction ->
                     val snapShot = transaction.get(docRef)
                     val currentValue = snapShot.getDouble("total")
                     val data = snapShot.toObject(PopulateCartDTO::class.java)

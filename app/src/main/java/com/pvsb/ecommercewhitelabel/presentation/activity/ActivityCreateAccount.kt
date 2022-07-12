@@ -64,9 +64,11 @@ class ActivityCreateAccount : AppCompatActivity() {
         binding.apply {
             val email = tiEmail.editText?.text.toString()
             val password = tiPassword.editText?.text.toString()
+            val name = tiName.editText?.text.toString()
+            val birth = tiBirthDate.editText?.text.toString()
 
             val req = CreateAccountReqDTO(
-                email, password
+                email, password, name, birth
             )
 
             viewModel.createAccount(req)
