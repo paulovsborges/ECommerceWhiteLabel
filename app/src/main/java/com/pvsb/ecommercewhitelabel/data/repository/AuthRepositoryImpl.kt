@@ -17,12 +17,10 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
             val email = data.email
             val password = data.password
 
-            val db = Firebase.firestore
-
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
                     it.user?.uid?.let { userId ->
-                        db.collection("users")
+                        Firebase.firestore.collection("users")
                             .document(userId)
                             .get().addOnSuccessListener { document ->
                                 document.toObject(CreateUserCollectionReqDTO::class.java)
