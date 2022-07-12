@@ -143,11 +143,6 @@ class FragmentProfile : Fragment() {
 
     private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
 
-        binding.iclLoginLayout.apply {
-            tiEmail.editText?.text?.clear()
-            tiPassword.editText?.text?.clear()
-        }
-
         val req = LoginReqDTO(
             data.email, data.password
         )
@@ -170,6 +165,12 @@ class FragmentProfile : Fragment() {
                     .collect { state ->
                         handleResponse<UserPersonalData>(state,
                             onSuccess = {
+
+                                binding.iclLoginLayout.apply {
+                                    tiEmail.editText?.text?.clear()
+                                    tiPassword.editText?.text?.clear()
+                                }
+
                                 requireContext().putValueDS(
                                     stringPreferencesKey(USER_ID),
                                     it.userId
