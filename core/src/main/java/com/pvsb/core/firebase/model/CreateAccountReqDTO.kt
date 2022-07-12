@@ -16,14 +16,6 @@ data class CreateUserCollectionReqDTO(
     var personalData: UserPersonalData = UserPersonalData()
 )
 
-data class UserPersonalData(
-    @get:PropertyName("user_id")
-    @set:PropertyName("user_id")
-    var userId: String = "",
-    val name: String = "",
-    val birth: String = ""
-)
-
 @Serializable
 data class CreateAccountResDTO(
     val email: String,

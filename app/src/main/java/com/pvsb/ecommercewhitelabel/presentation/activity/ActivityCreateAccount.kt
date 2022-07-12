@@ -1,14 +1,10 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.firebase.model.CreateAccountReqDTO
@@ -16,7 +12,7 @@ import com.pvsb.core.firebase.model.CreateAccountResDTO
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.setResultAndFinish
 import com.pvsb.ecommercewhitelabel.databinding.ActivityCreateAccountBinding
-import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
+import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -25,7 +21,7 @@ import kotlinx.coroutines.flow.onEach
 class ActivityCreateAccount : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateAccountBinding
-    private val viewModel: ProfileVIewModel by viewModels()
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

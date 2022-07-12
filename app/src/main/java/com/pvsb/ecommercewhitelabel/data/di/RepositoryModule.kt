@@ -18,4 +18,7 @@ interface RepositoryModule {
 
     @Binds
     fun provideAuthImpl(impl: AuthRepositoryImpl): AuthRepository
+
+    @Binds
+    fun provideProfileImpl(impl: ProfileRepositoryImpl): ProfileRepository
 }

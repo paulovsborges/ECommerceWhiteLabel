@@ -11,7 +11,6 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.firebase.model.CreateAccountResDTO
@@ -22,11 +21,9 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
-import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileVIewModel
+import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserRegistration
+import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -34,7 +31,7 @@ class FragmentProfile : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ProfileVIewModel by viewModels()
+    private val viewModel: AuthViewModel by viewModels()
     private var createAccountListenerLauncher: ActivityResultLauncher<Intent> =
         setUpActivityListener(
             ActivityCreateAccount::class.java.simpleName, ::doLoginAfterAccountCreation
@@ -92,6 +89,10 @@ class FragmentProfile : Fragment() {
         binding.iclProfileLayout.apply {
             btnLogout.setOnClickListener {
                 doLogout()
+            }
+
+            btnRegistration.setOnClickListener {
+                requireContext().openActivity(ActivityUserRegistration::class.java)
             }
         }
     }

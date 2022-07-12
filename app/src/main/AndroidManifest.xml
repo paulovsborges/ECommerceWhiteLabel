@@ -30,5 +30,6 @@
         <activity android:name=".presentation.activity.ActivityProductFilters" />
         <activity android:name=".presentation.activity.PaymentActivity" />
         <activity android:name=".presentation.activity.ActivityCreateAccount" />
+        <activity android:name=".presentation.activity.ActivityUserRegistration" />
     </application>
 </manifest>
