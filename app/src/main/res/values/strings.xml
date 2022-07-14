@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">ECommerceWhiteLabel</string>
 
+<!--    alerts and snacks messages-->
+    <string name="ok_message">OK</string>
+    <string name="product_added_to_favorites">Added to favorites</string>
+    <string name="need_to_login_first">Do login first</string>
+    <string name="need_to_login_first_action">Log in</string>
+    <string name="error_generic_message">There was an unexpected error!</string>
+
     <!--    Bottom navigation menu names-->
     <string name="bottom_navigation_menu_title_home">Home</string>
     <string name="bottom_navigation_menu_title_search">Search</string>
@@ -33,4 +40,7 @@
     <string name="profile_change_password_button_text">Change password</string>
     <string name="profile_logout_button_text">Logout</string>
     <string name="profile_user_greetings">Hello %1$s!</string>
+
+<!--    Favorites -->
+    <string name="favorites_label">Favorites</string>
 </resources>

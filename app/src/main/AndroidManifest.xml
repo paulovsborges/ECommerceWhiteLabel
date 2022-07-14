@@ -25,11 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.activity.ActivityProductDetails" />
         <activity android:name=".presentation.activity.ActivityProductFilters" />
         <activity android:name=".presentation.activity.PaymentActivity" />
         <activity android:name=".presentation.activity.ActivityCreateAccount" />
         <activity android:name=".presentation.activity.ActivityUserRegistration" />
+        <activity android:name=".presentation.activity.ActivityUserFavoritesProducts" />
     </application>
+
 </manifest>

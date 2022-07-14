@@ -17,6 +17,7 @@ import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
@@ -36,18 +37,19 @@ class ActivityProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setUpObservers()
-
         val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
 
         data?.let {
             initialSetUp(it)
         } ?: kotlin.run {
-            Snackbar.make(binding.ivProductImage, "There was an error", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Ok") {
-                    finish()
-                }
+            Snackbar.make(
+                binding.ivProductImage,
+                getText(R.string.error_generic_message),
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction(getText(R.string.ok_message)) {
+                finish()
+            }.show()
         }
     }
 
@@ -72,13 +74,24 @@ class ActivityProductDetails : AppCompatActivity() {
                     getValueDS(stringPreferencesKey(USER_ID)) {
                         it?.let { userId ->
                             profileViewModel.addProductToUserFavorites(userId, product)
+
+                            Snackbar.make(
+                                binding.root,
+                                getText(R.string.product_added_to_favorites),
+                                Snackbar.LENGTH_LONG
+                            ).setAction(getText(R.string.ok_message)) {
+                                closeActivityAndNavigate(
+                                    MainActivity(),
+                                    BOTTOM_NAV_PROFILE
+                                )
+                            }.show()
                         } ?: kotlin.run {
 
                             Snackbar.make(
                                 binding.root,
-                                "do login first",
+                                getText(R.string.need_to_login_first),
                                 Snackbar.LENGTH_LONG
-                            ).setAction("Log in") {
+                            ).setAction(getText(R.string.need_to_login_first_action)) {
                                 closeActivityAndNavigate(
                                     MainActivity(),
                                     BOTTOM_NAV_PROFILE
@@ -92,33 +105,15 @@ class ActivityProductDetails : AppCompatActivity() {
     }
 
     private fun handleProductAdditionToCart(product: ProductDTO, amount: Int) {
-
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(CART_ID)) {
                 if (it.isNullOrEmpty()) {
-
                     val id = System.currentTimeMillis().toString()
-                    val cartProduct = CartProductsDTO(
-                        product, amount
-                    )
-
-                    val obj = PopulateCartDTO(
-                        listOf(cartProduct)
-                    )
-
+                    val cartProduct = CartProductsDTO(product, amount)
+                    val obj = PopulateCartDTO(listOf(cartProduct))
                     cartViewModel.createCart(id, obj)
-
-                    Toast.makeText(
-                        this@ActivityProductDetails,
-                        "cart created",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 } else {
-
-                    val obj = CartProductsDTO(
-                        product, amount
-                    )
-
+                    val obj = CartProductsDTO(product, amount)
                     cartViewModel.addProductToCart(it, obj)
                 }
             }

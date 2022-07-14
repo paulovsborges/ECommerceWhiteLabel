@@ -14,7 +14,9 @@ class ProfileUseCase @Inject constructor(
     private val repository: ProfileRepository
 ) {
 
-    suspend fun getUsersRegistration(userId: String): Flow<ResponseState> = flow {
+    suspend fun getUsersRegistration(
+        userId: String
+    ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getUsersRegistration(userId)
         emit(ResponseState.Complete.Success(res))
@@ -29,6 +31,32 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Loading)
         val res = repository.addProductToUserFavorites(userId, product)
         emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun deleteProductToUserFavorites(
+        userId: String,
+        product: ProductDTO
+    ): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.deleteProductToUserFavorites(userId, product)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun getFavoriteProducts(
+        userId: String
+    ): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.getFavoriteProducts(userId)
+
+        if (res.isEmpty()) {
+            emit(ResponseState.Complete.Empty)
+        } else {
+            emit(ResponseState.Complete.Success(res))
+        }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)

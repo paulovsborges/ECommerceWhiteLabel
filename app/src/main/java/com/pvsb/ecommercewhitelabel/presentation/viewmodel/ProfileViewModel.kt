@@ -20,6 +20,9 @@ class ProfileViewModel @Inject constructor(
     private val _userRegistration = MutableStateFlow<ResponseState>(ResponseState.Init)
     val userRegistration: StateFlow<ResponseState> = _userRegistration
 
+    private val _userFavoriteProducts = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val userFavoriteProducts: StateFlow<ResponseState> = _userFavoriteProducts
+
     fun getUserRegistration(userId: String) {
         viewModelScope.launch {
             useCase.getUsersRegistration(userId).collect {
@@ -32,6 +35,23 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.addProductToUserFavorites(userId, product)
                 .collect()
+        }
+    }
+
+    fun deleteProductToUserFavorites(userId: String, product: ProductDTO) {
+        viewModelScope.launch {
+            useCase.deleteProductToUserFavorites(userId, product)
+                .collect {
+                    getFavoriteProducts(userId)
+                }
+        }
+    }
+
+    fun getFavoriteProducts(userId: String) {
+        viewModelScope.launch {
+            useCase.getFavoriteProducts(userId).collect {
+                _userFavoriteProducts.value = it
+            }
         }
     }
 }

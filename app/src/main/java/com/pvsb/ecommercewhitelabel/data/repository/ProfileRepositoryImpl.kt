@@ -31,4 +31,23 @@ class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
         val docRef = db.collection("users").document(userId)
         docRef.update("products", FieldValue.arrayUnion(product))
     }
+
+    override suspend fun deleteProductToUserFavorites(userId: String, product: ProductDTO) {
+        val docRef = db.collection("users").document(userId)
+        docRef.update("products", FieldValue.arrayRemove(product))
+    }
+
+    override suspend fun getFavoriteProducts(userId: String): List<ProductDTO> {
+        val docRef = db.collection("users").document(userId)
+        return suspendCoroutine { continuation ->
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    document.toObject(UserFavoritesReqDTO::class.java)?.let {
+                        continuation.resumeWith(Result.success(it.products))
+                    }
+                }.addOnFailureListener {
+                    continuation.resumeWith(Result.failure(it))
+                }
+        }
+    }
 }

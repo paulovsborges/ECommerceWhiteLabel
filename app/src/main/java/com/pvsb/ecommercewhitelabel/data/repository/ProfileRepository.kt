@@ -7,4 +7,6 @@ interface ProfileRepository {
 
     suspend fun getUsersRegistration(userId: String): UserPersonalData
     suspend fun addProductToUserFavorites(userId: String, product: ProductDTO)
+    suspend fun deleteProductToUserFavorites(userId: String, product: ProductDTO)
+    suspend fun getFavoriteProducts(userId: String): List<ProductDTO>
 }

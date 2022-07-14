@@ -23,6 +23,7 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
+import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserFavoritesProducts
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserRegistration
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,25 +51,8 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUpObservers()
         initialSetUp()
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     private fun initialSetUp() {
@@ -89,22 +73,20 @@ class FragmentProfile : Fragment() {
     private fun initialProfileSetup() {
         binding.vfMain.displayedChild = PROFILE_LAYOUT
         binding.iclProfileLayout.apply {
-            btnLogout.setOnClickListener {
-                doLogout()
-            }
+            btnLogout.setOnClickListener { doLogout() }
 
             btnRegistration.setOnClickListener {
                 requireContext().openActivity(ActivityUserRegistration::class.java)
             }
 
+            btnFavorites.setOnClickListener {
+                requireContext().openActivity(ActivityUserFavoritesProducts::class.java)
+            }
+
             lifecycleScope.launch {
                 requireContext().getValueDS(stringPreferencesKey(USER_NAME)) {
                     it?.let {
-
-                        val name = it.replaceFirstChar { fChar ->
-                            fChar.uppercase()
-                        }
-
+                        val name = it.replaceFirstChar { fChar -> fChar.uppercase() }
                         tvUserName.text = getString(R.string.profile_user_greetings, name)
                     }
                 }
@@ -116,9 +98,7 @@ class FragmentProfile : Fragment() {
         binding.vfMain.displayedChild = LOGIN_LAYOUT
         binding.iclLoginLayout.apply {
 
-            btnLogin.setOnClickListener {
-                doLogin()
-            }
+            btnLogin.setOnClickListener { doLogin() }
 
             btnCreateAccount.setOnClickListener {
                 createAccountListenerLauncher.launch(
@@ -142,11 +122,7 @@ class FragmentProfile : Fragment() {
     }
 
     private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
-
-        val req = LoginReqDTO(
-            data.email, data.password
-        )
-
+        val req = LoginReqDTO(data.email, data.password)
         viewModel.doLogin(req)
     }
 
