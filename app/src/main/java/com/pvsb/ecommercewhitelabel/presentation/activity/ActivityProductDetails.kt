@@ -15,6 +15,7 @@ import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
@@ -63,22 +64,26 @@ class ActivityProductDetails : AppCompatActivity() {
 
             btnBuy.setOnClickListener {
                 val amount = tiProductAmount.editText?.text.toString().toInt()
-                handleCart(product, amount)
+                handleProductAdditionToCart(product, amount)
             }
 
             ivFavorite.setOnClickListener {
                 lifecycleScope.launch {
                     getValueDS(stringPreferencesKey(USER_ID)) {
                         it?.let { userId ->
-
                             profileViewModel.addProductToUserFavorites(userId, product)
-
                         } ?: kotlin.run {
-                            Toast.makeText(
-                                this@ActivityProductDetails,
+
+                            Snackbar.make(
+                                binding.root,
                                 "do login first",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                Snackbar.LENGTH_LONG
+                            ).setAction("Log in") {
+                                closeActivityAndNavigate(
+                                    MainActivity(),
+                                    BOTTOM_NAV_PROFILE
+                                )
+                            }.show()
                         }
                     }
                 }
@@ -86,7 +91,7 @@ class ActivityProductDetails : AppCompatActivity() {
         }
     }
 
-    private fun handleCart(product: ProductDTO, amount: Int) {
+    private fun handleProductAdditionToCart(product: ProductDTO, amount: Int) {
 
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(CART_ID)) {
