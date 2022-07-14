@@ -2,11 +2,13 @@ package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +25,13 @@ class ProfileViewModel @Inject constructor(
             useCase.getUsersRegistration(userId).collect {
                 _userRegistration.value = it
             }
+        }
+    }
+
+    fun addProductToUserFavorites(userId: String, product: ProductDTO) {
+        viewModelScope.launch {
+            useCase.addProductToUserFavorites(userId, product)
+                .collect()
         }
     }
 }

@@ -11,3 +11,9 @@ data class UserPersonalData(
     val name: String = "",
     val birth: String = ""
 )
+
+data class UserFavoritesReqDTO(
+    @get:PropertyName("favorites_products")
+    @set:PropertyName("favorites_products")
+    var favoritesProducts: List<ProductDTO>
+)

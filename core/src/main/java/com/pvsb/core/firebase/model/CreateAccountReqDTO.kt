@@ -10,7 +10,7 @@ data class CreateAccountReqDTO(
     val birth: String
 )
 
-data class CreateUserCollectionReqDTO(
+data class CreateUserRegistrationReqDTO(
     @get:PropertyName("personal_data")
     @set:PropertyName("personal_data")
     var personalData: UserPersonalData = UserPersonalData()

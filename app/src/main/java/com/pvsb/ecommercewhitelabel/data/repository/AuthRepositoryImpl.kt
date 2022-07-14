@@ -23,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
                         Firebase.firestore.collection("users")
                             .document(userId)
                             .get().addOnSuccessListener { document ->
-                                document.toObject(CreateUserCollectionReqDTO::class.java)
+                                document.toObject(CreateUserRegistrationReqDTO::class.java)
                                     ?.let { userData ->
                                         continuation.resumeWith(Result.success(userData.personalData))
                                     } ?: kotlin.run {
@@ -61,7 +61,7 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
         }
     }
 
-    override suspend fun createUserCollection(data: CreateUserCollectionReqDTO): Boolean {
+    override suspend fun createUserCollection(data: CreateUserRegistrationReqDTO): Boolean {
         val db = Firebase.firestore
 
         return suspendCoroutine { continuation ->

@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
 import com.pvsb.core.firebase.model.CreateAccountReqDTO
-import com.pvsb.core.firebase.model.CreateUserCollectionReqDTO
+import com.pvsb.core.firebase.model.CreateUserRegistrationReqDTO
 import com.pvsb.core.firebase.model.LoginReqDTO
 import com.pvsb.core.firebase.model.UserPersonalData
 import com.pvsb.core.utils.ResponseState
@@ -27,7 +27,7 @@ class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
         emit(ResponseState.Loading)
         val res = repository.createAccount(data)
         val userData = UserPersonalData(res.userId, data.name, data.birth)
-        val collectionData = CreateUserCollectionReqDTO(userData)
+        val collectionData = CreateUserRegistrationReqDTO(userData)
         val userCollectionRes = repository.createUserCollection(collectionData)
 
         if (userCollectionRes) {

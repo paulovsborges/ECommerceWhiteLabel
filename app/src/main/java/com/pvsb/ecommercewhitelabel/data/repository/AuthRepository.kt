@@ -8,5 +8,5 @@ interface AuthRepository {
 
     suspend fun createAccount(data: CreateAccountReqDTO): CreateAccountResDTO
 
-    suspend fun createUserCollection(data: CreateUserCollectionReqDTO): Boolean
+    suspend fun createUserCollection(data: CreateUserRegistrationReqDTO): Boolean
 }

@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
+import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.ProfileRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,17 @@ class ProfileUseCase @Inject constructor(
     suspend fun getUsersRegistration(userId: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getUsersRegistration(userId)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun addProductToUserFavorites(
+        userId: String,
+        product: ProductDTO
+    ): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.addProductToUserFavorites(userId, product)
         emit(ResponseState.Complete.Success(res))
     }.catch {
         emit(ResponseState.Complete.Fail(it))

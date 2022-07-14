@@ -15,8 +15,10 @@ import com.pvsb.core.firebase.model.ProductDTO
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
+import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,6 +29,7 @@ class ActivityProductDetails : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductDetailsBinding
     private val cartViewModel: CartViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,24 @@ class ActivityProductDetails : AppCompatActivity() {
             btnBuy.setOnClickListener {
                 val amount = tiProductAmount.editText?.text.toString().toInt()
                 handleCart(product, amount)
+            }
+
+            ivFavorite.setOnClickListener {
+                lifecycleScope.launch {
+                    getValueDS(stringPreferencesKey(USER_ID)) {
+                        it?.let { userId ->
+
+                            profileViewModel.addProductToUserFavorites(userId, product)
+
+                        } ?: kotlin.run {
+                            Toast.makeText(
+                                this@ActivityProductDetails,
+                                "do login first",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             }
         }
     }
