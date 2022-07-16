@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.pvsb.core.model.PostalCodeResDTO
+import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.popBackStack
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCreateAddressBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,8 +57,45 @@ class FragmentCreateAddress : Fragment() {
             ivBack.setOnClickListener {
                 popBackStack()
             }
+
+            btnSaveAddress.setOnClickListener {
+                if (tiStreet.editText?.text.isNullOrEmpty() ||
+                    tiNeighbour.editText?.text.isNullOrEmpty() ||
+                    tiCity.editText?.text.isNullOrEmpty()
+                ) {
+                    Snackbar.make(
+                        btnSaveAddress,
+                        getString(R.string.error_mandatory_text_field_empty),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                } else {
+                    saveAddress()
+                }
+            }
         }
         setUpObservers()
+    }
+
+    private fun saveAddress() {
+        binding.apply {
+            val zipCode = tiPostalCode.editText?.text?.toString()
+            val street = tiStreet.editText?.text?.toString()
+            val neighbour = tiNeighbour.editText?.text?.toString()
+            val city = tiCity.editText?.text?.toString()
+            val state = tiState.editText?.text?.toString()
+            val complement = tiComplement.editText?.text?.toString()
+            val number = tiNumber.editText?.text?.toString()
+
+            val req = UserAddressDTO(
+                zipCode.orEmpty(),
+                street.orEmpty(),
+                neighbour.orEmpty(),
+                city.orEmpty(),
+                state.orEmpty(),
+                complement.orEmpty(),
+                number.orEmpty()
+            )
+        }
     }
 
     private fun setUpObservers() {

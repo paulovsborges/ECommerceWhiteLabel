@@ -7,6 +7,7 @@
     <string name="need_to_login_first">Do login first</string>
     <string name="need_to_login_first_action">Log in</string>
     <string name="error_generic_message">There was an unexpected error!</string>
+    <string name="error_mandatory_text_field_empty">Fill all the fields to save!</string>
 
     <!--    Bottom navigation menu names-->
     <string name="bottom_navigation_menu_title_home">Home</string>
@@ -48,6 +49,9 @@
     <string name="addresses_create_address_city_hint">City</string>
     <string name="addresses_create_address_state_hint">State</string>
     <string name="addresses_create_address_neighbour_hint">Neighbour</string>
+    <string name="addresses_create_address_complement_hint">Complement</string>
+    <string name="addresses_create_address_number_hint">Number</string>
+    <string name="addresses_create_address_save_address_btn_text">Save</string>
 
     <!--    Favorites -->
     <string name="favorites_label">Favorites</string>
