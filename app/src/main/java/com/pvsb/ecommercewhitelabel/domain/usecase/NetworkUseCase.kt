@@ -1,7 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
 import com.pvsb.core.utils.ResponseState
-import com.pvsb.ecommercewhitelabel.BuildConfig
 import com.pvsb.ecommercewhitelabel.data.repository.NetworkRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -14,7 +13,7 @@ class NetworkUseCase @Inject constructor(
 
     suspend fun getPostalCodeInfo(postalCode: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
-        val completeUrl = "${BuildConfig.BASE_URL_POSTAL_CODE}$postalCode/json/"
+        val completeUrl = "$postalCode/json/"
         val res = repository.getPostalCodeInfo(completeUrl)
         emit(ResponseState.Complete.Success(res))
     }.catch {
