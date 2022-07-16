@@ -31,6 +31,6 @@
         <activity android:name=".presentation.activity.ActivityCreateAccount" />
         <activity android:name=".presentation.activity.ActivityUserRegistration" />
         <activity android:name=".presentation.activity.ActivityUserFavoritesProducts" />
+        <activity android:name=".presentation.activity.ActivityAddresses" />
     </application>
-
 </manifest>
