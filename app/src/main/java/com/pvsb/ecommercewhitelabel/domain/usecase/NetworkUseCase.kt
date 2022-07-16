@@ -13,8 +13,8 @@ class NetworkUseCase @Inject constructor(
 
     suspend fun getPostalCodeInfo(postalCode: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
-        val completeUrl = "$postalCode/json/"
-        val res = repository.getPostalCodeInfo(completeUrl)
+        val path = "$postalCode/json/"
+        val res = repository.getPostalCodeInfo(path)
         emit(ResponseState.Complete.Success(res))
     }.catch {
         emit(ResponseState.Complete.Fail(it))

@@ -43,7 +43,11 @@
     <string name="profile_user_greetings">Hello %1$s!</string>
 
     <!--    Addresses -->
-    <string name="addresses_create_address_cep_hint">Postal code</string>
+    <string name="addresses_create_address_postal_code_hint">Zip Code</string>
+    <string name="addresses_create_address_street_hint">Street</string>
+    <string name="addresses_create_address_city_hint">City</string>
+    <string name="addresses_create_address_state_hint">State</string>
+    <string name="addresses_create_address_neighbour_hint">Neighbour</string>
 
     <!--    Favorites -->
     <string name="favorites_label">Favorites</string>

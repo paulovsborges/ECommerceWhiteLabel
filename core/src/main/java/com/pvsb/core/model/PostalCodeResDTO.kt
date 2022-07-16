@@ -9,8 +9,8 @@ data class PostalCodeResDTO(
     val postalCode: String,
     @SerialName("logradouro")
     val street: String,
-    @SerialName("complemento")
-    val complement: String,
+    @SerialName("uf")
+    val state: String,
     @SerialName("bairro")
     val neighbour: String,
     @SerialName("localidade")
