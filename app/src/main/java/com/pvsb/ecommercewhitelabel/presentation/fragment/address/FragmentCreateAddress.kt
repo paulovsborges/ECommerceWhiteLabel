@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputLayout
 import com.pvsb.core.model.PostalCodeResDTO
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.popBackStack
@@ -64,18 +66,21 @@ class FragmentCreateAddress : Fragment() {
                 handleResponse<PostalCodeResDTO>(state = state,
                     onSuccess = {
                         binding.apply {
-                            tiStreet.editText?.setText(it.street)
-                            tiNeighbour.editText?.setText(it.neighbour)
-                            tiCity.editText?.setText(it.city)
-                            tiState.editText?.setText(it.state)
+                            setTextOnEditText(tiStreet, it.street)
+                            setTextOnEditText(tiNeighbour, it.neighbour)
+                            setTextOnEditText(tiCity, it.city)
+                            setTextOnEditText(tiState, it.state)
                         }
                     },
                     onError = {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })
-
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+    private fun setTextOnEditText(field: TextInputLayout, text: String) {
+        field.editText?.setText(text)
     }
 
     override fun onDestroy() {
