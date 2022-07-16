@@ -3,6 +3,7 @@ package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.domain.usecase.NetworkUseCase
 import com.pvsb.ecommercewhitelabel.domain.usecase.ProfileUseCase
@@ -27,6 +28,12 @@ class ProfileViewModel @Inject constructor(
 
     private val _postalCodeInfo = MutableStateFlow<ResponseState>(ResponseState.Init)
     val postalCodeInfo: StateFlow<ResponseState> = _postalCodeInfo
+
+    private val _saveAddress = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val saveAddress: StateFlow<ResponseState> = _saveAddress
+
+    private val _addresses = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val addresses: StateFlow<ResponseState> = _addresses
 
     fun getUserRegistration(userId: String) {
         viewModelScope.launch {
@@ -64,6 +71,22 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             networkUseCase.getPostalCodeInfo(postalCode).collect {
                 _postalCodeInfo.value = it
+            }
+        }
+    }
+
+    fun saveAddress(userId: String, address: UserAddressDTO) {
+        viewModelScope.launch {
+            useCase.saveAddress(userId, address).collect {
+                _saveAddress.value = it
+            }
+        }
+    }
+
+    fun getAddresses(userId: String) {
+        viewModelScope.launch {
+            useCase.getAddresses(userId).collect {
+                _addresses.value = it
             }
         }
     }

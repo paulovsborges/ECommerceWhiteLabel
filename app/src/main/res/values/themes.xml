@@ -53,4 +53,10 @@
         <item name="android:fontFamily">@font/myriadpro_semibold</item>
         <item name="android:textColor">@color/dark1</item>
     </style>
+
+    <style name="SubtitleTextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textColor">@color/dark1</item>
+    </style>
 </resources>

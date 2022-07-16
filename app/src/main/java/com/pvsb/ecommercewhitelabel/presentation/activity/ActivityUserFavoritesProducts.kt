@@ -61,7 +61,6 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
                         mAdapter.submitList(it)
-//                        mAdapter.notifyItemRangeChanged(mAdapter.currentList.size, it.size)
                     }, onError = {
 
                     }, onEmpty = {

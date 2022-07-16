@@ -51,7 +51,11 @@
     <string name="addresses_create_address_neighbour_hint">Neighbour</string>
     <string name="addresses_create_address_complement_hint">Complement</string>
     <string name="addresses_create_address_number_hint">Number</string>
+    <string name="addresses_create_address_nick_hint">Address Nick</string>
     <string name="addresses_create_address_save_address_btn_text">Save</string>
+    <string name="addresses_create_address_label">Create Address</string>
+    <string name="addresses_list_label">Addresses</string>
+    <string name="addresses_list_new_address_btn_text">New Address</string>
 
     <!--    Favorites -->
     <string name="favorites_label">Favorites</string>

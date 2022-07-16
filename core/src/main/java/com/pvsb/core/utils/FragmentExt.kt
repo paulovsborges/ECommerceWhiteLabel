@@ -21,7 +21,8 @@ fun Fragment.switchFragment(
     fragment: Fragment,
     data: Bundle? = null,
     tag: String = "",
-    animation: Boolean = false
+    animation: Boolean = false,
+    clearBackStack: Boolean? = false
 ) {
 
     parentFragmentManager.let { fm ->
@@ -35,6 +36,11 @@ fun Fragment.switchFragment(
 
                 val stackName = parentFragmentManager.toString()
                 addToBackStack(stackName)
+
+                if (clearBackStack == true) {
+                    remove(this@switchFragment)
+                    clearBackStack(stackName)
+                }
 
                 data?.let {
                     fragment.arguments = it

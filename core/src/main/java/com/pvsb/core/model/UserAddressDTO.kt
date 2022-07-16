@@ -11,5 +11,6 @@ data class UserAddressDTO(
     var city: String = "",
     var state: String = "",
     var complement: String = "",
-    var number: String = ""
+    var number: String = "",
+    var addressNick: String = ""
 )

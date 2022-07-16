@@ -12,6 +12,10 @@ data class UserPersonalData(
     val birth: String = ""
 )
 
-data class UserFavoritesReqDTO(
+data class UserFavoritesResDTO(
     var products: List<ProductDTO> = emptyList()
+)
+
+data class UserAddressesResDTO(
+    var addresses: List<UserAddressDTO> = emptyList()
 )

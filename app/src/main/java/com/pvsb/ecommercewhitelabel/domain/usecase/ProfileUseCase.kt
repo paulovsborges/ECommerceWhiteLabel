@@ -1,6 +1,7 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
 import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.ProfileRepository
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,7 @@ class ProfileUseCase @Inject constructor(
         product: ProductDTO
     ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
-        val res = repository.deleteProductToUserFavorites(userId, product)
+        val res = repository.deleteProductFromUserFavorites(userId, product)
         emit(ResponseState.Complete.Success(res))
     }.catch {
         emit(ResponseState.Complete.Fail(it))
@@ -52,6 +53,26 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Loading)
         val res = repository.getFavoriteProducts(userId)
 
+        if (res.isEmpty()) {
+            emit(ResponseState.Complete.Empty)
+        } else {
+            emit(ResponseState.Complete.Success(res))
+        }
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun saveAddress(userId: String, address: UserAddressDTO): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.saveAddress(userId, address)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun getAddresses(userId: String): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.getAddresses(userId)
         if (res.isEmpty()) {
             emit(ResponseState.Complete.Empty)
         } else {
