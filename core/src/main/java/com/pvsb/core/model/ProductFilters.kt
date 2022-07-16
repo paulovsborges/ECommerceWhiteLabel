@@ -1,4 +1,4 @@
-package com.pvsb.core.firebase.model
+package com.pvsb.core.model
 
 data class ProductFilters(
     val name: String,

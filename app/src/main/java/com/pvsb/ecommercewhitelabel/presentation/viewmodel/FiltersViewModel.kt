@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.pvsb.core.firebase.model.ProductFilters
+import com.pvsb.core.model.ProductFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

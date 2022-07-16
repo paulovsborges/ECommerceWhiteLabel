@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
-import com.pvsb.core.firebase.model.CartProductsDTO
-import com.pvsb.core.firebase.model.PopulateCartDTO
+import com.pvsb.core.model.CartProductsDTO
+import com.pvsb.core.model.PopulateCartDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
 import kotlinx.coroutines.flow.*

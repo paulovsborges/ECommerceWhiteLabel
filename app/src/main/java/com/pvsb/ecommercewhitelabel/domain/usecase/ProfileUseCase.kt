@@ -1,6 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
-import com.pvsb.core.firebase.model.ProductDTO
+import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.ProfileRepository
 import kotlinx.coroutines.Dispatchers

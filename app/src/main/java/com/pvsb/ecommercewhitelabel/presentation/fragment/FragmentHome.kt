@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.pvsb.core.firebase.model.ProductDTO
+import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding

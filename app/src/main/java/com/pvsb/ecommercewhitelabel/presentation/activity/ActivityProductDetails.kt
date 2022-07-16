@@ -9,9 +9,9 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.pvsb.core.firebase.model.CartProductsDTO
-import com.pvsb.core.firebase.model.PopulateCartDTO
-import com.pvsb.core.firebase.model.ProductDTO
+import com.pvsb.core.model.CartProductsDTO
+import com.pvsb.core.model.PopulateCartDTO
+import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART

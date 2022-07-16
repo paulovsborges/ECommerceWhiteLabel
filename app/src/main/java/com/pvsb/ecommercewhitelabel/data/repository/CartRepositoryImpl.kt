@@ -4,8 +4,8 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firebase.model.CartProductsDTO
-import com.pvsb.core.firebase.model.PopulateCartDTO
+import com.pvsb.core.model.CartProductsDTO
+import com.pvsb.core.model.PopulateCartDTO
 import com.pvsb.core.utils.Constants.FireStore.CART_COLLECTION
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine

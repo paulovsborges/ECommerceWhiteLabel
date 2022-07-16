@@ -3,7 +3,7 @@ package com.pvsb.ecommercewhitelabel.data.repository
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firebase.model.*
+import com.pvsb.core.model.*
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 

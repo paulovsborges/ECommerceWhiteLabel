@@ -13,10 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.pvsb.core.firebase.model.CreateAccountResDTO
-import com.pvsb.core.firebase.model.LoginReqDTO
-import com.pvsb.core.firebase.model.LoginResDTO
-import com.pvsb.core.firebase.model.UserPersonalData
+import com.pvsb.core.model.CreateAccountResDTO
+import com.pvsb.core.model.LoginReqDTO
+import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME

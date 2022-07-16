@@ -2,8 +2,8 @@ package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pvsb.core.firebase.model.CartProductsDTO
-import com.pvsb.core.firebase.model.PopulateCartDTO
+import com.pvsb.core.model.CartProductsDTO
+import com.pvsb.core.model.PopulateCartDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

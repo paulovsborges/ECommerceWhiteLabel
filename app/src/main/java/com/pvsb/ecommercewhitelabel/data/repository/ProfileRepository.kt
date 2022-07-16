@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.pvsb.core.firebase.model.ProductDTO
-import com.pvsb.core.firebase.model.UserPersonalData
+import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.UserPersonalData
 
 interface ProfileRepository {
 

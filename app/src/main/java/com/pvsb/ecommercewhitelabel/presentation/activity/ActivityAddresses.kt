@@ -6,7 +6,9 @@ import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityAddressesBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.address.FragmentCreateAddress
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ActivityAddresses : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddressesBinding

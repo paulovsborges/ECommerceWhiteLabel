@@ -3,7 +3,7 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.pvsb.core.firebase.model.ProductFilters
+import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.utils.MockFactory
 import com.pvsb.core.utils.Testing
 import com.pvsb.core.utils.setResultAndFinish

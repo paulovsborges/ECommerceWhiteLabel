@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.lifecycleScope
-import com.pvsb.core.firebase.model.UserPersonalData
+import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse

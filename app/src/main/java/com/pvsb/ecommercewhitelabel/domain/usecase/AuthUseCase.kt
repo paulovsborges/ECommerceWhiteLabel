@@ -1,9 +1,9 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
-import com.pvsb.core.firebase.model.CreateAccountReqDTO
-import com.pvsb.core.firebase.model.CreateUserRegistrationReqDTO
-import com.pvsb.core.firebase.model.LoginReqDTO
-import com.pvsb.core.firebase.model.UserPersonalData
+import com.pvsb.core.model.CreateAccountReqDTO
+import com.pvsb.core.model.CreateUserRegistrationReqDTO
+import com.pvsb.core.model.LoginReqDTO
+import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers

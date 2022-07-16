@@ -21,4 +21,7 @@ interface RepositoryModule {
 
     @Binds
     fun provideProfileImpl(impl: ProfileRepositoryImpl): ProfileRepository
+
+    @Binds
+    fun provideNetworkImpl(impl: NetworkRepositoryImpl): NetworkRepository
 }

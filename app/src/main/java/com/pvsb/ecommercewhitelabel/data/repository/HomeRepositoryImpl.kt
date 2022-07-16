@@ -2,7 +2,7 @@ package com.pvsb.ecommercewhitelabel.data.repository
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firebase.model.ProductDTO
+import com.pvsb.core.model.ProductDTO
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 

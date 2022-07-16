@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.pvsb.core.firebase.model.CreateAccountReqDTO
-import com.pvsb.core.firebase.model.CreateAccountResDTO
+import com.pvsb.core.model.CreateAccountReqDTO
+import com.pvsb.core.model.CreateAccountResDTO
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.setResultAndFinish
 import com.pvsb.ecommercewhitelabel.databinding.ActivityCreateAccountBinding

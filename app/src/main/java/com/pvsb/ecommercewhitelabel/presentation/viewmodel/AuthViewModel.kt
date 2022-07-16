@@ -2,11 +2,10 @@ package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pvsb.core.firebase.model.CreateAccountReqDTO
-import com.pvsb.core.firebase.model.LoginReqDTO
+import com.pvsb.core.model.CreateAccountReqDTO
+import com.pvsb.core.model.LoginReqDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.domain.usecase.AuthUseCase
-import com.pvsb.ecommercewhitelabel.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

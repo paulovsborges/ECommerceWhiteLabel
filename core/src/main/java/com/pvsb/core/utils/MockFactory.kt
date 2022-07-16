@@ -1,6 +1,6 @@
 package com.pvsb.core.utils
 
-import com.pvsb.core.firebase.model.ProductFilters
+import com.pvsb.core.model.ProductFilters
 
 sealed class MockFactory {
 

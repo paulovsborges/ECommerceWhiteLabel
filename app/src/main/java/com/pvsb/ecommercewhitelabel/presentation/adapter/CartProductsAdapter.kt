@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.pvsb.core.firebase.model.CartProductsDTO
+import com.pvsb.core.model.CartProductsDTO
 import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency

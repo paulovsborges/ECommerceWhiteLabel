@@ -1,4 +1,4 @@
-package com.pvsb.core.firebase.model
+package com.pvsb.core.model
 
 import android.os.Parcelable
 import com.google.firebase.firestore.PropertyName

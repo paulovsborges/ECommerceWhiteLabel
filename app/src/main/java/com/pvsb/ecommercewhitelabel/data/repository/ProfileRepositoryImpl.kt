@@ -3,10 +3,10 @@ package com.pvsb.ecommercewhitelabel.data.repository
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.firebase.model.CreateUserRegistrationReqDTO
-import com.pvsb.core.firebase.model.ProductDTO
-import com.pvsb.core.firebase.model.UserFavoritesReqDTO
-import com.pvsb.core.firebase.model.UserPersonalData
+import com.pvsb.core.model.CreateUserRegistrationReqDTO
+import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.UserFavoritesReqDTO
+import com.pvsb.core.model.UserPersonalData
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
