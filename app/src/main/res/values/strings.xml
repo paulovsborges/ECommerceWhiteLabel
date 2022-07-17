@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">ECommerceWhiteLabel</string>
 
-    <!--    alerts and snacks messages-->
+    <!--    alerts , buttons and snacks messages-->
     <string name="ok_message">OK</string>
     <string name="product_added_to_favorites">Added to favorites</string>
     <string name="need_to_login_first">Do login first</string>
     <string name="need_to_login_first_action">Log in</string>
     <string name="error_generic_message">There was an unexpected error!</string>
     <string name="error_mandatory_text_field_empty">Fill all the fields to save!</string>
+    <string name="btn_next_text">Next</string>
 
     <!--    Bottom navigation menu names-->
     <string name="bottom_navigation_menu_title_home">Home</string>
@@ -27,6 +28,9 @@
     <!--    Cart-->
     <string name="cart_button_purchase_text">Continue purchase</string>
     <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
+
+    <!--    Payment flow-->
+    <string name="payment_select_payment_label">Select Address</string>
 
     <!--    Profile-->
     <string name="profile_sign_up_text_field_email_hint">E-mail</string>

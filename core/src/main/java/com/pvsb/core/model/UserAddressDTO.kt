@@ -15,5 +15,6 @@ data class UserAddressDTO(
     var state: String = "",
     var complement: String = "",
     var number: String = "",
-    var addressNick: String = ""
+    var addressNick: String = "",
+    var isChecked: Boolean = false
 ) : Parcelable

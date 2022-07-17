@@ -6,7 +6,9 @@ import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityPaymentBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.payment.FragmentSelectAddress
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ActivityPayment : AppCompatActivity() {
 
     private lateinit var binding: ActivityPaymentBinding
