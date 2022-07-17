@@ -37,7 +37,7 @@ class FragmentSelectAddress : Fragment() {
             }
 
             btnContinue.setOnClickListener {
-                switchFragment(FragmentPayment())
+                switchFragment(FragmentPayment(), saveBackStack = true)
             }
         }
     }
