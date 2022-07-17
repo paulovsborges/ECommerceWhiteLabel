@@ -8,6 +8,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.onBackPress
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
@@ -40,6 +41,8 @@ class FragmentPayment : Fragment() {
             ivBack.setOnClickListener {
                 onBackPress()
             }
+
+            tvTotalValue.text = hostViewModel.cartObj?.total?.formatCurrency()
         }
         setUpPaymentMethodLayout()
     }
