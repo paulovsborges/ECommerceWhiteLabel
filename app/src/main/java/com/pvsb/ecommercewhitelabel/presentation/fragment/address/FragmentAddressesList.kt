@@ -15,6 +15,7 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.popBackStack
+import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentAddressesListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.AddressesAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
@@ -61,6 +62,10 @@ class FragmentAddressesList : Fragment() {
 
             ivBack.setOnClickListener {
                 popBackStack()
+            }
+
+            btnNewAddress.setOnClickListener {
+                switchFragment(FragmentCreateAddress(), saveBackStack = true)
             }
         }
     }
