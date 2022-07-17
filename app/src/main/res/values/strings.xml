@@ -31,6 +31,15 @@
 
     <!--    Payment flow-->
     <string name="payment_select_payment_label">Select Address</string>
+    <string name="payment_select_payment_method_label">Payment</string>
+    <string name="payment_select_payment_method_radio_button_billet">Billet</string>
+    <string name="payment_select_payment_method_radio_button_pix">Pix</string>
+    <string name="payment_select_payment_method_billet_label">Test Shop Online</string>
+    <string name="payment_select_payment_method_pix_label">PIX</string>
+    <string name="payment_select_payment_total_value">Total value: %1$s</string>
+    <string name="payment_select_payment_finish_order_btn_text">Finish Order</string>
+    <string name="payment_select_payment_billet_method_description">You must pay this billet until the <b>expiration date</b>, after that it will be compensated <b>within</b> 3 days.\n\n\nMore information about the payment will be sent to your registered <b>e-mail</b> address.</string>
+    <string name="payment_select_payment_pix_method_description">\n\n\nMaking the payment via Pix, your order can be authorized <b>within 1 hour</b>, after that you will receive more information about your order on your account`s registered <b>e-mail</b>.</string>
 
     <!--    Profile-->
     <string name="profile_sign_up_text_field_email_hint">E-mail</string>

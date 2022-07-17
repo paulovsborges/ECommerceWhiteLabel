@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -18,6 +19,7 @@ class FragmentPayment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private val hostViewModel: PaymentViewModel by activityViewModels()
+    private var selectedPaymentMethod = BILLET_LAYOUT
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +32,6 @@ class FragmentPayment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Toast.makeText(context, hostViewModel.selectedAddress?.addressNick, Toast.LENGTH_SHORT)
-            .show()
-
         initialSetup()
     }
 
@@ -43,5 +41,25 @@ class FragmentPayment : Fragment() {
                 onBackPress()
             }
         }
+        setUpPaymentMethodLayout()
+    }
+
+    private fun setUpPaymentMethodLayout() {
+        binding.apply {
+            rbPixPayment.setOnClickListener {
+                selectedPaymentMethod = PIX_LAYOUT
+                vfPaymentMethod.displayedChild = PIX_LAYOUT
+            }
+
+            rbBilletPayment.setOnClickListener {
+                selectedPaymentMethod = BILLET_LAYOUT
+                vfPaymentMethod.displayedChild = BILLET_LAYOUT
+            }
+        }
+    }
+
+    companion object {
+        const val BILLET_LAYOUT = 0
+        const val PIX_LAYOUT = 1
     }
 }

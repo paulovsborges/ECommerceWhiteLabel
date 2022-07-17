@@ -14,4 +14,108 @@
         android:src="@drawable/ic_back_icon_2__1_"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSelectAddressLabel"
+        style="@style/TitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/payment_select_payment_method_label"
+        app:layout_constraintTop_toBottomOf="@id/ivBack" />
+
+    <RadioGroup
+        android:id="@+id/rgPaymentMethods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectAddressLabel">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbBilletPayment"
+            style="@style/MainRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/payment_select_payment_method_radio_button_billet" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rbPixPayment"
+            style="@style/MainRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_select_payment_method_radio_button_pix" />
+    </RadioGroup>
+
+    <ViewFlipper
+        android:id="@+id/vfPaymentMethod"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tvTotalValue"
+        app:layout_constraintTop_toBottomOf="@id/rgPaymentMethods">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvBilletLabel"
+                style="@style/SubtitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/payment_select_payment_method_billet_label"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBilletDescription"
+                style="@style/DescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/payment_select_payment_billet_method_description"
+                app:layout_constraintTop_toBottomOf="@id/tvBilletLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvPixLabel"
+                style="@style/SubtitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/payment_select_payment_method_pix_label"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPixDescription"
+                style="@style/DescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="@string/payment_select_payment_pix_method_description"
+                app:layout_constraintTop_toBottomOf="@id/tvPixLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ViewFlipper>
+
+    <TextView
+        android:id="@+id/tvTotalValue"
+        style="@style/SubtitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/payment_select_payment_total_value"
+        app:layout_constraintBottom_toTopOf="@id/btnFinishOrder" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFinishOrder"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/btn_next_text"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
