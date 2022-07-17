@@ -137,7 +137,7 @@ class FragmentCreateAddress : Fragment() {
             .onEach { state ->
                 handleResponse<Boolean>(state,
                     onSuccess = {
-                        switchFragment(FragmentAddressesList(), clearBackStack = true)
+                        switchFragment(FragmentAddressesList())
                     }, onError = {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })

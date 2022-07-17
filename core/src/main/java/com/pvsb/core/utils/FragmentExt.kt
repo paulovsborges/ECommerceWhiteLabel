@@ -20,9 +20,8 @@ fun Fragment.clearBackStack(stackName: String) {
 fun Fragment.switchFragment(
     fragment: Fragment,
     data: Bundle? = null,
-    tag: String = "",
     animation: Boolean = false,
-    clearBackStack: Boolean = false
+    saveBackStack: Boolean = false
 ) {
 
     parentFragmentManager.let { fm ->
@@ -31,14 +30,12 @@ fun Fragment.switchFragment(
             val parentContainerId = (view?.parent as? ViewGroup)?.id
 
             parentContainerId?.let { container ->
-                replace(container, fragment, tag)
+                replace(container, fragment, parentFragmentManager.toString())
                 if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 
-                val stackName = parentFragmentManager.toString()
-                addToBackStack(stackName)
-
-                if (clearBackStack) {
-                    remove(this@switchFragment)
+                if (saveBackStack) {
+                    val stackName = parentFragmentManager.toString()
+                    addToBackStack(stackName)
                 }
 
                 data?.let {

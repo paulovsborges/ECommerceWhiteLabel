@@ -14,6 +14,7 @@ import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.popBackStack
 import com.pvsb.ecommercewhitelabel.databinding.FragmentAddressesListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.AddressesAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
@@ -57,6 +58,10 @@ class FragmentAddressesList : Fragment() {
 
         binding.apply {
             rvAddresses.adapter = mAdapter
+
+            ivBack.setOnClickListener {
+                popBackStack()
+            }
         }
     }
 
