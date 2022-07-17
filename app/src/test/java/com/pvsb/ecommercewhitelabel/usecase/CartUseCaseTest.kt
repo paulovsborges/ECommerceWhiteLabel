@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.usecase
 
+import com.pvsb.core.model.CartProductsDTO
 import com.pvsb.core.model.PopulateCartDTO
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
@@ -29,10 +30,11 @@ class CartUseCaseTest {
     fun `when init cart is success`() = runTest {
 
         val value = 0.0
-        val cart = mockk<PopulateCartDTO>()
+        val cart = PopulateCartDTO(
+            products = listOf(CartProductsDTO())
+        )
         val cartId = "1"
         var emissionsCount = 0
-
 
         coEvery { repository.createCart(cartId, cart, value) } returns true
 
@@ -52,7 +54,6 @@ class CartUseCaseTest {
         }
 
         Assert.assertTrue(emissionsCount == 2)
-
         coVerify { repository.createCart(cartId, cart, value) }
     }
 

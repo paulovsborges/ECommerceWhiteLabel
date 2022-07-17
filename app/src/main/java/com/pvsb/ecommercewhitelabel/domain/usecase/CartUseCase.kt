@@ -20,8 +20,6 @@ class CartUseCase @Inject constructor(
 
         if (cartCreated) {
             emit(ResponseState.Complete.Success(cartId))
-        } else {
-            emit(ResponseState.Complete.Fail(Exception("Cart not created")))
         }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
