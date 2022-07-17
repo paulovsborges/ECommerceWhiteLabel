@@ -34,6 +34,7 @@ class FragmentCreateAddress : Fragment() {
     private var _binding: FragmentCreateAddressBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by viewModels()
+    private var addressDetails: UserAddressDTO? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +47,7 @@ class FragmentCreateAddress : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        addressDetails = arguments?.get("ADDRESS_DETAILS") as? UserAddressDTO
         initialSetUp()
     }
 
@@ -78,7 +79,23 @@ class FragmentCreateAddress : Fragment() {
                 }
             }
         }
+        setUpAddressDetails()
         setUpObservers()
+    }
+
+    private fun setUpAddressDetails() {
+        addressDetails?.let { address ->
+            binding.apply {
+                setTextOnEditText(tiPostalCode, address.zipCode)
+                setTextOnEditText(tiStreet, address.street)
+                setTextOnEditText(tiNeighbour, address.neighbour)
+                setTextOnEditText(tiCity, address.city)
+                setTextOnEditText(tiState, address.state)
+                setTextOnEditText(tiComplement, address.complement)
+                setTextOnEditText(tiNumber, address.number)
+                setTextOnEditText(tiAddressNick, address.addressNick)
+            }
+        }
     }
 
     private fun saveAddress() {
@@ -151,6 +168,7 @@ class FragmentCreateAddress : Fragment() {
 
     override fun onDestroy() {
         _binding = null
+        arguments?.clear()
         super.onDestroy()
     }
 }

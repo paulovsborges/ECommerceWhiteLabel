@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -77,6 +78,9 @@ class FragmentAddressesList : Fragment() {
                 handleResponse<List<UserAddressDTO>>(state,
                     onSuccess = {
                         mAdapter.submitList(it)
+                    },
+                    onEmpty = {
+                        switchFragment(FragmentCreateAddress())
                     }, onError = {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })
@@ -85,7 +89,11 @@ class FragmentAddressesList : Fragment() {
     }
 
     private fun seeAddressDetails(address: UserAddressDTO) {
-
+        switchFragment(
+            FragmentCreateAddress(),
+            data = bundleOf("ADDRESS_DETAILS" to address),
+            saveBackStack = true
+        )
     }
 
     private fun deleteAddress(address: UserAddressDTO) {
@@ -96,5 +104,4 @@ class FragmentAddressesList : Fragment() {
         _binding = null
         super.onDestroy()
     }
-
 }
