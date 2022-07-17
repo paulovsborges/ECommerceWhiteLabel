@@ -62,6 +62,20 @@ class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
         }
     }
 
+    override suspend fun deleteAddress(userId: String, address: UserAddressDTO): Boolean {
+        return suspendCoroutine { continuation ->
+
+            val docRef = db.collection("users").document(userId)
+            docRef.update("addresses", FieldValue.arrayRemove(address))
+                .addOnSuccessListener {
+                    continuation.resumeWith(Result.success(true))
+                }
+                .addOnFailureListener {
+                    continuation.resumeWith(Result.failure(it))
+                }
+        }
+    }
+
     override suspend fun getAddresses(userId: String): List<UserAddressDTO> {
         val docRef = db.collection("users").document(userId)
         return suspendCoroutine { continuation ->

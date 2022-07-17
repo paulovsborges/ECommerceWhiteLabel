@@ -70,6 +70,14 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
+    suspend fun deleteAddress(userId: String, address: UserAddressDTO): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.deleteAddress(userId, address)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
     suspend fun getAddresses(userId: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getAddresses(userId)

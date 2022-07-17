@@ -83,6 +83,14 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun deleteAddress(userId: String, address: UserAddressDTO) {
+        viewModelScope.launch {
+            useCase.deleteAddress(userId, address).collect {
+                getAddresses(userId)
+            }
+        }
+    }
+
     fun getAddresses(userId: String) {
         viewModelScope.launch {
             useCase.getAddresses(userId).collect {

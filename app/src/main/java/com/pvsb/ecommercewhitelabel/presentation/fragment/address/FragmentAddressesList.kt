@@ -97,7 +97,13 @@ class FragmentAddressesList : Fragment() {
     }
 
     private fun deleteAddress(address: UserAddressDTO) {
-
+        lifecycleScope.launch {
+            context?.getValueDS(stringPreferencesKey(USER_ID)) {
+                it?.let {
+                    viewModel.deleteAddress(it, address)
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
