@@ -1,12 +1,11 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment.payment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.pvsb.core.utils.popBackStack
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSelectAddressBinding
 
@@ -33,7 +32,7 @@ class FragmentSelectAddress : Fragment() {
     private fun initialSetUp() {
         binding.apply {
             ivBack.setOnClickListener {
-                popBackStack()
+                onBackPress()
             }
 
             btnContinue.setOnClickListener {

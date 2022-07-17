@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.pvsb.core.utils.popBackStack
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentBinding
 
 class FragmentPayment : Fragment() {
@@ -30,7 +30,7 @@ class FragmentPayment : Fragment() {
     private fun initialSetup() {
         binding.apply {
             ivBack.setOnClickListener {
-                popBackStack()
+                onBackPress()
             }
         }
     }

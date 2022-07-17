@@ -18,7 +18,7 @@ import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.popBackStack
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCreateAddressBinding
@@ -60,7 +60,7 @@ class FragmentCreateAddress : Fragment() {
             }
 
             ivBack.setOnClickListener {
-                popBackStack()
+                onBackPress()
             }
 
             btnSaveAddress.setOnClickListener {

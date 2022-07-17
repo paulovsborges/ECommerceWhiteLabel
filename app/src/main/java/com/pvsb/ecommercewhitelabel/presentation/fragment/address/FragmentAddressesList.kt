@@ -14,7 +14,7 @@ import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.popBackStack
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentAddressesListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.AddressesAdapter
@@ -61,7 +61,7 @@ class FragmentAddressesList : Fragment() {
             rvAddresses.adapter = mAdapter
 
             ivBack.setOnClickListener {
-                popBackStack()
+                onBackPress()
             }
 
             btnNewAddress.setOnClickListener {
