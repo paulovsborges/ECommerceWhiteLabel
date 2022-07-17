@@ -18,7 +18,7 @@ import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
-import com.pvsb.ecommercewhitelabel.presentation.activity.PaymentActivity
+import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityPayment
 import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,7 +54,7 @@ class FragmentCart : Fragment() {
             rvProducts.adapter = mAdapter
 
             btnPurchase.setOnClickListener {
-                requireContext().openActivity(PaymentActivity::class.java)
+                requireContext().openActivity(ActivityPayment::class.java)
             }
         }
 

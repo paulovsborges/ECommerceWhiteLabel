@@ -7,7 +7,7 @@ import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityPaymentBinding
 import com.pvsb.ecommercewhitelabel.presentation.fragment.payment.FragmentSelectAddress
 
-class PaymentActivity : AppCompatActivity() {
+class ActivityPayment : AppCompatActivity() {
 
     private lateinit var binding: ActivityPaymentBinding
 
