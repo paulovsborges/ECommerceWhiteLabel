@@ -13,7 +13,7 @@ data class UserPersonalData(
 )
 
 data class UserFavoritesResDTO(
-    var products: List<ProductDTO> = emptyList()
+    var favorites: List<ProductDTO> = emptyList()
 )
 
 data class UserAddressesResDTO(

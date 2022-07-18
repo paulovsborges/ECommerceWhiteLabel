@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.pvsb.core.utils.formatCurrency
-import com.pvsb.core.utils.formatLength
-import com.pvsb.core.utils.onBackPress
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import com.pvsb.core.model.enums.PaymentType
+import com.pvsb.core.utils.*
+import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentConfirmationBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.PaymentConfirmationProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentPaymentConfirmation : Fragment() {
@@ -39,6 +45,7 @@ class FragmentPaymentConfirmation : Fragment() {
 
     private fun initialSetUp() {
         setUpData()
+        setUpObservers()
         binding.apply {
             rvProducts.adapter = productsAdapter
 
@@ -58,12 +65,37 @@ class FragmentPaymentConfirmation : Fragment() {
             tvNeighbour.text = hostViewModel.selectedAddress?.neighbour?.formatLength()
             tvNumber.text = hostViewModel.selectedAddress?.number?.formatLength()
             tvPaymentValue.text = hostViewModel.cartObj?.total?.formatCurrency()
-            tvPaymentMethod.text = if (hostViewModel.selectedPaymentMethod == 0) {
-                getString(R.string.payment_select_payment_method_radio_button_billet)
+            tvPaymentMethod.text = if (hostViewModel.selectedPaymentMethod.ordinal == 0) {
+                PaymentType.BILLET.label
             } else {
-                getString(R.string.payment_select_payment_method_radio_button_pix)
+                PaymentType.PIX.label
+            }
+
+            btnFinishOrder.setOnClickListener {
+                lifecycleScope.launch {
+                    context?.getValueDS(stringPreferencesKey(USER_ID)) {
+                        it?.let {
+                            hostViewModel.registerOder(it)
+                        }
+                    }
+                }
             }
         }
+    }
+
+    private fun setUpObservers() {
+        hostViewModel.registerPayment
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { state ->
+                handleResponse<Boolean>(state,
+                    onSuccess = {
+
+                    },
+                    onError = {
+
+                    })
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun onDestroy() {

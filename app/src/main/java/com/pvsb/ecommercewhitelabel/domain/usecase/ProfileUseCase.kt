@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.domain.usecase
 
+import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.ResponseState
@@ -86,6 +87,14 @@ class ProfileUseCase @Inject constructor(
         } else {
             emit(ResponseState.Complete.Success(res))
         }
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun registerOder(userId: String, order: OderModelReqDTO): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.registerOder(userId, order)
+        emit(ResponseState.Complete.Success(res))
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)

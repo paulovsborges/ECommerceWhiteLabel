@@ -8,6 +8,7 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.pvsb.core.model.enums.PaymentType
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
@@ -54,20 +55,15 @@ class FragmentPayment : Fragment() {
     private fun setUpPaymentMethodLayout() {
         binding.apply {
             rbPixPayment.setOnClickListener {
-                hostViewModel.selectedPaymentMethod = PIX_LAYOUT
-                vfPaymentMethod.displayedChild = PIX_LAYOUT
+                hostViewModel.selectedPaymentMethod = PaymentType.PIX
+                vfPaymentMethod.displayedChild = PaymentType.PIX.ordinal
             }
 
             rbBilletPayment.setOnClickListener {
-                hostViewModel.selectedPaymentMethod = BILLET_LAYOUT
-                vfPaymentMethod.displayedChild = BILLET_LAYOUT
+                hostViewModel.selectedPaymentMethod = PaymentType.BILLET
+                vfPaymentMethod.displayedChild = PaymentType.BILLET.ordinal
             }
         }
-    }
-
-    companion object {
-        const val BILLET_LAYOUT = 0
-        const val PIX_LAYOUT = 1
     }
 
     override fun onDestroy() {
