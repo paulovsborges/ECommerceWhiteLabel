@@ -28,6 +28,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPaymentConfirmationLabel">
 
@@ -199,6 +200,89 @@
                     app:layout_constraintTop_toBottomOf="@id/tvProductsLabel"
                     tools:listitem="@layout/favorite_list_item" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toTopOf="@id/btnFinishOrder"
+                app:layout_constraintTop_toBottomOf="@+id/clProducts">
+
+                <TextView
+                    android:id="@+id/tvPaymentLabel"
+                    style="@style/SubtitleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/myriadpro_bold"
+                    android:text="@string/payment_confirmation_payment_label"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPaymentMethodLabel"
+                    style="@style/SubtitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/payment_confirmation_payment_method_label"
+                    app:layout_constraintStart_toStartOf="@+id/tvPaymentLabel"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentLabel" />
+
+                <TextView
+                    android:id="@+id/tvPaymentMethod"
+                    style="@style/SubtitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/myriadpro_bold"
+                    android:textColor="@color/orange_vivid"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentLabel"
+                    tools:text="pix" />
+
+                <TextView
+                    android:id="@+id/tvPaymentValueLabel"
+                    style="@style/SubtitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/payment_confirmation_payment_value_label"
+                    app:layout_constraintStart_toStartOf="@+id/tvPaymentLabel"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentMethod" />
+
+                <TextView
+                    android:id="@+id/tvPaymentValue"
+                    style="@style/SubtitleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/myriadpro_bold"
+                    android:textColor="@color/orange_vivid"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentMethod"
+                    tools:text="R$58.00" />
+
+                <TextView
+                    android:id="@+id/tvBilletDescription"
+                    style="@style/DescriptionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/payment_confirmation_payment_description"
+                    app:layout_constraintTop_toBottomOf="@id/tvPaymentValue" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnFinishOrder"
+                style="@style/PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/payment_select_payment_finish_order_btn_text"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

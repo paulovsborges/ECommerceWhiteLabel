@@ -50,6 +50,10 @@
     <string name="payment_confirmation_deliver_info_city_label">City:</string>
     <string name="payment_confirmation_deliver_info_number_label">Number:</string>
     <string name="payment_confirmation_products_label">Products</string>
+    <string name="payment_confirmation_payment_label">Payment</string>
+    <string name="payment_confirmation_payment_method_label">Payment method:</string>
+    <string name="payment_confirmation_payment_value_label">Total value:</string>
+    <string name="payment_confirmation_payment_description">After <b>confirming</b> this purchase, all information about the payment will be sent to your account`s registered <b>e-mail address</b>.</string>
 
     <!--    Profile-->
     <string name="profile_sign_up_text_field_email_hint">E-mail</string>

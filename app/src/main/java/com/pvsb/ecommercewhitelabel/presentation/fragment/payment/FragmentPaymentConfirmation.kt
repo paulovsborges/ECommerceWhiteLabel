@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.formatLength
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentConfirmationBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.PaymentConfirmationProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
@@ -50,6 +52,12 @@ class FragmentPaymentConfirmation : Fragment() {
             tvStreet.text = hostViewModel.selectedAddress?.street?.formatLength()
             tvNeighbour.text = hostViewModel.selectedAddress?.neighbour?.formatLength()
             tvNumber.text = hostViewModel.selectedAddress?.number?.formatLength()
+            tvPaymentValue.text = hostViewModel.cartObj?.total?.formatCurrency()
+            tvPaymentMethod.text = if (hostViewModel.selectedPaymentMethod == 0) {
+                getString(R.string.payment_select_payment_method_radio_button_billet)
+            } else {
+                getString(R.string.payment_select_payment_method_radio_button_pix)
+            }
         }
     }
 
