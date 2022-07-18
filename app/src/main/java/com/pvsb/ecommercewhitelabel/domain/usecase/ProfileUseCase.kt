@@ -91,9 +91,13 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun registerOder(userId: String, order: OderModelReqDTO): Flow<ResponseState> = flow {
+    suspend fun registerOder(
+        cartId: String,
+        userId: String,
+        order: OderModelReqDTO
+    ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
-        val res = repository.registerOder(userId, order)
+        val res = repository.registerOder(cartId, userId, order)
         emit(ResponseState.Complete.Success(res))
     }.catch {
         emit(ResponseState.Complete.Fail(it))

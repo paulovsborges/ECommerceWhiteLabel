@@ -4,6 +4,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.pvsb.core.model.*
+import com.pvsb.core.utils.Constants
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
@@ -90,17 +91,27 @@ class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
         }
     }
 
-    override suspend fun registerOder(userId: String, order: OderModelReqDTO): Boolean {
+    override suspend fun registerOder(
+        cartId: String,
+        userId: String,
+        order: OderModelReqDTO
+    ): Boolean {
         return suspendCoroutine { continuation ->
-
             val docRef = db.collection("users").document(userId)
-            docRef.update("orders", FieldValue.arrayUnion(order))
-                .addOnSuccessListener {
-                    continuation.resumeWith(Result.success(true))
-                }
-                .addOnFailureListener {
-                    continuation.resumeWith(Result.failure(it))
-                }
+
+            val cartRef = db.collection("data/")
+                .document("cart/")
+                .collection(Constants.FireStore.CART_COLLECTION)
+                .document(cartId)
+
+            db.runTransaction {
+                it.update(docRef, "orders", FieldValue.arrayUnion(order))
+                it.delete(cartRef)
+            }.addOnSuccessListener {
+                continuation.resumeWith(Result.success(true))
+            }.addOnFailureListener {
+                continuation.resumeWith(Result.failure(it))
+            }
         }
     }
 }

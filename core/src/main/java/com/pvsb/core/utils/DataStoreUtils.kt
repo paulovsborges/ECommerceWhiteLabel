@@ -11,7 +11,7 @@ val Context.dataStoreImpl get() = DataStorePreferences(this)
 
 suspend fun <T> Context.getValueDS(
     keyName: Preferences.Key<T>,
-    value: (T?) -> Unit
+    value: suspend (T?) -> Unit
 ) {
 
     dataStoreImpl.getValue(keyName)

@@ -11,9 +11,12 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.enums.PaymentType
 import com.pvsb.core.utils.*
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentConfirmationBinding
+import com.pvsb.ecommercewhitelabel.presentation.activity.MainActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.PaymentConfirmationProductsAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -73,9 +76,13 @@ class FragmentPaymentConfirmation : Fragment() {
 
             btnFinishOrder.setOnClickListener {
                 lifecycleScope.launch {
-                    context?.getValueDS(stringPreferencesKey(USER_ID)) {
-                        it?.let {
-                            hostViewModel.registerOder(it)
+                    context?.getValueDS(stringPreferencesKey(USER_ID)) { userId ->
+                        userId?.let {
+                            context?.getValueDS(stringPreferencesKey(CART_ID)) { cartId ->
+                                cartId?.let {
+                                    hostViewModel.registerOder(cartId, userId)
+                                }
+                            }
                         }
                     }
                 }
@@ -89,7 +96,11 @@ class FragmentPaymentConfirmation : Fragment() {
             .onEach { state ->
                 handleResponse<Boolean>(state,
                     onSuccess = {
+                        context?.removeValueDS(stringPreferencesKey(CART_ID))
 
+                        activity?.openActivity(MainActivity::class.java) {
+                            it.action = BOTTOM_NAV_CART
+                        }
                     },
                     onError = {
 

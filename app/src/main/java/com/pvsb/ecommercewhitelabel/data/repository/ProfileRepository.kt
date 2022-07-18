@@ -11,8 +11,8 @@ interface ProfileRepository {
     suspend fun addProductToUserFavorites(userId: String, product: ProductDTO)
     suspend fun deleteProductFromUserFavorites(userId: String, product: ProductDTO)
     suspend fun getFavoriteProducts(userId: String): List<ProductDTO>
-    suspend fun saveAddress(userId: String, address: UserAddressDTO) : Boolean
-    suspend fun deleteAddress(userId: String, address: UserAddressDTO) : Boolean
+    suspend fun saveAddress(userId: String, address: UserAddressDTO): Boolean
+    suspend fun deleteAddress(userId: String, address: UserAddressDTO): Boolean
     suspend fun getAddresses(userId: String): List<UserAddressDTO>
-    suspend fun registerOder(userId: String, order: OderModelReqDTO): Boolean
+    suspend fun registerOder(cartId: String, userId: String, order: OderModelReqDTO): Boolean
 }

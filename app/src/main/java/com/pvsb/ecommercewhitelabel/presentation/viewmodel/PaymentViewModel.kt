@@ -43,7 +43,7 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    fun registerOder(userId: String) {
+    fun registerOder(cartId: String, userId: String) {
         viewModelScope.launch {
             selectedAddress?.let { address ->
                 cartObj?.let { cart ->
@@ -57,7 +57,7 @@ class PaymentViewModel @Inject constructor(
                         )
                     )
 
-                    profileUseCase.registerOder(userId, req).collect {
+                    profileUseCase.registerOder(cartId, userId, req).collect {
                         _registerPayment.value = it
                     }
                 }
