@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.navigation.NavigationBarView
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_HOME
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_SEARCH
 import com.pvsb.ecommercewhitelabel.R
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
         val destinations = mapOf(
             BOTTOM_NAV_CART to R.id.navCart,
             BOTTOM_NAV_SEARCH to R.id.navSearch,
-            BOTTOM_NAV_PROFILE to R.id.navProfile
+            BOTTOM_NAV_PROFILE to R.id.navProfile,
+            BOTTOM_NAV_HOME to R.id.navHome,
         )
 
         action?.let {

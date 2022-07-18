@@ -11,10 +11,9 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.enums.PaymentType
 import com.pvsb.core.utils.*
-import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_HOME
 import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
-import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentConfirmationBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.MainActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.PaymentConfirmationProductsAdapter
@@ -99,7 +98,7 @@ class FragmentPaymentConfirmation : Fragment() {
                         context?.removeValueDS(stringPreferencesKey(CART_ID))
 
                         activity?.openActivity(MainActivity::class.java) {
-                            it.action = BOTTOM_NAV_CART
+                            it.action = BOTTOM_NAV_HOME
                         }
                     },
                     onError = {

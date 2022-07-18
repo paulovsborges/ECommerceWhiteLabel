@@ -10,6 +10,7 @@ object Constants {
         const val BOTTOM_NAV_CART = "BOTTOM_NAV_CART"
         const val BOTTOM_NAV_SEARCH = "BOTTOM_NAV_SEARCH"
         const val BOTTOM_NAV_PROFILE = "BOTTOM_NAV_PROFILE"
+        const val BOTTOM_NAV_HOME = "BOTTOM_NAV_HOME"
     }
 
     object PrefsKeys {
