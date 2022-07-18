@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.formatLength
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentConfirmationBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.PaymentConfirmationProductsAdapter
@@ -40,6 +41,10 @@ class FragmentPaymentConfirmation : Fragment() {
         setUpData()
         binding.apply {
             rvProducts.adapter = productsAdapter
+
+            ivBack.setOnClickListener {
+                onBackPress()
+            }
         }
     }
 

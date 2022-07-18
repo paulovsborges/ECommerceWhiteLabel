@@ -21,7 +21,6 @@ class FragmentPayment : Fragment() {
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
     private val hostViewModel: PaymentViewModel by activityViewModels()
-    private var selectedPaymentMethod = BILLET_LAYOUT
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +42,7 @@ class FragmentPayment : Fragment() {
                 onBackPress()
             }
 
-            btnFinishOrder.setOnClickListener {
-                hostViewModel.selectedPaymentMethod = selectedPaymentMethod
+            btnNext.setOnClickListener {
                 switchFragment(FragmentPaymentConfirmation(), saveBackStack = true)
             }
 
@@ -56,12 +54,12 @@ class FragmentPayment : Fragment() {
     private fun setUpPaymentMethodLayout() {
         binding.apply {
             rbPixPayment.setOnClickListener {
-                selectedPaymentMethod = PIX_LAYOUT
+                hostViewModel.selectedPaymentMethod = PIX_LAYOUT
                 vfPaymentMethod.displayedChild = PIX_LAYOUT
             }
 
             rbBilletPayment.setOnClickListener {
-                selectedPaymentMethod = BILLET_LAYOUT
+                hostViewModel.selectedPaymentMethod = BILLET_LAYOUT
                 vfPaymentMethod.displayedChild = BILLET_LAYOUT
             }
         }
