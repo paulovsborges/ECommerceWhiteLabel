@@ -49,6 +49,17 @@ fun Double.formatCurrency(): String {
     return "R$${formatted}"
 }
 
+fun String.formatLength(length: Int = 10): String {
+
+    val formattedString = if (this.length > length) {
+        "${this.take(length + 3)} ..."
+    } else {
+        this
+    }
+
+    return formattedString
+}
+
 class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
 
     override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =

@@ -1,24 +1,20 @@
 package com.pvsb.ecommercewhitelabel.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pvsb.core.model.CartProductsDTO
-import com.pvsb.core.utils.Constants.PRODUCT_NAME
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.formatLength
-import com.pvsb.core.utils.openActivity
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.CartListProductItemBinding
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 
-class CartProductsAdapter(
-    private val onDelete: (CartProductsDTO) -> Unit
-) :
-    ListAdapter<CartProductsDTO, CartProductsAdapter.ViewHolder>(ListAdapterDiffUtil<CartProductsDTO>()) {
+class PaymentConfirmationProductsAdapter :
+    ListAdapter<CartProductsDTO, PaymentConfirmationProductsAdapter.ViewHolder>(ListAdapterDiffUtil<CartProductsDTO>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -37,8 +33,8 @@ class CartProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CartProductsDTO) {
-
             binding.apply {
+                ivArrow.visibility = View.INVISIBLE
 
                 Glide.with(itemView.context)
                     .load(item.product.imageUrl)
@@ -51,17 +47,6 @@ class CartProductsAdapter(
                     R.string.cart_button_list_item_amount_placeholder,
                     item.amount.toString()
                 )
-            }
-
-            itemView.setOnClickListener {
-                itemView.context.openActivity(ActivityProductDetails::class.java) {
-                    it.putExtra(PRODUCT_NAME, item.product)
-                }
-            }
-
-            itemView.setOnLongClickListener {
-                onDelete.invoke(item)
-                true
             }
         }
     }

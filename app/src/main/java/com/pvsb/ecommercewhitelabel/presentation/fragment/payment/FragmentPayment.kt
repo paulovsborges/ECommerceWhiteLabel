@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.onBackPress
+import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentPaymentBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,11 @@ class FragmentPayment : Fragment() {
                 onBackPress()
             }
 
+            btnFinishOrder.setOnClickListener {
+                hostViewModel.selectedPaymentMethod = selectedPaymentMethod
+                switchFragment(FragmentPaymentConfirmation(), saveBackStack = true)
+            }
+
             tvTotalValue.text = hostViewModel.cartObj?.total?.formatCurrency()
         }
         setUpPaymentMethodLayout()
@@ -64,5 +70,10 @@ class FragmentPayment : Fragment() {
     companion object {
         const val BILLET_LAYOUT = 0
         const val PIX_LAYOUT = 1
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

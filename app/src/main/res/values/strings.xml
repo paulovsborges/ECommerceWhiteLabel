@@ -30,7 +30,8 @@
     <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
 
     <!--    Payment flow-->
-    <string name="payment_select_payment_label">Select Address</string>
+    <string name="payment_select_address_payment_label">Select Address</string>
+    <string name="payment_confirmation_label">Payment resume</string>
     <string name="payment_select_payment_method_label">Payment</string>
     <string name="payment_select_payment_method_radio_button_billet">Billet</string>
     <string name="payment_select_payment_method_radio_button_pix">Pix</string>
@@ -42,6 +43,13 @@
     <string name="payment_select_payment_finish_order_btn_text">Finish Order</string>
     <string name="payment_select_payment_billet_method_description">You must pay this billet until the <b>expiration date</b>, after that it will be compensated <b>within</b> 3 days.\n\n\nMore information about the payment will be sent to your registered <b>e-mail</b> address.</string>
     <string name="payment_select_payment_pix_method_description">\n\n\nMaking the payment via Pix, your order can be authorized <b>within 1 hour</b>, after that you will receive more information about your order on your account`s registered <b>e-mail</b>.</string>
+    <string name="payment_confirmation_deliver_info_label">Delivery</string>
+    <string name="payment_confirmation_deliver_info_zip_code_label">Zip code:</string>
+    <string name="payment_confirmation_deliver_info_neighbour_label">Neighbour:</string>
+    <string name="payment_confirmation_deliver_info_street_label">Street:</string>
+    <string name="payment_confirmation_deliver_info_city_label">City:</string>
+    <string name="payment_confirmation_deliver_info_number_label">Number:</string>
+    <string name="payment_confirmation_products_label">Products</string>
 
     <!--    Profile-->
     <string name="profile_sign_up_text_field_email_hint">E-mail</string>
