@@ -11,7 +11,8 @@ data class OderModelReqDTO(
     @set:PropertyName("delivery_info")
     var deliveryInfo: UserAddressDTO = UserAddressDTO(),
     var products: List<CartProductsDTO> = emptyList(),
-    var paymentInfo: OrderPaymentInfoDTO = OrderPaymentInfoDTO()
+    var paymentInfo: OrderPaymentInfoDTO = OrderPaymentInfoDTO(),
+    var situation: String = ""
 )
 
 data class OrderPaymentInfoDTO(

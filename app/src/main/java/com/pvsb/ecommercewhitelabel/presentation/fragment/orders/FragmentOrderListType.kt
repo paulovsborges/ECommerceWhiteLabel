@@ -38,7 +38,7 @@ class FragmentOrderListType(
             rvOrders.adapter = mAdapter
         }
 
-        mAdapter.submitList(data.orders)
+        mAdapter.submitList(data.orders.filter { it.situation == getString(situation.label) })
     }
 
     override fun onDestroy() {

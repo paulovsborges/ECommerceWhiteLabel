@@ -1,6 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment.payment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.pvsb.core.model.enums.OrderSituationEnum
 import com.pvsb.core.model.enums.PaymentType
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_HOME
@@ -22,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class FragmentPaymentConfirmation : Fragment() {
@@ -79,7 +82,22 @@ class FragmentPaymentConfirmation : Fragment() {
                         userId?.let {
                             context?.getValueDS(stringPreferencesKey(CART_ID)) { cartId ->
                                 cartId?.let {
-                                    hostViewModel.registerOder(cartId, userId)
+                                    val situations = listOf(
+                                        OrderSituationEnum.PAYMENT.label,
+                                        OrderSituationEnum.CONCLUDED.label,
+                                        OrderSituationEnum.DELIVERY_ROUTE.label,
+                                        OrderSituationEnum.IN_TRANSPORT.label,
+                                    ).map {
+                                        getString(it)
+                                    }
+
+                                    val randomIndex = Random.nextInt(0, 3)
+
+                                    hostViewModel.registerOder(
+                                        cartId,
+                                        userId,
+                                        situations[randomIndex]
+                                    )
                                 }
                             }
                         }

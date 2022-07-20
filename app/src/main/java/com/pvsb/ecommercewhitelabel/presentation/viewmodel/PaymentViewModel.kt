@@ -6,6 +6,7 @@ import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.model.OrderPaymentInfoDTO
 import com.pvsb.core.model.PopulateCartDTO
 import com.pvsb.core.model.UserAddressDTO
+import com.pvsb.core.model.enums.OrderSituationEnum
 import com.pvsb.core.model.enums.PaymentType
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.core.utils.handleResponseState
@@ -43,7 +44,7 @@ class PaymentViewModel @Inject constructor(
         }
     }
 
-    fun registerOder(cartId: String, userId: String) {
+    fun registerOder(cartId: String, userId: String, situation: String) {
         viewModelScope.launch {
             selectedAddress?.let { address ->
                 cartObj?.let { cart ->
@@ -54,7 +55,8 @@ class PaymentViewModel @Inject constructor(
                         paymentInfo = OrderPaymentInfoDTO(
                             paymentMethod = selectedPaymentMethod.label,
                             orderValue = cart.total
-                        )
+                        ),
+                        situation = situation
                     )
 
                     profileUseCase.registerOder(cartId, userId, req).collect {
