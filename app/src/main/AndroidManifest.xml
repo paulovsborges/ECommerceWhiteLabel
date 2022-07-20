@@ -32,5 +32,6 @@
         <activity android:name=".presentation.activity.ActivityUserRegistration" />
         <activity android:name=".presentation.activity.ActivityUserFavoritesProducts" />
         <activity android:name=".presentation.activity.ActivityAddresses" />
+        <activity android:name=".presentation.activity.ActivityOrders" />
     </application>
 </manifest>

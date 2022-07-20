@@ -21,10 +21,7 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_NAME
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityAddresses
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityCreateAccount
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserFavoritesProducts
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityUserRegistration
+import com.pvsb.ecommercewhitelabel.presentation.activity.*
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -85,6 +82,10 @@ class FragmentProfile : Fragment() {
 
             btnAddresses.setOnClickListener {
                 requireContext().openActivity(ActivityAddresses::class.java)
+            }
+
+            btnOrders.setOnClickListener {
+                requireContext().openActivity(ActivityOrders::class.java)
             }
 
             lifecycleScope.launch {
