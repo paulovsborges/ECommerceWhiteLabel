@@ -35,6 +35,9 @@ class ProfileViewModel @Inject constructor(
     private val _addresses = MutableStateFlow<ResponseState>(ResponseState.Init)
     val addresses: StateFlow<ResponseState> = _addresses
 
+    private val _orders = MutableStateFlow<ResponseState>(ResponseState.Init)
+    val orders: StateFlow<ResponseState> = _orders
+
     fun getUserRegistration(userId: String) {
         viewModelScope.launch {
             useCase.getUsersRegistration(userId).collect {
@@ -95,6 +98,14 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             useCase.getAddresses(userId).collect {
                 _addresses.value = it
+            }
+        }
+    }
+
+    fun getOrders(userId: String) {
+        viewModelScope.launch {
+            useCase.getOrders(userId).collect {
+                _orders.value = it
             }
         }
     }

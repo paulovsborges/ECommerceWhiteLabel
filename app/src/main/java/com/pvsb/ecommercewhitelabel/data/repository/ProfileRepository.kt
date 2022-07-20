@@ -1,9 +1,6 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.pvsb.core.model.OderModelReqDTO
-import com.pvsb.core.model.ProductDTO
-import com.pvsb.core.model.UserAddressDTO
-import com.pvsb.core.model.UserPersonalData
+import com.pvsb.core.model.*
 
 interface ProfileRepository {
 
@@ -15,4 +12,5 @@ interface ProfileRepository {
     suspend fun deleteAddress(userId: String, address: UserAddressDTO): Boolean
     suspend fun getAddresses(userId: String): List<UserAddressDTO>
     suspend fun registerOder(cartId: String, userId: String, order: OderModelReqDTO): Boolean
+    suspend fun getOrders(userId: String): OderModelResDTO
 }

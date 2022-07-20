@@ -114,4 +114,18 @@ class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
             }
         }
     }
+
+    override suspend fun getOrders(userId: String): OderModelResDTO {
+        val docRef = db.collection("users").document(userId)
+        return suspendCoroutine { continuation ->
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    document.toObject(OderModelResDTO::class.java)?.let {
+                        continuation.resumeWith(Result.success(it))
+                    }
+                }.addOnFailureListener {
+                    continuation.resumeWith(Result.failure(it))
+                }
+        }
+    }
 }

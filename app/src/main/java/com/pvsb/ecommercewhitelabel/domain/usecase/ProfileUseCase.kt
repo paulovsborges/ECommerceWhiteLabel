@@ -102,4 +102,14 @@ class ProfileUseCase @Inject constructor(
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
+
+    suspend fun getOrders(
+        userId: String
+    ): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.getOrders(userId)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
 }
