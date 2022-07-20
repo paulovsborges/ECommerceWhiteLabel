@@ -73,4 +73,19 @@
         <item name="fontFamily">@font/myriadpro_semibold</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="MainTabStyle">
+        <item name="tabIndicatorColor">@color/dark1</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabSelectedTextColor">@color/red_vivid</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabTextColor">@color/grey</item>
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="fontFamily">@font/myriadpro_semibold</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

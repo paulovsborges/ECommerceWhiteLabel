@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Orders-->
+    <string name="orders_type_payment_label">Awaiting payment</string>
+    <string name="orders_type_transport_label">In transport</string>
+    <string name="orders_type_delivery_label">Delivery route</string>
+    <string name="orders_type_concluded_label">Concluded</string>
+</resources>

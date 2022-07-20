@@ -86,4 +86,9 @@
 
     <!--    Favorites -->
     <string name="favorites_label">Favorites</string>
+
+    <!--    Orders -->
+    <string name="orders_list_label">Orders</string>
+    <string name="orders_list_item_order_label">Order: <b>#%1$s</b></string>
+    <string name="orders_list_item_order_value_label">Value: <b>#%1$s</b></string>
 </resources>
