@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.utils.formatCurrency
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrderDetailsBinding
+import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 
 class FragmentOrderDetails : Fragment() {
 
     private var _binding: FragmentOrderDetailsBinding? = null
     private val binding get() = _binding!!
     private var details: OderModelReqDTO? = null
+    private val mAdapter = CartProductsAdapter {}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +43,13 @@ class FragmentOrderDetails : Fragment() {
                 tvNeighbour.text = it.deliveryInfo.neighbour
                 tvCity.text = it.deliveryInfo.city
                 tvZipCode.text = it.deliveryInfo.zipCode
+                mAdapter.submitList(it.products)
+            }
+
+            rvProducts.adapter = mAdapter
+
+            ivBack.setOnClickListener {
+                onBackPress()
             }
         }
     }
