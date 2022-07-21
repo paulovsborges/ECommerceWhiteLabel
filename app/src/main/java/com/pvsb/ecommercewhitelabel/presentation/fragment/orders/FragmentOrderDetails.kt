@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.onBackPress
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrderDetailsBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
 
@@ -39,7 +40,11 @@ class FragmentOrderDetails : Fragment() {
                 tvOrderItemsSize.text = it.products.size.toString()
                 tvOrderPaymentMethod.text = it.paymentInfo.paymentMethod
                 tvOrderTotalValue.text = it.paymentInfo.orderValue.formatCurrency()
-                tvAddress.text = "${it.deliveryInfo.street}, ${it.deliveryInfo.number}"
+                tvAddress.text =
+                    getString(
+                        R.string.orders_order_details_delivery_address_placeholder,
+                        it.deliveryInfo.street, it.deliveryInfo.number
+                    )
                 tvNeighbour.text = it.deliveryInfo.neighbour
                 tvCity.text = it.deliveryInfo.city
                 tvZipCode.text = it.deliveryInfo.zipCode
