@@ -9,8 +9,9 @@ import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.OrderListItemBinding
 
-class OrdersAdapter :
-    ListAdapter<OderModelReqDTO, OrdersAdapter.ViewHolder>(ListAdapterDiffUtil<OderModelReqDTO>()) {
+class OrdersAdapter(
+    private val onOrderLicked: (OderModelReqDTO) -> Unit
+) : ListAdapter<OderModelReqDTO, OrdersAdapter.ViewHolder>(ListAdapterDiffUtil<OderModelReqDTO>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,7 +27,7 @@ class OrdersAdapter :
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(
+    inner class ViewHolder(
         private val binding: OrderListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         private val context = itemView.context
@@ -37,6 +38,10 @@ class OrdersAdapter :
                     R.string.orders_list_item_order_label,
                     (adapterPosition + 1).toString()
                 )
+            }
+
+            itemView.setOnClickListener {
+                onOrderLicked.invoke(item)
             }
         }
     }

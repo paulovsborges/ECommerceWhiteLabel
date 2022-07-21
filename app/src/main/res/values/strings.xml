@@ -89,6 +89,18 @@
 
     <!--    Orders -->
     <string name="orders_list_label">Orders</string>
+    <string name="orders_order_details_label">Order details</string>
     <string name="orders_list_item_order_label">Order: <b>#%1$s</b></string>
     <string name="orders_list_item_order_value_label">Value: <b>#%1$s</b></string>
+    <string name="orders_order_details_info_date">Date</string>
+    <string name="orders_order_details_info_products_size">Total of items</string>
+    <string name="orders_order_details_info_payment_method">Payment method</string>
+    <string name="orders_order_details_info_total_value">Total</string>
+    <string name="orders_order_details_items_label">Items</string>
+    <string name="orders_order_details_delivery_label">Delivery</string>
+    <string name="orders_order_details_delivery_info_shipping">Shipping cost</string>
+    <string name="orders_order_details_delivery_info_address">Address</string>
+    <string name="orders_order_details_delivery_info_neighbour">Neighbour</string>
+    <string name="orders_order_details_delivery_info_city">City</string>
+    <string name="orders_order_details_delivery_info_zip_code">Zip code</string>
 </resources>

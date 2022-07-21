@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
+import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.model.OderModelResDTO
 import com.pvsb.core.model.enums.OrderSituationEnum
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersBinding
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.OrdersViewPagerAdapter
@@ -72,7 +75,7 @@ class FragmentOrders : Fragment() {
 
     private fun setUpViewPager(data: OderModelResDTO) {
         binding.apply {
-            vpOrders.adapter = OrdersViewPagerAdapter(requireActivity(), data)
+            vpOrders.adapter = OrdersViewPagerAdapter(requireActivity(), data, ::onOrderClicked)
             TabLayoutMediator(tlOrdersType, vpOrders) { tab, pos ->
                 when (pos) {
                     0 -> {
@@ -90,6 +93,14 @@ class FragmentOrders : Fragment() {
                 }
             }.attach()
         }
+    }
+
+    private fun onOrderClicked(item: OderModelReqDTO) {
+        switchFragment(
+            FragmentOrderDetails(),
+            saveBackStack = true,
+            data = bundleOf("ITEM_DETAILS" to item)
+        )
     }
 
     override fun onDestroy() {
