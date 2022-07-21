@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.pvsb.core.model.OderModelResDTO
 import com.pvsb.core.model.enums.OrderSituationEnum
-import com.pvsb.ecommercewhitelabel.presentation.fragment.orders.FragmentOrderListType
+import com.pvsb.ecommercewhitelabel.presentation.fragment.orders.FragmentOrdersList
 
 class OrdersViewPagerAdapter(
     activity: FragmentActivity,
@@ -17,16 +17,16 @@ class OrdersViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> {
-                FragmentOrderListType(OrderSituationEnum.PAYMENT, data)
+                FragmentOrdersList(OrderSituationEnum.PAYMENT, data)
             }
             1 -> {
-                FragmentOrderListType(OrderSituationEnum.IN_TRANSPORT, data)
+                FragmentOrdersList(OrderSituationEnum.IN_TRANSPORT, data)
             }
             2 -> {
-                FragmentOrderListType(OrderSituationEnum.DELIVERY_ROUTE, data)
+                FragmentOrdersList(OrderSituationEnum.DELIVERY_ROUTE, data)
             }
             else -> {
-                FragmentOrderListType(OrderSituationEnum.CONCLUDED, data)
+                FragmentOrdersList(OrderSituationEnum.CONCLUDED, data)
             }
         }
     }
