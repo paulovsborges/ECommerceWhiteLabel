@@ -7,6 +7,7 @@ import com.pvsb.core.model.*
 import com.pvsb.core.utils.Constants
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
+import kotlin.random.Random
 
 class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
 
@@ -105,6 +106,12 @@ class ProfileRepositoryImpl @Inject constructor() : ProfileRepository {
                 .document(cartId)
 
             db.runTransaction {
+                it.get(docRef).toObject(OderModelResDTO::class.java)?.let { obj ->
+                    order.orderId = (Random.nextInt(1, 10000) + obj.orders.size).toString()
+                } ?: kotlin.run {
+                    order.orderId = Random.nextInt(1, 10000).toString()
+                }
+
                 it.update(docRef, "orders", FieldValue.arrayUnion(order))
                 it.delete(cartRef)
             }.addOnSuccessListener {

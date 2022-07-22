@@ -10,6 +10,7 @@ data class OderModelResDTO(
 
 @Parcelize
 data class OderModelReqDTO(
+    var orderId: String = "",
     @get:PropertyName("delivery_info")
     @set:PropertyName("delivery_info")
     var deliveryInfo: UserAddressDTO = UserAddressDTO(),

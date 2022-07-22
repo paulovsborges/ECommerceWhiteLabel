@@ -36,7 +36,7 @@ class OrdersAdapter(
             binding.apply {
                 tvOrderId.text = context.getString(
                     R.string.orders_list_item_order_label,
-                    (adapterPosition + 1).toString()
+                    item.orderId
                 )
             }
 

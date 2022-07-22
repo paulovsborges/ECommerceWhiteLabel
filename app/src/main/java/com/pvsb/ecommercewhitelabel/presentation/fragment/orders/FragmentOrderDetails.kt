@@ -50,6 +50,7 @@ class FragmentOrderDetails : Fragment() {
                 tvCity.text = it.deliveryInfo.city
                 tvZipCode.text = it.deliveryInfo.zipCode
                 tvOrderDate.text = it.date.formatDate()
+                tvOrderId.text = getString(R.string.orders_list_item_order_label, it.orderId)
                 mAdapter.submitList(it.products)
             }
 
