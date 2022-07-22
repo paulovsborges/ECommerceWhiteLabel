@@ -15,7 +15,8 @@ data class OderModelReqDTO(
     var deliveryInfo: UserAddressDTO = UserAddressDTO(),
     var products: List<CartProductsDTO> = emptyList(),
     var paymentInfo: OrderPaymentInfoDTO = OrderPaymentInfoDTO(),
-    var situation: String = ""
+    var situation: String = "",
+    var date: String = ""
 ) : Parcelable
 
 @Parcelize

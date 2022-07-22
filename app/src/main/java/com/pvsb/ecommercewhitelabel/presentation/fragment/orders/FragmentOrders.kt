@@ -17,6 +17,7 @@ import com.pvsb.core.model.enums.OrderSituationEnum
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersBinding
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersListBinding
@@ -49,6 +50,9 @@ class FragmentOrders : Fragment() {
     }
 
     private fun initialSetUp() {
+        binding.ivBack.setOnClickListener {
+            onBackPress()
+        }
         lifecycleScope.launch {
             context?.getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {

@@ -2,6 +2,7 @@ package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.type.DateTime
 import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.model.OrderPaymentInfoDTO
 import com.pvsb.core.model.PopulateCartDTO
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -56,7 +58,8 @@ class PaymentViewModel @Inject constructor(
                             paymentMethod = selectedPaymentMethod.label,
                             orderValue = cart.total
                         ),
-                        situation = situation
+                        situation = situation,
+                        date = Calendar.getInstance().time.toString()
                     )
 
                     profileUseCase.registerOder(cartId, userId, req).collect {
