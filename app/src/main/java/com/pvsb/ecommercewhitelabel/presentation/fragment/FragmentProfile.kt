@@ -11,6 +11,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.model.CreateAccountResDTO
@@ -24,6 +25,8 @@ import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.*
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -140,37 +143,35 @@ class FragmentProfile : Fragment() {
     }
 
     private fun setUpObservers() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.doLogin
-                    .collect { state ->
-                        handleResponse<UserPersonalData>(state,
-                            onSuccess = {
+        viewModel.doLogin
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<UserPersonalData>(state,
+                    onSuccess = {
 
-                                binding.iclLoginLayout.apply {
-                                    tiEmail.editText?.text?.clear()
-                                    tiPassword.editText?.text?.clear()
-                                }
+                        binding.iclLoginLayout.apply {
+                            tiEmail.editText?.text?.clear()
+                            tiPassword.editText?.text?.clear()
+                        }
 
-                                requireContext().putValueDS(
-                                    stringPreferencesKey(USER_ID),
-                                    it.userId
-                                )
+                        requireContext().putValueDS(
+                            stringPreferencesKey(USER_ID),
+                            it.userId
+                        )
 
-                                requireContext().putValueDS(
-                                    stringPreferencesKey(USER_NAME),
-                                    it.name
-                                )
+                        requireContext().putValueDS(
+                            stringPreferencesKey(USER_NAME),
+                            it.name
+                        )
 
-                                initialProfileSetup()
-                            },
-                            onError = {
-                                Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                                    .show()
-                            })
-                    }
+                        initialProfileSetup()
+                    },
+                    onError = {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    })
             }
-        }
+            .launchIn(lifecycleScope)
     }
 
     private companion object {
