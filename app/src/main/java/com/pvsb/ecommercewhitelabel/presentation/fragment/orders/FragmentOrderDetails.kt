@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.utils.formatCurrency
+import com.pvsb.core.utils.formatDate
 import com.pvsb.core.utils.onBackPress
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrderDetailsBinding
@@ -48,6 +49,7 @@ class FragmentOrderDetails : Fragment() {
                 tvNeighbour.text = it.deliveryInfo.neighbour
                 tvCity.text = it.deliveryInfo.city
                 tvZipCode.text = it.deliveryInfo.zipCode
+                tvOrderDate.text = it.date.formatDate()
                 mAdapter.submitList(it.products)
             }
 
