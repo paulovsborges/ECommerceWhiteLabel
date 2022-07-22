@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DiffUtil
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun FragmentActivity.switchFragment(
@@ -67,4 +68,20 @@ class ListAdapterDiffUtil<T : Any> : DiffUtil.ItemCallback<T>() {
 
     @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
+}
+
+fun String.formatDate(): String {
+    val locale = Locale.getDefault()
+    val fromFormat = "EEE MMM dd HH:mm:ss z yyyy"
+    val toFormat = "dd/MM/yyyy"
+
+    val result: String = kotlin.run {
+
+        val getDateFromString = SimpleDateFormat(fromFormat, Locale.ENGLISH).parse(this)
+        getDateFromString?.let {
+            SimpleDateFormat(toFormat, locale).format(getDateFromString)
+        } ?: ""
+    }
+
+    return result
 }
