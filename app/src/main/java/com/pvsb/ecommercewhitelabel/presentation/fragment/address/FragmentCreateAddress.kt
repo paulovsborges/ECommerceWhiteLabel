@@ -54,7 +54,7 @@ class FragmentCreateAddress : Fragment() {
         binding.apply {
             tiPostalCode.editText?.doAfterTextChanged {
                 if (it?.length == 8) {
-                    viewModel.getPostalCodeInfo(it.toString())
+                    getZipCodeInfo(it.toString())
                 }
             }
 
@@ -73,12 +73,11 @@ class FragmentCreateAddress : Fragment() {
                         Snackbar.LENGTH_LONG
                     ).show()
                 } else {
-                    saveAddress()
+                    buildAddress()
                 }
             }
         }
         setUpAddressDetails()
-        setUpObservers()
     }
 
     private fun setUpAddressDetails() {
@@ -96,7 +95,7 @@ class FragmentCreateAddress : Fragment() {
         }
     }
 
-    private fun saveAddress() {
+    private fun buildAddress() {
         binding.apply {
             val zipCode = tiPostalCode.editText?.text?.toString()
             val street = tiStreet.editText?.text?.toString()
@@ -121,15 +120,15 @@ class FragmentCreateAddress : Fragment() {
             lifecycleScope.launch {
                 context?.getValueDS(stringPreferencesKey(USER_ID)) {
                     it?.let {
-                        viewModel.saveAddress(it, req)
+                        saveAddress(it, req)
                     }
                 }
             }
         }
     }
 
-    private fun setUpObservers() {
-        viewModel.postalCodeInfo
+    private fun getZipCodeInfo(zipCode: String) {
+        viewModel.getZipCodeInfo(zipCode)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<PostalCodeResDTO>(state = state,
@@ -146,15 +145,18 @@ class FragmentCreateAddress : Fragment() {
                     })
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
 
-        viewModel.saveAddress
+    private fun saveAddress(userId: String, address: UserAddressDTO) {
+        viewModel.saveAddress(userId, address)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<Boolean>(state,
                     onSuccess = {
                         closeActivityAndNavigate(ActivityAddresses(), "")
                     }, onError = {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                            .show()
                     })
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)

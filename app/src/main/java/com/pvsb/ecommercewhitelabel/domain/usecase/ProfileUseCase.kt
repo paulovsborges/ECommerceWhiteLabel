@@ -63,7 +63,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun saveAddress(userId: String, address: UserAddressDTO): Flow<ResponseState> = flow {
+    fun saveAddress(userId: String, address: UserAddressDTO): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.saveAddress(userId, address)
         emit(ResponseState.Complete.Success(res))

@@ -11,7 +11,7 @@ class NetworkUseCase @Inject constructor(
     private val repository: NetworkRepository
 ) {
 
-    suspend fun getPostalCodeInfo(postalCode: String): Flow<ResponseState> = flow {
+    fun getZipCodeInfo(postalCode: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val path = "$postalCode/json/"
         val res = repository.getPostalCodeInfo(path)

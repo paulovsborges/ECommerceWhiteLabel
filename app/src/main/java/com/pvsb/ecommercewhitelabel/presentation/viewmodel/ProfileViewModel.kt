@@ -9,7 +9,6 @@ import com.pvsb.core.utils.buildStateFlow
 import com.pvsb.ecommercewhitelabel.domain.usecase.NetworkUseCase
 import com.pvsb.ecommercewhitelabel.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -21,13 +20,7 @@ class ProfileViewModel @Inject constructor(
     private val networkUseCase: NetworkUseCase
 ) : CoroutineViewModel() {
 
-    private val _postalCodeInfo = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val postalCodeInfo: StateFlow<ResponseState> = _postalCodeInfo
-
-    private val _saveAddress = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val saveAddress: StateFlow<ResponseState> = _saveAddress
-
-    fun getUserRegistration(userId: String) : StateFlow<ResponseState> =
+    fun getUserRegistration(userId: String): StateFlow<ResponseState> =
         buildStateFlow(useCase.getUsersRegistration(userId))
 
     fun addProductToUserFavorites(userId: String, product: ProductDTO) {
@@ -37,27 +30,20 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteProductToUserFavorites(userId: String, product: ProductDTO) : StateFlow<ResponseState> =
+    fun deleteProductToUserFavorites(
+        userId: String,
+        product: ProductDTO
+    ): StateFlow<ResponseState> =
         buildStateFlow(useCase.deleteProductToUserFavorites(userId, product))
 
-    fun getFavoriteProducts(userId: String) : StateFlow<ResponseState> =
+    fun getFavoriteProducts(userId: String): StateFlow<ResponseState> =
         buildStateFlow(useCase.getFavoriteProducts(userId))
 
-    fun getPostalCodeInfo(postalCode: String) {
-        viewModelScope.launch {
-            networkUseCase.getPostalCodeInfo(postalCode).collect {
-                _postalCodeInfo.value = it
-            }
-        }
-    }
+    fun getZipCodeInfo(postalCode: String): StateFlow<ResponseState> =
+        buildStateFlow(networkUseCase.getZipCodeInfo(postalCode))
 
-    fun saveAddress(userId: String, address: UserAddressDTO) {
-        viewModelScope.launch {
-            useCase.saveAddress(userId, address).collect {
-                _saveAddress.value = it
-            }
-        }
-    }
+    fun saveAddress(userId: String, address: UserAddressDTO): StateFlow<ResponseState> =
+        buildStateFlow(useCase.saveAddress(userId, address))
 
     fun deleteAddress(userId: String, address: UserAddressDTO): StateFlow<ResponseState> =
         buildStateFlow(useCase.deleteAddress(userId, address))
