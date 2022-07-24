@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
 
-    suspend fun doLogin(data: LoginReqDTO): Flow<ResponseState> = flow {
+    fun doLogin(data: LoginReqDTO): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.doLogin(data)
         emit(ResponseState.Complete.Success(res))

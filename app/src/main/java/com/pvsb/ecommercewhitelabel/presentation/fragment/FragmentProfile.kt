@@ -9,11 +9,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.pvsb.core.model.CreateAccountResDTO
 import com.pvsb.core.model.LoginReqDTO
 import com.pvsb.core.model.UserPersonalData
@@ -34,7 +32,7 @@ class FragmentProfile : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AuthViewModel by viewModels()
+    private val viewModel: AuthViewModel by activityViewModels()
     private var createAccountListenerLauncher: ActivityResultLauncher<Intent> =
         setUpActivityListener(
             ActivityCreateAccount::class.java.simpleName, ::doLoginAfterAccountCreation
@@ -125,25 +123,42 @@ class FragmentProfile : Fragment() {
             val email = tiEmail.editText?.text.toString()
             val password = tiPassword.editText?.text.toString()
             val req = LoginReqDTO(email, password)
+
             viewModel.doLogin(req)
+                .flowWithLifecycle(lifecycle)
+                .onEach { state ->
+                    handleResponse<UserPersonalData>(state,
+                        onSuccess = {
+
+                            binding.iclLoginLayout.apply {
+                                tiEmail.editText?.text?.clear()
+                                tiPassword.editText?.text?.clear()
+                            }
+
+                            requireContext().putValueDS(
+                                stringPreferencesKey(USER_ID),
+                                it.userId
+                            )
+
+                            requireContext().putValueDS(
+                                stringPreferencesKey(USER_NAME),
+                                it.name
+                            )
+
+                            initialProfileSetup()
+                        },
+                        onError = {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                                .show()
+                        })
+                }.launchIn(lifecycleScope)
         }
     }
 
     private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
         val req = LoginReqDTO(data.email, data.password)
+
         viewModel.doLogin(req)
-    }
-
-    private fun doLogout() {
-        lifecycleScope.launch {
-            requireContext().removeValueDS(stringPreferencesKey(USER_ID))
-            requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
-        }
-        initialLoginSetup()
-    }
-
-    private fun setUpObservers() {
-        viewModel.doLogin
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<UserPersonalData>(state,
@@ -170,8 +185,18 @@ class FragmentProfile : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
                     })
-            }
-            .launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
+    }
+
+    private fun doLogout() {
+        lifecycleScope.launch {
+            requireContext().removeValueDS(stringPreferencesKey(USER_ID))
+            requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
+        }
+        initialLoginSetup()
+    }
+
+    private fun setUpObservers() {
     }
 
     private companion object {
