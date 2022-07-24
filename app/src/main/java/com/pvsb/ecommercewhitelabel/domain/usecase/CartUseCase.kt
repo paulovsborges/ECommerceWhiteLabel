@@ -11,7 +11,7 @@ class CartUseCase @Inject constructor(
     private val repository: CartRepository
 ) {
 
-    suspend fun createCart(cartId: String, cart: PopulateCartDTO): Flow<ResponseState> = flow {
+    fun createCart(cartId: String, cart: PopulateCartDTO): Flow<ResponseState> = flow {
 
         emit(ResponseState.Loading)
         val product = cart.products.first()
@@ -25,7 +25,7 @@ class CartUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }
 
-    suspend fun addProductToCart(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
+    fun addProductToCart(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
         flow {
             emit(ResponseState.Loading)
             val valueToIncrement = product.amount * product.product.price
@@ -35,7 +35,7 @@ class CartUseCase @Inject constructor(
             emit(ResponseState.Complete.Fail(it))
         }
 
-    suspend fun getCartContent(cartId: String): Flow<ResponseState> = flow {
+    fun getCartContent(cartId: String): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getCartContent(cartId)
 
@@ -48,7 +48,7 @@ class CartUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }
 
-    suspend fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
+    fun deleteProduct(cartId: String, product: CartProductsDTO): Flow<ResponseState> =
         flow {
             emit(ResponseState.Loading)
             val valueToRemove = product.amount * product.product.price

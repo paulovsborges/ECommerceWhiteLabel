@@ -46,7 +46,6 @@ class FragmentCart : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initialSetUp()
     }
 
@@ -62,18 +61,15 @@ class FragmentCart : Fragment() {
         lifecycleScope.launch {
             requireContext().getValueDS(stringPreferencesKey(CART_ID)) {
                 it?.let { id ->
-                    viewModel.getCartContent(id)
+                    getCartContent(id)
                 }
             }
         }
-
-        setUpObservers()
     }
 
-    private fun setUpObservers() {
-
-        viewModel.cartContent
-            .flowWithLifecycle(lifecycle)
+    private fun getCartContent(cartId: String) {
+        viewModel.getCartContent(cartId)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<PopulateCartDTO>(state,
                     onSuccess = {
@@ -99,6 +95,17 @@ class FragmentCart : Fragment() {
             context?.getValueDS(stringPreferencesKey(CART_ID)) {
                 it?.let { cartId ->
                     viewModel.deleteProduct(cartId, product)
+                        .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                        .onEach { state ->
+                            handleResponse<Boolean>(state,
+                                onSuccess = {
+                                    getCartContent(cartId)
+                                }, onError = { e ->
+                                    binding.vfMain.displayedChild = EMPTY_STATE
+                                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT)
+                                        .show()
+                                })
+                        }.launchIn(viewLifecycleOwner.lifecycleScope)
                 }
             }
         }

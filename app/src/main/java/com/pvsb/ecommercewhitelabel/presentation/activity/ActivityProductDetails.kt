@@ -37,7 +37,6 @@ class ActivityProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpObservers()
         val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
 
         data?.let {
@@ -111,35 +110,37 @@ class ActivityProductDetails : AppCompatActivity() {
                     val id = System.currentTimeMillis().toString()
                     val cartProduct = CartProductsDTO(product, amount)
                     val obj = PopulateCartDTO(listOf(cartProduct))
-                    cartViewModel.createCart(id, obj)
+                    createCart(id, obj)
                 } else {
                     val obj = CartProductsDTO(product, amount)
-                    cartViewModel.addProductToCart(it, obj)
+                    addProductToCart(it, obj)
                 }
             }
         }
     }
 
-    private fun setUpObservers() {
-        cartViewModel.initialCart
+    private fun createCart(cartId: String, product: PopulateCartDTO) {
+        cartViewModel.createCart(cartId, product)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<String>(state, onSuccess = {
-                    putValueDS(stringPreferencesKey(CART_ID), it)
+                handleResponse<String>(state, onSuccess = { cartId ->
+                    putValueDS(stringPreferencesKey(CART_ID), cartId)
                     closeActivityAndNavigate(
                         MainActivity(),
                         BOTTOM_NAV_CART
                     )
-                }, {
+                }, { e ->
                     Toast.makeText(
                         this@ActivityProductDetails,
-                        it.message,
+                        e.message,
                         Toast.LENGTH_SHORT
                     ).show()
                 })
             }.launchIn(lifecycleScope)
+    }
 
-        cartViewModel.addProductToCart
+    private fun addProductToCart(cartId: String, product: CartProductsDTO) {
+        cartViewModel.addProductToCart(cartId, product)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<Boolean>(state, onSuccess = {
