@@ -33,9 +33,6 @@ class ProfileViewModel @Inject constructor(
     private val _saveAddress = MutableStateFlow<ResponseState>(ResponseState.Init)
     val saveAddress: StateFlow<ResponseState> = _saveAddress
 
-    private val _orders = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val orders: StateFlow<ResponseState> = _orders
-
     fun getUserRegistration(userId: String) {
         viewModelScope.launch {
             useCase.getUsersRegistration(userId).collect {
@@ -84,17 +81,12 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteAddress(userId: String, address: UserAddressDTO) : StateFlow<ResponseState> =
+    fun deleteAddress(userId: String, address: UserAddressDTO): StateFlow<ResponseState> =
         buildStateFlow(useCase.deleteAddress(userId, address))
 
-    fun getAddresses(userId: String) : StateFlow<ResponseState> =
+    fun getAddresses(userId: String): StateFlow<ResponseState> =
         buildStateFlow(useCase.getAddresses(userId))
 
-    fun getOrders(userId: String) {
-        viewModelScope.launch {
-            useCase.getOrders(userId).collect {
-                _orders.value = it
-            }
-        }
-    }
+    fun getOrders(userId: String): StateFlow<ResponseState> =
+        buildStateFlow(useCase.getOrders(userId))
 }

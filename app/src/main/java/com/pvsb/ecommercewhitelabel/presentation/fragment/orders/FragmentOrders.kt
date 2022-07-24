@@ -56,15 +56,14 @@ class FragmentOrders : Fragment() {
         lifecycleScope.launch {
             context?.getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {
-                    viewModel.getOrders(it)
+                    getOrders(it)
                 }
             }
         }
-        setUpObservers()
     }
 
-    private fun setUpObservers() {
-        viewModel.orders
+    private fun getOrders(userId: String) {
+        viewModel.getOrders(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<OderModelResDTO>(state,

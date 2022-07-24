@@ -103,7 +103,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getOrders(
+    fun getOrders(
         userId: String
     ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
