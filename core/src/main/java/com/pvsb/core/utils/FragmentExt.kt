@@ -13,8 +13,8 @@ fun Fragment.onBackPress() {
     activity?.onBackPressed()
 }
 
-fun Fragment.clearBackStack(stackName: String) {
-    parentFragmentManager.clearBackStack(stackName)
+fun Fragment.clearBackStack() {
+    parentFragmentManager.clearBackStack(parentFragmentManager.toString())
 }
 
 fun Fragment.switchFragment(
