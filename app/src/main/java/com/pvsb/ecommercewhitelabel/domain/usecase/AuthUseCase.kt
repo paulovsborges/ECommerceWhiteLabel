@@ -23,7 +23,7 @@ class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun createAccount(data: CreateAccountReqDTO): Flow<ResponseState> = flow {
+    fun createAccount(data: CreateAccountReqDTO): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.createAccount(data)
         val userData = UserPersonalData(res.userId, data.name, data.birth)

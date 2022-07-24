@@ -28,7 +28,6 @@ class ActivityCreateAccount : AppCompatActivity() {
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initialSetup()
-        setUpObservers()
     }
 
     private fun initialSetup() {
@@ -68,28 +67,24 @@ class ActivityCreateAccount : AppCompatActivity() {
             )
 
             viewModel.createAccount(req)
+                .flowWithLifecycle(lifecycle)
+                .onEach { state ->
+                    handleResponse<CreateAccountResDTO>(state, onSuccess = {
+
+                        val obj = CreateAccountResDTO(
+                            email = it.email,
+                            password = it.password,
+                            userId = it.userId
+                        )
+
+                        setResultAndFinish(obj)
+
+                    }, onError = {
+                        Toast.makeText(this@ActivityCreateAccount, it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    })
+                }
+                .launchIn(lifecycleScope)
         }
-    }
-
-    private fun setUpObservers() {
-        viewModel.createAccount
-            .flowWithLifecycle(lifecycle)
-            .onEach { state ->
-                handleResponse<CreateAccountResDTO>(state, onSuccess = {
-
-                    val obj = CreateAccountResDTO(
-                        email = it.email,
-                        password = it.password,
-                        userId = it.userId
-                    )
-
-                    setResultAndFinish(obj)
-
-                }, onError = {
-                    Toast.makeText(this@ActivityCreateAccount, it.message, Toast.LENGTH_SHORT)
-                        .show()
-                })
-            }
-            .launchIn(lifecycleScope)
     }
 }
