@@ -20,4 +20,7 @@ class AuthViewModel @Inject constructor(
 
     fun createAccount(data: CreateAccountReqDTO): StateFlow<ResponseState> =
         buildStateFlow(authUseCase.createAccount(data))
+
+    fun changePassword(oldPassword: String, newPassword: String): StateFlow<ResponseState> =
+        buildStateFlow(authUseCase.changePassword(oldPassword, newPassword))
 }

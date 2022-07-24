@@ -38,4 +38,12 @@ class AuthUseCase @Inject constructor(private val repository: AuthRepository) {
     }.catch {
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
+
+    fun changePassword(oldPassword: String, newPassword: String): Flow<ResponseState> = flow {
+        emit(ResponseState.Loading)
+        val res = repository.changePassword(oldPassword, newPassword)
+        emit(ResponseState.Complete.Success(res))
+    }.catch {
+        emit(ResponseState.Complete.Fail(it))
+    }.flowOn(Dispatchers.IO)
 }

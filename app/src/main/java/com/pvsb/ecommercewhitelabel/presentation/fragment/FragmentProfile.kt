@@ -75,27 +75,27 @@ class FragmentProfile : Fragment() {
             btnLogout.setOnClickListener { doLogout() }
 
             btnRegistration.setOnClickListener {
-                requireContext().openActivity(
-                    ActivityUserRegistration::class.java
-                )
+                context?.openActivity(ActivityUserRegistration::class.java)
             }
 
             btnFavorites.setOnClickListener {
-                requireContext().openActivity(
-                    ActivityUserFavoritesProducts::class.java
-                )
+                context?.openActivity(ActivityUserFavoritesProducts::class.java)
             }
 
             btnAddresses.setOnClickListener {
-                requireContext().openActivity(ActivityAddresses::class.java)
+                context?.openActivity(ActivityAddresses::class.java)
             }
 
             btnOrders.setOnClickListener {
-                requireContext().openActivity(ActivityOrders::class.java)
+                context?.openActivity(ActivityOrders::class.java)
+            }
+
+            btnChangePassword.setOnClickListener {
+                context?.openActivity(ActivityChangePassword::class.java)
             }
 
             lifecycleScope.launch {
-                requireContext().getValueDS(stringPreferencesKey(USER_NAME)) {
+                context?.getValueDS(stringPreferencesKey(USER_NAME)) {
                     it?.let {
                         val name = it.replaceFirstChar { fChar -> fChar.uppercase() }
                         tvUserName.text = getString(R.string.profile_user_greetings, name)

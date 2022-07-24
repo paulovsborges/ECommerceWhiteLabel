@@ -104,4 +104,11 @@
     <string name="orders_order_details_delivery_info_city">City</string>
     <string name="orders_order_details_delivery_info_zip_code">Zip code</string>
     <string name="orders_order_details_delivery_address_placeholder" formatted="false">"%1$s, %2$s"</string>
+
+    <!--    change password-->
+    <string name="change_password_label">Change password</string>
+    <string name="change_password_current_password_field_hint">Current password</string>
+    <string name="change_password_new_password_field_hint">New password</string>
+    <string name="change_password_new_password_confirmation_field_hint">New password confirmation</string>
+    <string name="change_password_btn_text">Change Password</string>
 </resources>

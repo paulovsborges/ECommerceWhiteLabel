@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/lightest_grey">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserName"
@@ -27,7 +28,7 @@
         app:iconGravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
+        app:strokeColor="@color/dark6"
         app:strokeWidth="1dp" />
 
     <com.google.android.material.button.MaterialButton

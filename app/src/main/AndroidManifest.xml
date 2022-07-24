@@ -33,5 +33,6 @@
         <activity android:name=".presentation.activity.ActivityUserFavoritesProducts" />
         <activity android:name=".presentation.activity.ActivityAddresses" />
         <activity android:name=".presentation.activity.ActivityOrders" />
+        <activity android:name=".presentation.activity.ActivityChangePassword" />
     </application>
 </manifest>
