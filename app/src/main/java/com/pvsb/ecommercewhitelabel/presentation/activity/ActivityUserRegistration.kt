@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
@@ -31,8 +32,6 @@ class ActivityUserRegistration : AppCompatActivity() {
     }
 
     private fun initialSetUp() {
-        setUpObservers()
-
         binding.apply {
             ivBack.setOnClickListener {
                 finish()
@@ -42,7 +41,7 @@ class ActivityUserRegistration : AppCompatActivity() {
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {
-                    viewModel.getUserRegistration(it)
+                    getUserRegistration(it)
                 } ?: kotlin.run {
                     Toast.makeText(this@ActivityUserRegistration, "Error", Toast.LENGTH_SHORT)
                         .show()
@@ -51,18 +50,24 @@ class ActivityUserRegistration : AppCompatActivity() {
         }
     }
 
-    private fun setUpObservers() {
-        viewModel.userRegistration.onEach { state ->
-            handleResponse<UserPersonalData>(state,
-                onSuccess = {
-                    binding.apply {
-                        tiName.editText?.setText(it.name)
-                        tiBirthDate.editText?.setText(it.birth)
-                    }
-                }, onError = {
-                    Toast.makeText(this@ActivityUserRegistration, it.message, Toast.LENGTH_SHORT)
-                        .show()
-                })
-        }.launchIn(lifecycleScope)
+    private fun getUserRegistration(userId: String) {
+        viewModel.getUserRegistration(userId)
+            .flowWithLifecycle(lifecycle)
+            .onEach { state ->
+                handleResponse<UserPersonalData>(state,
+                    onSuccess = {
+                        binding.apply {
+                            tiName.editText?.setText(it.name)
+                            tiBirthDate.editText?.setText(it.birth)
+                        }
+                    }, onError = {
+                        Toast.makeText(
+                            this@ActivityUserRegistration,
+                            it.message,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    })
+            }.launchIn(lifecycleScope)
     }
 }

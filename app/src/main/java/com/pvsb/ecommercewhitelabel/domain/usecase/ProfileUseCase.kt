@@ -16,7 +16,7 @@ class ProfileUseCase @Inject constructor(
     private val repository: ProfileRepository
 ) {
 
-    suspend fun getUsersRegistration(
+    fun getUsersRegistration(
         userId: String
     ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)

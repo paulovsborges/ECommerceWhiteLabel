@@ -21,9 +21,6 @@ class ProfileViewModel @Inject constructor(
     private val networkUseCase: NetworkUseCase
 ) : CoroutineViewModel() {
 
-    private val _userRegistration = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val userRegistration: StateFlow<ResponseState> = _userRegistration
-
     private val _userFavoriteProducts = MutableStateFlow<ResponseState>(ResponseState.Init)
     val userFavoriteProducts: StateFlow<ResponseState> = _userFavoriteProducts
 
@@ -33,13 +30,8 @@ class ProfileViewModel @Inject constructor(
     private val _saveAddress = MutableStateFlow<ResponseState>(ResponseState.Init)
     val saveAddress: StateFlow<ResponseState> = _saveAddress
 
-    fun getUserRegistration(userId: String) {
-        viewModelScope.launch {
-            useCase.getUsersRegistration(userId).collect {
-                _userRegistration.value = it
-            }
-        }
-    }
+    fun getUserRegistration(userId: String) : StateFlow<ResponseState> =
+        buildStateFlow(useCase.getUsersRegistration(userId))
 
     fun addProductToUserFavorites(userId: String, product: ProductDTO) {
         viewModelScope.launch {
