@@ -124,7 +124,7 @@ class FragmentProfile : Fragment() {
             val req = LoginReqDTO(email, password)
 
             viewModel.doLogin(req)
-                .flowWithLifecycle(lifecycle)
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .onEach { state ->
                     handleResponse<UserPersonalData>(state,
                         onSuccess = {
@@ -134,7 +134,7 @@ class FragmentProfile : Fragment() {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                                 .show()
                         })
-                }.launchIn(lifecycleScope)
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
 
@@ -142,7 +142,7 @@ class FragmentProfile : Fragment() {
         val req = LoginReqDTO(data.email, data.password)
 
         viewModel.doLogin(req)
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<UserPersonalData>(state,
                     onSuccess = {
@@ -152,7 +152,7 @@ class FragmentProfile : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
                     })
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private suspend fun onLoginSuccessful(data: UserPersonalData) {
