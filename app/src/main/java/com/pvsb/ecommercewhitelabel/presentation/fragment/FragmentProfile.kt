@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pvsb.core.model.CreateAccountResDTO
 import com.pvsb.core.model.LoginReqDTO
 import com.pvsb.core.model.UserPersonalData
@@ -73,11 +75,15 @@ class FragmentProfile : Fragment() {
             btnLogout.setOnClickListener { doLogout() }
 
             btnRegistration.setOnClickListener {
-                requireContext().openActivity(ActivityUserRegistration::class.java)
+                requireContext().openActivity(
+                    ActivityUserRegistration::class.java
+                )
             }
 
             btnFavorites.setOnClickListener {
-                requireContext().openActivity(ActivityUserFavoritesProducts::class.java)
+                requireContext().openActivity(
+                    ActivityUserFavoritesProducts::class.java
+                )
             }
 
             btnAddresses.setOnClickListener {
@@ -102,9 +108,7 @@ class FragmentProfile : Fragment() {
     private fun loginSetUp() {
         binding.vfMain.displayedChild = LOGIN_LAYOUT
         binding.iclLoginLayout.apply {
-
             btnLogin.setOnClickListener { doLogin() }
-
             btnCreateAccount.setOnClickListener {
                 createAccountListenerLauncher.launch(
                     Intent(
@@ -117,7 +121,6 @@ class FragmentProfile : Fragment() {
     }
 
     private fun doLogin() {
-
         binding.iclLoginLayout.apply {
             val email = tiEmail.editText?.text.toString()
             val password = tiPassword.editText?.text.toString()
@@ -140,7 +143,6 @@ class FragmentProfile : Fragment() {
 
     private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
         val req = LoginReqDTO(data.email, data.password)
-
         viewModel.doLogin(req)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
@@ -162,23 +164,20 @@ class FragmentProfile : Fragment() {
             tiPassword.editText?.text?.clear()
         }
 
-        requireContext().putValueDS(
-            stringPreferencesKey(USER_ID),
-            data.userId
-        )
-
-        requireContext().putValueDS(
-            stringPreferencesKey(USER_NAME),
-            data.name
-        )
-
+        context?.apply {
+            putValueDS(stringPreferencesKey(USER_ID), data.userId)
+            putValueDS(stringPreferencesKey(USER_NAME), data.name)
+        }
         profileSetUp()
     }
 
     private fun doLogout() {
         lifecycleScope.launch {
-            requireContext().removeValueDS(stringPreferencesKey(USER_ID))
-            requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
+            context?.apply {
+                removeValueDS(stringPreferencesKey(USER_ID))
+                removeValueDS(stringPreferencesKey(USER_NAME))
+            }
+            Firebase.auth.signOut()
         }
         loginSetUp()
     }

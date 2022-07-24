@@ -1,5 +1,8 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.EmailAuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -74,6 +77,29 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
                 .addOnFailureListener {
                     continuation.resumeWith(Result.failure(it))
                 }
+        }
+    }
+
+    override suspend fun changePassword(oldPassword: String, newPassword: String) {
+        return suspendCoroutine { continuation ->
+            auth.currentUser?.let { user ->
+                user.email?.let { email ->
+                    val credential = EmailAuthProvider.getCredential(email, oldPassword)
+                    user.reauthenticate(credential)
+                        .addOnSuccessListener {
+                            user.updatePassword(newPassword)
+                                .addOnSuccessListener {
+                                    continuation.resumeWith(Result.success(Unit))
+                                }
+                                .addOnFailureListener {
+                                    continuation.resumeWith(Result.failure(it))
+                                }
+                        }
+                        .addOnFailureListener {
+                            continuation.resumeWith(Result.failure(it))
+                        }
+                }
+            }
         }
     }
 }
