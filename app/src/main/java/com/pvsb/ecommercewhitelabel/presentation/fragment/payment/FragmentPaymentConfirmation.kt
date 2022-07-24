@@ -1,7 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment.payment
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +50,6 @@ class FragmentPaymentConfirmation : Fragment() {
 
     private fun initialSetUp() {
         setUpData()
-        setUpObservers()
         binding.apply {
             rvProducts.adapter = productsAdapter
 
@@ -92,8 +91,7 @@ class FragmentPaymentConfirmation : Fragment() {
                                     }
 
                                     val randomIndex = Random.nextInt(0, 3)
-
-                                    hostViewModel.registerOder(
+                                    registerOrder(
                                         cartId,
                                         userId,
                                         situations[randomIndex]
@@ -107,23 +105,25 @@ class FragmentPaymentConfirmation : Fragment() {
         }
     }
 
-    private fun setUpObservers() {
-        hostViewModel.registerPayment
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { state ->
+    private fun registerOrder(cartId: String, userId: String, situation: String) {
+        hostViewModel.registerOder(cartId, userId, situation)
+            ?.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            ?.onEach { state ->
                 handleResponse<Boolean>(state,
                     onSuccess = {
                         context?.removeValueDS(stringPreferencesKey(CART_ID))
 
                         activity?.openActivity(MainActivity::class.java) {
                             it.action = BOTTOM_NAV_HOME
+                            it.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         }
                     },
                     onError = {
 
                     })
             }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            ?.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun onDestroy() {

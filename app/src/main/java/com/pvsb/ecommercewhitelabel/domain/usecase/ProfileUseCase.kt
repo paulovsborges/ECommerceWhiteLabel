@@ -26,7 +26,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun addProductToUserFavorites(
+    fun addProductToUserFavorites(
         userId: String,
         product: ProductDTO
     ): Flow<ResponseState> = flow {
@@ -91,7 +91,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun registerOder(
+    fun registerOder(
         cartId: String,
         userId: String,
         order: OderModelReqDTO
