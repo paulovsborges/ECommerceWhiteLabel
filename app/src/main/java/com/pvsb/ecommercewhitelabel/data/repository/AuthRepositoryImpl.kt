@@ -1,7 +1,5 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
