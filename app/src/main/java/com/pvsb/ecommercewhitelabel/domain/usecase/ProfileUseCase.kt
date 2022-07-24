@@ -37,7 +37,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun deleteProductToUserFavorites(
+    fun deleteProductToUserFavorites(
         userId: String,
         product: ProductDTO
     ): Flow<ResponseState> = flow {
@@ -48,7 +48,7 @@ class ProfileUseCase @Inject constructor(
         emit(ResponseState.Complete.Fail(it))
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getFavoriteProducts(
+    fun getFavoriteProducts(
         userId: String
     ): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)

@@ -21,9 +21,6 @@ class ProfileViewModel @Inject constructor(
     private val networkUseCase: NetworkUseCase
 ) : CoroutineViewModel() {
 
-    private val _userFavoriteProducts = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val userFavoriteProducts: StateFlow<ResponseState> = _userFavoriteProducts
-
     private val _postalCodeInfo = MutableStateFlow<ResponseState>(ResponseState.Init)
     val postalCodeInfo: StateFlow<ResponseState> = _postalCodeInfo
 
@@ -40,22 +37,11 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteProductToUserFavorites(userId: String, product: ProductDTO) {
-        viewModelScope.launch {
-            useCase.deleteProductToUserFavorites(userId, product)
-                .collect {
-                    getFavoriteProducts(userId)
-                }
-        }
-    }
+    fun deleteProductToUserFavorites(userId: String, product: ProductDTO) : StateFlow<ResponseState> =
+        buildStateFlow(useCase.deleteProductToUserFavorites(userId, product))
 
-    fun getFavoriteProducts(userId: String) {
-        viewModelScope.launch {
-            useCase.getFavoriteProducts(userId).collect {
-                _userFavoriteProducts.value = it
-            }
-        }
-    }
+    fun getFavoriteProducts(userId: String) : StateFlow<ResponseState> =
+        buildStateFlow(useCase.getFavoriteProducts(userId))
 
     fun getPostalCodeInfo(postalCode: String) {
         viewModelScope.launch {

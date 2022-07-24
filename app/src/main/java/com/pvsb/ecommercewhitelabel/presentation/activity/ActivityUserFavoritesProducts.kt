@@ -46,16 +46,14 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {
-                    viewModel.getFavoriteProducts(it)
+                    getFavoritesProducts(it)
                 }
             }
         }
-
-        initObservers()
     }
 
-    private fun initObservers() {
-        viewModel.userFavoriteProducts
+    private fun getFavoritesProducts(userId: String) {
+        viewModel.getFavoriteProducts(userId)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
@@ -71,11 +69,26 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
     }
 
     private fun deleteProductFromFavorites(product: ProductDTO) {
-
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(USER_ID)) {
-                it?.let {
-                    viewModel.deleteProductToUserFavorites(it, product)
+                it?.let { userId ->
+                    viewModel.deleteProductToUserFavorites(userId, product)
+                        .flowWithLifecycle(lifecycle)
+                        .onEach { state ->
+                            handleResponse<Unit>(state,
+                                onSuccess = {
+                                    getFavoritesProducts(userId)
+                                }, onError = {
+
+                                }, onEmpty = {
+                                    Toast.makeText(
+                                        this@ActivityUserFavoritesProducts,
+                                        "empty state",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                })
+                        }
+                        .launchIn(lifecycleScope)
                 }
             }
         }
