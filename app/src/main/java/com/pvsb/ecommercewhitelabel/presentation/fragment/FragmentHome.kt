@@ -44,7 +44,7 @@ class FragmentHome : Fragment() {
     private fun initialSetUp() {
         binding.rvMain.adapter = mAdapter
         viewModel.getHomeData()
-            .flowWithLifecycle(lifecycle)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(
                     state, onSuccess = {
@@ -54,7 +54,7 @@ class FragmentHome : Fragment() {
                             .show()
                     }
                 )
-            }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun navigateToDetails(item: ProductDTO) {
