@@ -68,16 +68,14 @@ class FragmentSelectAddress : Fragment() {
         lifecycleScope.launch {
             context?.getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {
-                    profileViewModel.getAddresses(it)
+                    getAddresses(it)
                 }
             }
         }
-
-        setUpObservers()
     }
 
-    private fun setUpObservers() {
-        profileViewModel.addresses
+    private fun getAddresses(userId: String) {
+        profileViewModel.getAddresses(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<List<UserAddressDTO>>(state,

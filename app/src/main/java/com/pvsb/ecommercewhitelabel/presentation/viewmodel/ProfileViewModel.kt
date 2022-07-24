@@ -1,10 +1,11 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.model.UserAddressDTO
+import com.pvsb.core.utils.CoroutineViewModel
 import com.pvsb.core.utils.ResponseState
+import com.pvsb.core.utils.buildStateFlow
 import com.pvsb.ecommercewhitelabel.domain.usecase.NetworkUseCase
 import com.pvsb.ecommercewhitelabel.domain.usecase.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val useCase: ProfileUseCase,
     private val networkUseCase: NetworkUseCase
-) : ViewModel() {
+) : CoroutineViewModel() {
 
     private val _userRegistration = MutableStateFlow<ResponseState>(ResponseState.Init)
     val userRegistration: StateFlow<ResponseState> = _userRegistration
@@ -31,9 +32,6 @@ class ProfileViewModel @Inject constructor(
 
     private val _saveAddress = MutableStateFlow<ResponseState>(ResponseState.Init)
     val saveAddress: StateFlow<ResponseState> = _saveAddress
-
-    private val _addresses = MutableStateFlow<ResponseState>(ResponseState.Init)
-    val addresses: StateFlow<ResponseState> = _addresses
 
     private val _orders = MutableStateFlow<ResponseState>(ResponseState.Init)
     val orders: StateFlow<ResponseState> = _orders
@@ -86,21 +84,11 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun deleteAddress(userId: String, address: UserAddressDTO) {
-        viewModelScope.launch {
-            useCase.deleteAddress(userId, address).collect {
-                getAddresses(userId)
-            }
-        }
-    }
+    fun deleteAddress(userId: String, address: UserAddressDTO) : StateFlow<ResponseState> =
+        buildStateFlow(useCase.deleteAddress(userId, address))
 
-    fun getAddresses(userId: String) {
-        viewModelScope.launch {
-            useCase.getAddresses(userId).collect {
-                _addresses.value = it
-            }
-        }
-    }
+    fun getAddresses(userId: String) : StateFlow<ResponseState> =
+        buildStateFlow(useCase.getAddresses(userId))
 
     fun getOrders(userId: String) {
         viewModelScope.launch {

@@ -35,19 +35,17 @@ class ActivityAddresses : AppCompatActivity() {
     }
 
     private fun initialSetUp() {
-        setUpObservers()
-
         lifecycleScope.launch {
             getValueDS(stringPreferencesKey(Constants.PrefsKeys.USER_ID)) {
                 it?.let {
-                    viewModel.getAddresses(it)
+                    getAddresses(it)
                 }
             }
         }
     }
 
-    private fun setUpObservers() {
-        viewModel.addresses
+    private fun getAddresses(userId: String) {
+        viewModel.getAddresses(userId)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<List<UserAddressDTO>>(state,

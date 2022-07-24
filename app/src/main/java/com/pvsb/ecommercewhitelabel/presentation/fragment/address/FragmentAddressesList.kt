@@ -51,12 +51,10 @@ class FragmentAddressesList : Fragment() {
         lifecycleScope.launch {
             context?.getValueDS(stringPreferencesKey(USER_ID)) {
                 it?.let {
-                    viewModel.getAddresses(it)
+                    getAddresses(it)
                 }
             }
         }
-
-        setUpObservers()
 
         binding.apply {
             rvAddresses.adapter = mAdapter
@@ -71,8 +69,8 @@ class FragmentAddressesList : Fragment() {
         }
     }
 
-    private fun setUpObservers() {
-        viewModel.addresses
+    private fun getAddresses(userId: String) {
+        viewModel.getAddresses(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
                 handleResponse<List<UserAddressDTO>>(state,
@@ -99,8 +97,18 @@ class FragmentAddressesList : Fragment() {
     private fun deleteAddress(address: UserAddressDTO) {
         lifecycleScope.launch {
             context?.getValueDS(stringPreferencesKey(USER_ID)) {
-                it?.let {
-                    viewModel.deleteAddress(it, address)
+                it?.let { userId ->
+                    viewModel.deleteAddress(userId, address)
+                        .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                        .onEach { state ->
+                            handleResponse<Boolean>(state,
+                                onSuccess = {
+                                    getAddresses(userId)
+                                }, onError = {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                                })
+                        }
+                        .launchIn(viewLifecycleOwner.lifecycleScope)
                 }
             }
         }
