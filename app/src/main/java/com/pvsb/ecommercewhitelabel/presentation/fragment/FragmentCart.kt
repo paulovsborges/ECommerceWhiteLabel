@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +32,7 @@ class FragmentCart : Fragment() {
 
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CartViewModel by viewModels()
+    private val viewModel: CartViewModel by activityViewModels()
     private val mAdapter = CartProductsAdapter(::deleteProduct)
 
     override fun onCreateView(
