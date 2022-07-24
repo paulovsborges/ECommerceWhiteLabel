@@ -49,7 +49,6 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpObservers()
         initialSetUp()
     }
 
@@ -58,9 +57,9 @@ class FragmentProfile : Fragment() {
             lifecycleScope.launch {
                 requireContext().getValueDS(stringPreferencesKey(USER_ID)) {
                     if (it.isNullOrEmpty()) {
-                        initialLoginSetup()
+                        loginSetUp()
                     } else {
-                        initialProfileSetup()
+                        profileSetUp()
                     }
                     root.visibility = View.VISIBLE
                 }
@@ -68,7 +67,7 @@ class FragmentProfile : Fragment() {
         }
     }
 
-    private fun initialProfileSetup() {
+    private fun profileSetUp() {
         binding.vfMain.displayedChild = PROFILE_LAYOUT
         binding.iclProfileLayout.apply {
             btnLogout.setOnClickListener { doLogout() }
@@ -100,7 +99,7 @@ class FragmentProfile : Fragment() {
         }
     }
 
-    private fun initialLoginSetup() {
+    private fun loginSetUp() {
         binding.vfMain.displayedChild = LOGIN_LAYOUT
         binding.iclLoginLayout.apply {
 
@@ -129,23 +128,7 @@ class FragmentProfile : Fragment() {
                 .onEach { state ->
                     handleResponse<UserPersonalData>(state,
                         onSuccess = {
-
-                            binding.iclLoginLayout.apply {
-                                tiEmail.editText?.text?.clear()
-                                tiPassword.editText?.text?.clear()
-                            }
-
-                            requireContext().putValueDS(
-                                stringPreferencesKey(USER_ID),
-                                it.userId
-                            )
-
-                            requireContext().putValueDS(
-                                stringPreferencesKey(USER_NAME),
-                                it.name
-                            )
-
-                            initialProfileSetup()
+                            onLoginSuccessful(it)
                         },
                         onError = {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
@@ -163,23 +146,7 @@ class FragmentProfile : Fragment() {
             .onEach { state ->
                 handleResponse<UserPersonalData>(state,
                     onSuccess = {
-
-                        binding.iclLoginLayout.apply {
-                            tiEmail.editText?.text?.clear()
-                            tiPassword.editText?.text?.clear()
-                        }
-
-                        requireContext().putValueDS(
-                            stringPreferencesKey(USER_ID),
-                            it.userId
-                        )
-
-                        requireContext().putValueDS(
-                            stringPreferencesKey(USER_NAME),
-                            it.name
-                        )
-
-                        initialProfileSetup()
+                        onLoginSuccessful(it)
                     },
                     onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
@@ -188,15 +155,32 @@ class FragmentProfile : Fragment() {
             }.launchIn(lifecycleScope)
     }
 
+    private suspend fun onLoginSuccessful(data: UserPersonalData) {
+
+        binding.iclLoginLayout.apply {
+            tiEmail.editText?.text?.clear()
+            tiPassword.editText?.text?.clear()
+        }
+
+        requireContext().putValueDS(
+            stringPreferencesKey(USER_ID),
+            data.userId
+        )
+
+        requireContext().putValueDS(
+            stringPreferencesKey(USER_NAME),
+            data.name
+        )
+
+        profileSetUp()
+    }
+
     private fun doLogout() {
         lifecycleScope.launch {
             requireContext().removeValueDS(stringPreferencesKey(USER_ID))
             requireContext().removeValueDS(stringPreferencesKey(USER_NAME))
         }
-        initialLoginSetup()
-    }
-
-    private fun setUpObservers() {
+        loginSetUp()
     }
 
     private companion object {
