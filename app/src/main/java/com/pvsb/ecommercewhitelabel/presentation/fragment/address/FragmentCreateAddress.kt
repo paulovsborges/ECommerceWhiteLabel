@@ -15,13 +15,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.pvsb.core.model.PostalCodeResDTO
 import com.pvsb.core.model.UserAddressDTO
+import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
-import com.pvsb.core.utils.getValueDS
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.onBackPress
-import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCreateAddressBinding
+import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityAddresses
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -154,7 +152,7 @@ class FragmentCreateAddress : Fragment() {
             .onEach { state ->
                 handleResponse<Boolean>(state,
                     onSuccess = {
-                        switchFragment(FragmentAddressesList())
+                        closeActivityAndNavigate(ActivityAddresses(), "")
                     }, onError = {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })
