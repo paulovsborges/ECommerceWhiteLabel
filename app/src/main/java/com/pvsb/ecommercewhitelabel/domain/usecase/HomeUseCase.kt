@@ -11,7 +11,7 @@ class HomeUseCase @Inject constructor(
     private val repository: HomeRepository
 ) {
 
-    suspend fun getProducts(): Flow<ResponseState> = flow {
+    fun getProducts(): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
         val res = repository.getProducts()
         emit(ResponseState.Complete.Success(res))

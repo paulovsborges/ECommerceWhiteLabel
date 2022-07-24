@@ -38,18 +38,12 @@ class FragmentHome : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initialSetUp()
     }
 
     private fun initialSetUp() {
         binding.rvMain.adapter = mAdapter
         viewModel.getHomeData()
-        setObservers()
-    }
-
-    private fun setObservers() {
-        viewModel.homeContent
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(
