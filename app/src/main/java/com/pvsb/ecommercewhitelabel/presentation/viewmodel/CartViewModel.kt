@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pvsb.core.model.CartProductsDTO
 import com.pvsb.core.model.PopulateCartDTO
+import com.pvsb.core.utils.CoroutineViewModel
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.core.utils.buildStateFlow
 import com.pvsb.ecommercewhitelabel.domain.usecase.CartUseCase
@@ -17,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val useCase: CartUseCase
-) : ViewModel() {
+) : CoroutineViewModel() {
 
     fun createCart(cartId: String, cart: PopulateCartDTO): StateFlow<ResponseState> =
         buildStateFlow(useCase.createCart(cartId, cart))
