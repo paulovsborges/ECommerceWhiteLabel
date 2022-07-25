@@ -28,5 +28,5 @@ fun ViewModel.buildStateFlow(sourceCall: Flow<ResponseState>): StateFlow<Respons
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(replayExpirationMillis = 0),
-            ResponseState.Init
+            ResponseState.Start
         )

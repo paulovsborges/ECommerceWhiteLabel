@@ -1,7 +1,7 @@
 package com.pvsb.core.utils
 
 sealed class ResponseState {
-    object Init : ResponseState()
+    object Start : ResponseState()
     object Loading : ResponseState()
     sealed class Complete : ResponseState() {
         object Empty : Complete()

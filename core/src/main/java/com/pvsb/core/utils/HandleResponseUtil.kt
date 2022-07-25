@@ -10,7 +10,7 @@ suspend fun <T> ResponseState.handleResponseState(
     var showLoading = true
 
     when (this) {
-        is ResponseState.Init -> {}
+        is ResponseState.Start -> {}
         is ResponseState.Loading -> {
             onLoading.invoke(showLoading)
         }
