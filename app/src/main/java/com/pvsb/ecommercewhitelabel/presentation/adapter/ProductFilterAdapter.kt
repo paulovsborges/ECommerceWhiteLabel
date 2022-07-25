@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.databinding.FiltersListItemBinding
 
 class ProductFilterAdapter(
-    private val filterSelected: (ProductFilters) -> Unit
+    private val filterSelected: (ProductFilterCategories) -> Unit
 ) :
-    ListAdapter<ProductFilters, ProductFilterAdapter.ViewHolder>(ListAdapterDiffUtil<ProductFilters>()) {
+    ListAdapter<ProductFilterCategories, ProductFilterAdapter.ViewHolder>(ListAdapterDiffUtil<ProductFilterCategories>()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,7 +31,7 @@ class ProductFilterAdapter(
     inner class ViewHolder(private val binding: FiltersListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ProductFilters) {
+        fun bind(item: ProductFilterCategories) {
 
             binding.apply {
 

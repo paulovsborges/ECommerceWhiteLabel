@@ -1,6 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
 import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.utils.CoroutineViewModel
 import com.pvsb.core.utils.ResponseState
@@ -15,9 +16,9 @@ class FiltersViewModel @Inject constructor(
     private val filtersUseCase: FiltersUseCase
 ) : CoroutineViewModel() {
 
-    val selectedFilters = mutableListOf<ProductFilters>()
+    val selectedFilters = mutableListOf<ProductFilterCategories>()
 
-    fun handleFilterSelection(item: ProductFilters) {
+    fun handleFilterSelection(item: ProductFilterCategories) {
 
         if (item.isChecked && !selectedFilters.contains(item)) {
             selectedFilters.add(item)

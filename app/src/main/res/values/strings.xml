@@ -25,6 +25,9 @@
     <string name="search_button_open_filters_text">Filters</string>
     <string name="search_button_apply_filters_text">Apply</string>
     <string name="search_edit_text_hint">Search</string>
+    <string name="search_filters_edit_text_min_value_hint">Min value</string>
+    <string name="search_filters_edit_text_max_value_hint">Max value</string>
+    <string name="search_filters_label">Filters</string>
 
     <!--    Cart-->
     <string name="cart_button_purchase_text">Continue purchase</string>

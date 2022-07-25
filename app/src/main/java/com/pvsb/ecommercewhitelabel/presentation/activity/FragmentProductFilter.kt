@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.model.ProductFiltersPrice
-import com.pvsb.core.utils.onBackPress
+import com.pvsb.core.utils.MockFactory.Filters.categoriesList
 import com.pvsb.core.utils.popBackStack
 import com.pvsb.core.utils.setResultToFragmentListener
 import com.pvsb.ecommercewhitelabel.databinding.FragmentProductFiltersBinding
@@ -41,26 +40,41 @@ class FragmentProductFilter : Fragment() {
     }
 
     private fun initialSetup() {
-        binding.rvMain.adapter = mAdapter
+        binding.apply {
+            ivBack.setOnClickListener { popBackStack() }
+            rvMain.adapter = mAdapter
+            mAdapter.submitList(categoriesList)
+            btnApplyFilters.setOnClickListener {
+                getFiltersAndGoBack()
 
-        binding.btnApplyFilters.setOnClickListener {
+            }
+        }
+    }
+
+    private fun getFiltersAndGoBack() {
+
+        binding.apply {
+            val minValue = tiMinValue.editText?.text.toString().toDouble()
+            val maxValue = tiMaxValue.editText?.text.toString().toDouble()
 
             val obj = ProductFilters(
                 price = ProductFiltersPrice(
-                    minValue = 10.00,
-                    maxValue = 20.00
+                    minValue = minValue,
+                    maxValue = maxValue
                 ),
-                "blabla"
+                categories = listOf(
+                    ProductFilterCategories(
+                        id = 1,
+                        name = "eletronico"
+                    )
+                )
             )
-
             setResultToFragmentListener(obj, "bundle_key")
-
-//            setFragmentResult("request_key", bundleOf("bundle_key" to "test string"))
             popBackStack()
         }
     }
 
-    private fun onFilterSelected(item: ProductFilters) {
+    private fun onFilterSelected(item: ProductFilterCategories) {
         viewModel.handleFilterSelection(item)
     }
 
