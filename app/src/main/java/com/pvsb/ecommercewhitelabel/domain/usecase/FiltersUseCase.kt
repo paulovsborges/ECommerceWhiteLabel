@@ -32,7 +32,7 @@ class FiltersUseCase @Inject constructor(
         val filteredList = products.filter {
             val title = it.title.lowercase()
             title.contains(search)
-        }
+        }.distinctBy { it.title }
 
         if (filteredList.isEmpty()) {
             emit(ResponseState.Complete.Empty)
