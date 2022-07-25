@@ -11,5 +11,8 @@ data class ProductDTO(
     val price: Double = 0.0,
     @get:PropertyName("image_url")
     @set:PropertyName("image_url")
-    var imageUrl: String = ""
+    var imageUrl: String = "",
+    @get:PropertyName("category_id")
+    @set:PropertyName("category_id")
+    var categoryId: Int = 0
 ) : Parcelable

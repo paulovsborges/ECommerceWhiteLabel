@@ -85,11 +85,11 @@ class FragmentSearch : Fragment() {
 
     private fun getProducts() {
         viewModel.getProducts()
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .flowWithLifecycle(lifecycle)
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
-                        viewModel.products.addAll(it)
+                        viewModel.products.addAll(it.distinctBy { product -> product.title })
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
@@ -99,7 +99,7 @@ class FragmentSearch : Fragment() {
 
                     })
             }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+            .launchIn(lifecycleScope)
     }
 
     private fun setUpSearch(search: String) {
@@ -108,6 +108,7 @@ class FragmentSearch : Fragment() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
+                        viewModel.lastQuery = search
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
@@ -123,8 +124,26 @@ class FragmentSearch : Fragment() {
     private fun openFilters() {
         switchFragment(FragmentProductFilter(), saveBackStack = true)
         getValueFromFragmentListener<ProductFilters>("bundle_key") {
-            Toast.makeText(context, it.price.maxValue.formatCurrency(), Toast.LENGTH_SHORT).show()
+            setUpAppliedFilters(it)
         }
+    }
+
+    private fun setUpAppliedFilters(filters: ProductFilters) {
+        viewModel.applySearchFilters(filters)
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { state ->
+                handleResponse<List<ProductDTO>>(state,
+                    onSuccess = {
+                        mAdapter.submitList(it)
+                    },
+                    onEmpty = {
+
+                    },
+                    onError = {
+
+                    })
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun navigateToDetails(item: ProductDTO) {

@@ -57,7 +57,7 @@ class FragmentProductFilter : Fragment() {
                 tiMinValue.editText?.text.toString().toDouble()
             }
 
-            val maxValue = if (tiMinValue.editText?.text.toString().isEmpty()) {
+            val maxValue = if (tiMaxValue.editText?.text.toString().isEmpty()) {
                 0.0
             } else {
                 tiMaxValue.editText?.text.toString().toDouble()

@@ -30,9 +30,13 @@ class FiltersViewModel @Inject constructor(
     }
 
     val products = mutableListOf<ProductDTO>()
+    var lastQuery = ""
 
     fun getProducts(): StateFlow<ResponseState> = buildStateFlow(filtersUseCase.getProducts())
 
     fun searchProducts(search: String): StateFlow<ResponseState> =
         buildStateFlow(filtersUseCase.searchProducts(search, products))
+
+    fun applySearchFilters(filters: ProductFilters): StateFlow<ResponseState> =
+        buildStateFlow(filtersUseCase.applySearchFilters(lastQuery, filters, products))
 }
