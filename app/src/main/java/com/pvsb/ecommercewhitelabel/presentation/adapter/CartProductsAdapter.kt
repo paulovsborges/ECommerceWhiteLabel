@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pvsb.core.model.CartProductsDTO
-import com.pvsb.core.utils.Constants.PRODUCT_NAME
+import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.formatLength
@@ -55,7 +55,7 @@ class CartProductsAdapter(
 
             itemView.setOnClickListener {
                 itemView.context.openActivity(ActivityProductDetails::class.java) {
-                    it.putExtra(PRODUCT_NAME, item.product)
+                    it.putExtra(PRODUCT_DETAILS, item.product)
                 }
             }
 

@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.ActivityProductDetails" />
-        <activity android:name=".presentation.activity.ActivityProductFilters" />
+        <activity android:name=".presentation.activity.FragmentProductFilter" />
         <activity android:name=".presentation.activity.ActivityPayment" />
         <activity android:name=".presentation.activity.ActivityCreateAccount" />
         <activity android:name=".presentation.activity.ActivityUserRegistration" />

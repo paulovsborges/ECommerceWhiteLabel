@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.*
-import com.pvsb.core.utils.Constants.PRODUCT_NAME
+import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -60,7 +59,7 @@ class FragmentHome : Fragment() {
 
     private fun navigateToDetails(item: ProductDTO) {
         requireContext().openActivity(ActivityProductDetails::class.java) {
-            it.putExtra(PRODUCT_NAME, item)
+            it.putExtra(PRODUCT_DETAILS, item)
         }
     }
 

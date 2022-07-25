@@ -1,6 +1,5 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -9,21 +8,17 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
-import com.pvsb.core.utils.Constants
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.openActivity
-import com.pvsb.core.utils.setUpActivityListener
+import com.pvsb.core.model.ProductFilters
+import com.pvsb.core.utils.*
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
-import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductFilters
+import com.pvsb.ecommercewhitelabel.presentation.activity.FragmentProductFilter
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.FiltersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,9 +31,6 @@ class FragmentSearch : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val mAdapter = HomeAdapter(::navigateToDetails)
-    private var resultLauncher: ActivityResultLauncher<Intent> = setUpActivityListener(
-        ActivityProductFilters::class.java.simpleName, ::handleActivityResult
-    )
     private val viewModel: FiltersViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -59,7 +51,7 @@ class FragmentSearch : Fragment() {
         binding.apply {
             rvProductsSearch.adapter = mAdapter
             ivFilters.setOnClickListener {
-                setActivityResult()
+                openFilters()
             }
 
             tiSearch.editText?.setOnEditorActionListener(object :
@@ -128,23 +120,16 @@ class FragmentSearch : Fragment() {
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun handleActivityResult(data: String) {
-        Toast.makeText(
-            requireContext(),
-            "count $data",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun setActivityResult() {
-        resultLauncher.launch(
-            Intent(requireContext(), ActivityProductFilters::class.java)
-        )
+    private fun openFilters() {
+        switchFragment(FragmentProductFilter(), saveBackStack = true)
+        getValueFromFragmentListener<ProductFilters>("bundle_key") {
+            Toast.makeText(context, it.price.maxValue.formatCurrency(), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun navigateToDetails(item: ProductDTO) {
         requireContext().openActivity(ActivityProductDetails::class.java) {
-            it.putExtra(Constants.PRODUCT_NAME, item)
+            it.putExtra(Constants.PRODUCT_DETAILS, item)
         }
     }
 

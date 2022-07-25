@@ -53,7 +53,7 @@ class FavoritesAdapter(
 
                 itemView.setOnClickListener {
                     itemView.context.openActivity(ActivityProductDetails::class.java) {
-                        it.putExtra(Constants.PRODUCT_NAME, item)
+                        it.putExtra(Constants.PRODUCT_DETAILS, item)
                     }
                 }
 

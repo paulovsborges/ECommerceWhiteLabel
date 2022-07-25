@@ -17,6 +17,10 @@ fun Fragment.clearBackStack() {
     parentFragmentManager.clearBackStack(parentFragmentManager.toString())
 }
 
+fun Fragment.popBackStack() {
+    parentFragmentManager.popBackStack()
+}
+
 fun Fragment.switchFragment(
     fragment: Fragment,
     data: Bundle? = null,
