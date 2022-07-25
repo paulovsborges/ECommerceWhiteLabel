@@ -44,18 +44,24 @@ class FragmentProductFilter : Fragment() {
             ivBack.setOnClickListener { popBackStack() }
             rvMain.adapter = mAdapter
             mAdapter.submitList(categoriesList)
-            btnApplyFilters.setOnClickListener {
-                getFiltersAndGoBack()
-
-            }
+            btnApplyFilters.setOnClickListener { getFiltersAndGoBack() }
         }
     }
 
     private fun getFiltersAndGoBack() {
 
         binding.apply {
-            val minValue = tiMinValue.editText?.text.toString().toDouble()
-            val maxValue = tiMaxValue.editText?.text.toString().toDouble()
+            val minValue = if (tiMinValue.editText?.text.toString().isEmpty()) {
+                0.0
+            } else {
+                tiMinValue.editText?.text.toString().toDouble()
+            }
+
+            val maxValue = if (tiMinValue.editText?.text.toString().isEmpty()) {
+                0.0
+            } else {
+                tiMaxValue.editText?.text.toString().toDouble()
+            }
 
             val obj = ProductFilters(
                 price = ProductFiltersPrice(
