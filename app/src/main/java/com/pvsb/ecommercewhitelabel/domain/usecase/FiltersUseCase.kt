@@ -29,7 +29,10 @@ class FiltersUseCase @Inject constructor(
     fun searchProducts(search: String, products: List<ProductDTO>): Flow<ResponseState> = flow {
         emit(ResponseState.Loading)
 
-        val filteredList = products.filter { it.title == search }
+        val filteredList = products.filter {
+            val title = it.title.lowercase()
+            title.contains(search)
+        }
 
         if (filteredList.isEmpty()) {
             emit(ResponseState.Complete.Empty)

@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -80,6 +81,12 @@ class FragmentSearch : Fragment() {
                     return false
                 }
             })
+
+            tiSearch.editText?.doAfterTextChanged {
+                if ((tiSearch.editText?.text.toString().isEmpty())) {
+                    getProducts()
+                }
+            }
         }
         getProducts()
     }
@@ -109,7 +116,6 @@ class FragmentSearch : Fragment() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
-                        mAdapter.currentList.clear()
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
