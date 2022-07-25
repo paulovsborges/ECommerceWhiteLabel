@@ -24,6 +24,7 @@
     <!--    search-->
     <string name="search_button_open_filters_text">Filters</string>
     <string name="search_button_apply_filters_text">Apply</string>
+    <string name="search_edit_text_hint">Search</string>
 
     <!--    Cart-->
     <string name="cart_button_purchase_text">Continue purchase</string>

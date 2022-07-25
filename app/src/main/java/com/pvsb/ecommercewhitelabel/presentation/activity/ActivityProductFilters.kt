@@ -27,7 +27,7 @@ class ActivityProductFilters : AppCompatActivity() {
     }
 
     private fun initialSetup() {
-        mAdapter.submitList(MockFactory.Filters.list)
+//        mAdapter.submitList(MockFactory.Filters.list)
         binding.rvMain.adapter = mAdapter
 
         binding.btnApplyFilters.setOnClickListener {
