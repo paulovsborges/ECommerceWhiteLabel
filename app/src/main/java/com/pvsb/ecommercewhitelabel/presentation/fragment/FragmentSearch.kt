@@ -76,6 +76,7 @@ class FragmentSearch : Fragment() {
 
             tiSearch.editText?.doAfterTextChanged {
                 if ((tiSearch.editText?.text.toString().isEmpty())) {
+                    viewModel.lastQuery = ""
                     getProducts()
                 }
             }
@@ -89,61 +90,32 @@ class FragmentSearch : Fragment() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
-                        viewModel.products.addAll(it.distinctBy { product -> product.title })
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
-
+                        Toast.makeText(context, "No results found", Toast.LENGTH_SHORT).show()
                     },
                     onError = {
-
+                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })
             }
             .launchIn(lifecycleScope)
     }
 
     private fun setUpSearch(search: String) {
-        viewModel.searchProducts(search)
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { state ->
-                handleResponse<List<ProductDTO>>(state,
-                    onSuccess = {
-                        viewModel.lastQuery = search
-                        mAdapter.submitList(it)
-                    },
-                    onEmpty = {
+        viewModel.lastQuery = search
+        getProducts()
+    }
 
-                    },
-                    onError = {
-
-                    })
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+    private fun setUpAppliedFilters() {
+        getProducts()
     }
 
     private fun openFilters() {
         switchFragment(FragmentProductFilter(), saveBackStack = true)
-        getValueFromFragmentListener<ProductFilters>("bundle_key") {
-            setUpAppliedFilters(it)
+        getValueFromFragmentListener<Boolean>("bundle_key") {
+            setUpAppliedFilters()
         }
-    }
-
-    private fun setUpAppliedFilters(filters: ProductFilters) {
-        viewModel.applySearchFilters(filters)
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { state ->
-                handleResponse<List<ProductDTO>>(state,
-                    onSuccess = {
-                        mAdapter.submitList(it)
-                    },
-                    onEmpty = {
-
-                    },
-                    onError = {
-
-                    })
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun navigateToDetails(item: ProductDTO) {

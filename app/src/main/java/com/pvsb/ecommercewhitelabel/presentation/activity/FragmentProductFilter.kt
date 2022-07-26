@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.model.ProductFilters
@@ -23,7 +24,7 @@ class FragmentProductFilter : Fragment() {
     private var _binding: FragmentProductFiltersBinding? = null
     private val binding get() = _binding!!
     private val mAdapter = ProductFilterAdapter(::onFilterSelected)
-    private val viewModel: FiltersViewModel by viewModels()
+    private val viewModel: FiltersViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +50,6 @@ class FragmentProductFilter : Fragment() {
     }
 
     private fun getFiltersAndGoBack() {
-
         binding.apply {
             val minValue = if (tiMinValue.editText?.text.toString().isEmpty()) {
                 0.0
@@ -63,25 +63,31 @@ class FragmentProductFilter : Fragment() {
                 tiMaxValue.editText?.text.toString().toDouble()
             }
 
-            val obj = ProductFilters(
-                price = ProductFiltersPrice(
-                    minValue = minValue,
-                    maxValue = maxValue
-                ),
-                categories = listOf(
-                    ProductFilterCategories(
-                        id = 1,
-                        name = "eletronico"
-                    )
-                )
-            )
-            setResultToFragmentListener(obj, "bundle_key")
+            viewModel.minValue = minValue
+            viewModel.maxValue = maxValue
+            setResultToFragmentListener(true, "bundle_key")
             popBackStack()
         }
     }
 
     private fun onFilterSelected(item: ProductFilterCategories) {
         viewModel.handleFilterSelection(item)
+    }
+
+    private fun setUpAlreadyAppliedFilters() {
+        binding.apply {
+            if (viewModel.minValue > 0.0) {
+                tiMinValue.editText?.setText(viewModel.minValue.toString())
+            }
+            if (viewModel.maxValue > 0.0) {
+                tiMaxValue.editText?.setText(viewModel.maxValue.toString())
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUpAlreadyAppliedFilters()
     }
 
     override fun onDestroy() {

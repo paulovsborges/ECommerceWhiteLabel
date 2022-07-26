@@ -43,7 +43,7 @@ inline fun <reified T : Any> Fragment.getValueFromFragmentListener(
     }
 }
 
-inline fun <reified T> Fragment.setResultToFragmentListener(
+inline fun <reified T : Any> Fragment.setResultToFragmentListener(
     value: T,
     bundleKey: String,
     requestKey: String? = null

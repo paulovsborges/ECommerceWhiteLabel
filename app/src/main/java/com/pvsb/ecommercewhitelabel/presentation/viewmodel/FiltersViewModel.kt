@@ -1,8 +1,8 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
-import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.model.ProductFilters
+import com.pvsb.core.model.ProductFiltersPrice
 import com.pvsb.core.utils.CoroutineViewModel
 import com.pvsb.core.utils.ResponseState
 import com.pvsb.core.utils.buildStateFlow
@@ -16,10 +16,12 @@ class FiltersViewModel @Inject constructor(
     private val filtersUseCase: FiltersUseCase
 ) : CoroutineViewModel() {
 
-    val selectedFilters = mutableListOf<ProductFilterCategories>()
+    private val selectedFilters = mutableListOf<ProductFilterCategories>()
+    var minValue = 0.0
+    var maxValue = 0.0
+    var lastQuery = ""
 
     fun handleFilterSelection(item: ProductFilterCategories) {
-
         if (item.isChecked && !selectedFilters.contains(item)) {
             selectedFilters.add(item)
         } else {
@@ -29,14 +31,17 @@ class FiltersViewModel @Inject constructor(
         }
     }
 
-    val products = mutableListOf<ProductDTO>()
-    var lastQuery = ""
+    fun getProducts(): StateFlow<ResponseState> {
+        return buildStateFlow(filtersUseCase.getProducts(lastQuery, buildFilters()))
+    }
 
-    fun getProducts(): StateFlow<ResponseState> = buildStateFlow(filtersUseCase.getProducts())
-
-    fun searchProducts(search: String): StateFlow<ResponseState> =
-        buildStateFlow(filtersUseCase.searchProducts(search, products))
-
-    fun applySearchFilters(filters: ProductFilters): StateFlow<ResponseState> =
-        buildStateFlow(filtersUseCase.applySearchFilters(lastQuery, filters, products))
+    private fun buildFilters(): ProductFilters {
+        return ProductFilters(
+            price = ProductFiltersPrice(
+                minValue = minValue,
+                maxValue = maxValue
+            ),
+            categories = selectedFilters
+        )
+    }
 }
