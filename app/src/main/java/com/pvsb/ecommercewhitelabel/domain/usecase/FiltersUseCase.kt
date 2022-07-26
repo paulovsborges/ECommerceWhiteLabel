@@ -27,24 +27,22 @@ class FiltersUseCase @Inject constructor(
             filteredList.addAll(res.filter {
                 val title = it.title.lowercase()
                 title.contains(search)
-            }.distinctBy { it.title })
+            })
         }
 
         if (filters.price.maxValue > 0.0) {
-            filteredList.addAll(res.filter { it.price < filters.price.maxValue }
-                .distinctBy { it.title })
+            filteredList.addAll(res.filter { it.price < filters.price.maxValue })
         }
 
         if (filters.price.minValue > 0.0) {
-            filteredList.addAll(res.filter { it.price > filters.price.minValue }
-                .distinctBy { it.title })
+            filteredList.addAll(res.filter { it.price > filters.price.minValue })
         }
 
         if (filteredList.isEmpty()) {
             emit(ResponseState.Complete.Empty)
-            emit(ResponseState.Complete.Success(res))
+            emit(ResponseState.Complete.Success(res.distinctBy { it.title }))
         } else {
-            emit(ResponseState.Complete.Success(filteredList))
+            emit(ResponseState.Complete.Success(filteredList.distinctBy { it.title }))
         }
     }.catch {
         emit(ResponseState.Complete.Fail(it))
