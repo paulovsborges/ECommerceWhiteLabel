@@ -12,15 +12,11 @@ sealed class MockFactory {
             ),
             ProductFilterCategories(
                 id = 2,
-                name = "Electronics"
+                name = "Peripherals"
             ),
             ProductFilterCategories(
                 id = 3,
-                name = "Kitchen"
-            ),
-            ProductFilterCategories(
-                id = 4,
-                name = "Home"
+                name = "Cases"
             )
         )
     }
