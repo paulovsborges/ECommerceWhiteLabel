@@ -30,6 +30,10 @@ class FiltersUseCase @Inject constructor(
             })
         }
 
+        filters.categories.forEach { category ->
+            filteredList.addAll(res.filter { it.categoryId == category.id })
+        }
+
         if (filters.price.maxValue > 0.0) {
             filteredList.addAll(res.filter { it.price < filters.price.maxValue })
         }
