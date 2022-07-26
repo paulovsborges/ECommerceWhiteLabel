@@ -18,7 +18,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'BASE_URL_POSTAL_CODE', '"viacep.com.br/ws/"'
+        buildConfigField 'String', 'BASE_URL_ZIP_CODE', '"viacep.com.br/ws/"'
     }
 
     buildTypes {

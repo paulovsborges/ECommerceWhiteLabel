@@ -25,7 +25,7 @@ class KtorModule {
     fun provideKtorClient(): HttpClient {
         val client = HttpClient(Android) {
             defaultRequest {
-                host = BuildConfig.BASE_URL_POSTAL_CODE
+                host = BuildConfig.BASE_URL_ZIP_CODE
                 url {
                     protocol = URLProtocol.HTTPS
                 }
