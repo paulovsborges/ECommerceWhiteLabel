@@ -1,4 +1,4 @@
-package com.pvsb.ecommercewhitelabel.presentation.activity
+package com.pvsb.ecommercewhitelabel.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.pvsb.core.model.ProductFilterCategories
-import com.pvsb.core.model.ProductFilters
-import com.pvsb.core.model.ProductFiltersPrice
 import com.pvsb.core.utils.MockFactory.Filters.categoriesList
 import com.pvsb.core.utils.popBackStack
 import com.pvsb.core.utils.setResultToFragmentListener

@@ -14,11 +14,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
-import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.utils.*
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
-import com.pvsb.ecommercewhitelabel.presentation.activity.FragmentProductFilter
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.FiltersViewModel
 import dagger.hilt.android.AndroidEntryPoint
