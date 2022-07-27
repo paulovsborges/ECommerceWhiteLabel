@@ -20,15 +20,30 @@
     <TextView
         android:id="@+id/tvFiltersLabel"
         style="@style/TitleTextView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:text="@string/search_filters_label"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivBack" />
+
+    <TextView
+        android:id="@+id/tvCleanFilters"
+        style="@style/SubtitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="@string/search_filters_clean_filters_label"
+        app:layout_constraintBottom_toBottomOf="@id/tvFiltersLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvFiltersLabel" />
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvFiltersLabel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,11 +105,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnApplyFilters"
+        style="@style/PrimaryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/search_button_apply_filters_text"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -44,7 +44,21 @@ class FragmentProductFilter : Fragment() {
             rvMain.adapter = mAdapter
             mAdapter.submitList(categoriesList)
             btnApplyFilters.setOnClickListener { getFiltersAndGoBack() }
+            tvCleanFilters.setOnClickListener { cleanFilters() }
         }
+    }
+
+    private fun cleanFilters() {
+        binding.apply {
+            tiMinValue.editText?.text?.clear()
+            tiMaxValue.editText?.text?.clear()
+            mAdapter.currentList.forEach {
+                it.isChecked = false
+            }
+        }
+
+        viewModel.cleanFilters()
+        getFiltersAndGoBack()
     }
 
     private fun getFiltersAndGoBack() {

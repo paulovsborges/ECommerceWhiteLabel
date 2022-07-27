@@ -56,4 +56,11 @@ class FiltersViewModel @Inject constructor(
             categories = selectedFilters
         )
     }
+
+    fun cleanFilters() {
+        selectedFilters.clear()
+        minValue = 0.0
+        maxValue = 0.0
+        lastQuery = ""
+    }
 }

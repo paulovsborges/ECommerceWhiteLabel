@@ -28,6 +28,7 @@
     <string name="search_filters_edit_text_min_value_hint">Min value</string>
     <string name="search_filters_edit_text_max_value_hint">Max value</string>
     <string name="search_filters_label">Filters</string>
+    <string name="search_filters_clean_filters_label">Clean filters</string>
 
     <!--    Cart-->
     <string name="cart_button_purchase_text">Continue purchase</string>
