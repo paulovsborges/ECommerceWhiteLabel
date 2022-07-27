@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">ECommerceWhiteLabel</string>
 
+    <!--    Bottom navigation menu names-->
+    <string name="bottom_navigation_menu_title_home">Home</string>
+    <string name="bottom_navigation_menu_title_search">Search</string>
+    <string name="bottom_navigation_menu_title_cart">Cart</string>
+    <string name="bottom_navigation_menu_title_profile">Profile</string>
+
     <!--    alerts , buttons and snacks messages-->
     <string name="ok_message">OK</string>
     <string name="product_added_to_favorites">Added to favorites</string>
@@ -15,18 +21,8 @@
     <string name="home_label">Gaming store</string>
     <string name="home_products_label">Most viewed</string>
 
-    <!--    Bottom navigation menu names-->
-    <string name="bottom_navigation_menu_title_home">Home</string>
-    <string name="bottom_navigation_menu_title_search">Search</string>
-    <string name="bottom_navigation_menu_title_cart">Cart</string>
-    <string name="bottom_navigation_menu_title_profile">Profile</string>
-
-    <!--    Product Details-->
-    <string name="product_details_button_purchase_text">Buy</string>
-    <string name="product_details_quantity_hint">quantity</string>
-    <string name="product_details_quantity_default_value">1</string>
-
     <!--    search-->
+    <string name="search_label">Search</string>
     <string name="search_button_open_filters_text">Filters</string>
     <string name="search_button_apply_filters_text">Apply</string>
     <string name="search_edit_text_hint">Search</string>
@@ -36,8 +32,14 @@
     <string name="search_filters_clean_filters_label">Clean filters</string>
 
     <!--    Cart-->
+    <string name="cart_label">Cart</string>
     <string name="cart_button_purchase_text">Continue purchase</string>
     <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
+
+    <!--    Product Details-->
+    <string name="product_details_button_purchase_text">Buy</string>
+    <string name="product_details_quantity_hint">quantity</string>
+    <string name="product_details_quantity_default_value">1</string>
 
     <!--    Payment flow-->
     <string name="payment_select_address_payment_label">Select Address</string>

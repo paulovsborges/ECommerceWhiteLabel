@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/lightest_grey">
 
+    <TextView
+        android:id="@+id/tvCartLabel"
+        style="@style/TitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/cart_label"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ViewFlipper
         android:id="@+id/vfMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCartLabel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMainContent"
