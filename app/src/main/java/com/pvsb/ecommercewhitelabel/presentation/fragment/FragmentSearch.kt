@@ -78,6 +78,8 @@ class FragmentSearch : Fragment() {
                     getProducts()
                 }
             }
+
+            tiSearch.editText?.setText(viewModel.lastQuery)
         }
         getProducts()
     }
