@@ -1,15 +1,14 @@
 package com.pvsb.core.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 data class PopulateCartDTO(
     val products: List<CartProductsDTO> = mutableListOf(),
     val total: Double = 0.0
 )
 
-@Parcelize
+@Serializable
 data class CartProductsDTO(
     var product: ProductDTO = ProductDTO(),
     var amount: Int = 0
-): Parcelable
+)

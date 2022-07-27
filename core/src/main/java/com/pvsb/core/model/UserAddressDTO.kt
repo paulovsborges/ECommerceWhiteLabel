@@ -1,10 +1,9 @@
 package com.pvsb.core.model
 
-import android.os.Parcelable
 import com.google.firebase.firestore.PropertyName
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
+@Serializable
 data class UserAddressDTO(
     @get:PropertyName("zip_code")
     @set:PropertyName("zip_code")
@@ -17,4 +16,4 @@ data class UserAddressDTO(
     var number: String = "",
     var addressNick: String = "",
     var isChecked: Boolean = false
-) : Parcelable
+)

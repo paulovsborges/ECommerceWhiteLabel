@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.pvsb.core.model.ProductDTO
-import com.pvsb.core.utils.Constants
-import com.pvsb.core.utils.ListAdapterDiffUtil
-import com.pvsb.core.utils.formatCurrency
-import com.pvsb.core.utils.openActivity
+import com.pvsb.core.utils.*
 import com.pvsb.ecommercewhitelabel.databinding.FavoriteListItemBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 
@@ -53,7 +50,7 @@ class FavoritesAdapter(
 
                 itemView.setOnClickListener {
                     itemView.context.openActivity(ActivityProductDetails::class.java) {
-                        it.putExtra(Constants.PRODUCT_DETAILS, item)
+                        it.putValueOnBundle(Constants.PRODUCT_DETAILS, item)
                     }
                 }
 

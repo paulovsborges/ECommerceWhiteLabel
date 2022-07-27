@@ -1,10 +1,9 @@
 package com.pvsb.core.model
 
-import android.os.Parcelable
 import com.google.firebase.firestore.PropertyName
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
-@Parcelize
+@Serializable
 data class ProductDTO(
     val id: Int = 0,
     val title: String = "",
@@ -15,4 +14,4 @@ data class ProductDTO(
     @get:PropertyName("category_id")
     @set:PropertyName("category_id")
     var categoryId: Int = 0
-) : Parcelable
+)

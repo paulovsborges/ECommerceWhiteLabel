@@ -31,7 +31,7 @@ class FragmentOrderDetails : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        details = arguments?.getParcelable("ITEM_DETAILS")
+//        details = arguments?.getParcelable("ITEM_DETAILS")
         initialSetUp()
     }
 

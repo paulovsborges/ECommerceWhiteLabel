@@ -121,7 +121,7 @@ class FragmentSearch : Fragment() {
 
     private fun navigateToDetails(item: ProductDTO) {
         requireContext().openActivity(ActivityProductDetails::class.java) {
-            it.putExtra(Constants.PRODUCT_DETAILS, item)
+            it.putValueOnBundle(Constants.PRODUCT_DETAILS, item)
         }
     }
 

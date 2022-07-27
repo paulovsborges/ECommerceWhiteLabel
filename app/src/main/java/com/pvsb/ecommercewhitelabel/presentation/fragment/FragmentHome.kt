@@ -10,8 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
-import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
+import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.openActivity
+import com.pvsb.core.utils.putValueOnBundle
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -58,8 +60,9 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: ProductDTO) {
+
         requireContext().openActivity(ActivityProductDetails::class.java) {
-            it.putExtra(PRODUCT_DETAILS, item)
+            it.putValueOnBundle(PRODUCT_DETAILS, item)
         }
     }
 
