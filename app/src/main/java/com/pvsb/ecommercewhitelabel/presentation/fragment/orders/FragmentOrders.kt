@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,9 +17,8 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.onBackPress
-import com.pvsb.core.utils.switchFragment
+import com.pvsb.core.utils.switchFragmentWithArgs
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersBinding
-import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.OrdersViewPagerAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -99,10 +97,10 @@ class FragmentOrders : Fragment() {
     }
 
     private fun onOrderClicked(item: OderModelReqDTO) {
-        switchFragment(
+        switchFragmentWithArgs(
             FragmentOrderDetails(),
             saveBackStack = true,
-            data = bundleOf("ITEM_DETAILS" to item)
+            data = item
         )
     }
 

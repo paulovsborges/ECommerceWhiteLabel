@@ -12,13 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.UserAddressDTO
+import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
-import com.pvsb.core.utils.getValueDS
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.onBackPress
-import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentAddressesListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.AddressesAdapter
+import com.pvsb.ecommercewhitelabel.presentation.fragment.orders.FragmentOrderDetails
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -87,10 +85,10 @@ class FragmentAddressesList : Fragment() {
     }
 
     private fun seeAddressDetails(address: UserAddressDTO) {
-        switchFragment(
+        switchFragmentWithArgs(
             FragmentCreateAddress(),
-            data = bundleOf("ADDRESS_DETAILS" to address),
-            saveBackStack = true
+            saveBackStack = true,
+            data = address
         )
     }
 

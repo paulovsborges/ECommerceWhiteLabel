@@ -45,7 +45,7 @@ class FragmentCreateAddress : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addressDetails = arguments?.get("ADDRESS_DETAILS") as? UserAddressDTO
+        addressDetails = deserializeObjFromArguments()
         initialSetUp()
     }
 

@@ -2,12 +2,15 @@ package com.pvsb.core.utils
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
+import io.mockk.InternalPlatformDsl.toStr
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 fun Fragment.onBackPress() {
     activity?.onBackPressed()
@@ -23,7 +26,34 @@ fun Fragment.popBackStack() {
 
 fun Fragment.switchFragment(
     fragment: Fragment,
-    data: Bundle? = null,
+    animation: Boolean = false,
+    saveBackStack: Boolean = false
+) {
+
+    parentFragmentManager.let { fm ->
+        fm.beginTransaction().apply {
+
+            val parentContainerId = (view?.parent as? ViewGroup)?.id
+
+            parentContainerId?.let { container ->
+                replace(container, fragment, parentFragmentManager.toString())
+                if (animation) setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+
+                if (saveBackStack) {
+                    val stackName = parentFragmentManager.toString()
+                    addToBackStack(stackName)
+                }
+
+                setReorderingAllowed(true)
+                commit()
+            }
+        }
+    }
+}
+
+inline fun <reified T : Any> Fragment.switchFragmentWithArgs(
+    fragment: Fragment,
+    data: T? = null,
     animation: Boolean = false,
     saveBackStack: Boolean = false
 ) {
@@ -43,7 +73,7 @@ fun Fragment.switchFragment(
                 }
 
                 data?.let {
-                    fragment.arguments = it
+                    fragment.arguments = serializeObjToArguments(data, fragment)
                 }
 
                 setReorderingAllowed(true)
@@ -51,6 +81,38 @@ fun Fragment.switchFragment(
             }
         }
     }
+}
+
+inline fun <reified T : Any> serializeObjToArguments(
+    data: T,
+    fragment: Fragment
+): Bundle {
+
+    val value: Any?
+
+    value = if (!isPrimitiveType(T::class)) {
+        Json.encodeToString(data)
+    } else {
+        data
+    }
+
+    return bundleOf(fragment.javaClass.simpleName to value)
+}
+
+inline fun <reified T : Any> Fragment.deserializeObjFromArguments(): T? {
+
+    var value: T? = null
+
+    if (isPrimitiveType(T::class)) {
+        value = arguments?.get(javaClass.simpleName) as T?
+    } else {
+        val valueFromArgs = arguments?.get(javaClass.simpleName) as? String
+        valueFromArgs?.let {
+            value = Json.decodeFromString(valueFromArgs)
+        }
+    }
+
+    return value
 }
 
 fun Fragment.closeActivityAndNavigate(
