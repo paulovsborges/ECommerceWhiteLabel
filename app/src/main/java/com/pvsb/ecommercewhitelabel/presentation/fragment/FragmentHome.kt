@@ -51,6 +51,7 @@ class FragmentHome : Fragment() {
                 handleResponse<List<ProductDTO>>(
                     state, onSuccess = {
                         mAdapter.submitList(it)
+                        binding.clMainContent.visibility = View.VISIBLE
                     }, onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
