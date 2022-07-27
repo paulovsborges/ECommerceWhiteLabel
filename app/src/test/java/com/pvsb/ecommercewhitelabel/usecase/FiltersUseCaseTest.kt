@@ -154,6 +154,58 @@ class FiltersUseCaseTest {
     }
 
     @Test
+    fun `filter products by maximum price`() = runTest {
+        val filters = ProductFilters(
+            price = ProductFiltersPrice(
+                maxValue = 2000.00,
+                minValue = 0.0
+            ),
+            categories = emptyList()
+        )
+
+        val query = ""
+        val res = productsList
+        coEvery { repository.getProducts() } returns res
+        val result = useCase.doSearch(query, filters)
+
+        result.collect { state ->
+            state.handleResponseState<List<ProductDTO>>(
+                onSuccess = {
+                    it.forEach { product ->
+                        Assert.assertTrue(product.price < filters.price.maxValue)
+                    }
+                },
+                onError = {}, onLoading = { })
+        }
+    }
+
+    @Test
+    fun `filter products by minimum price`() = runTest {
+        val filters = ProductFilters(
+            price = ProductFiltersPrice(
+                maxValue = 0.00,
+                minValue = 1000.0
+            ),
+            categories = emptyList()
+        )
+
+        val query = ""
+        val res = productsList
+        coEvery { repository.getProducts() } returns res
+        val result = useCase.doSearch(query, filters)
+
+        result.collect { state ->
+            state.handleResponseState<List<ProductDTO>>(
+                onSuccess = {
+                    it.forEach { product ->
+                        Assert.assertTrue(product.price > filters.price.minValue)
+                    }
+                },
+                onError = {}, onLoading = { })
+        }
+    }
+
+    @Test
     fun `filter products by query, price and category`() = runTest {
         val filters = ProductFilters(
             price = ProductFiltersPrice(

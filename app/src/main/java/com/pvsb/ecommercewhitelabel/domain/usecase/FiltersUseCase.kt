@@ -53,10 +53,10 @@ class FiltersUseCase @Inject constructor(
                 filteredList.removeAll { it.price !in filters.price.minValue..filters.price.maxValue }
             }
             filters.price.minValue > 0.0 -> {
-                filteredList.removeAll { it.price > filters.price.minValue }
+                filteredList.removeAll { it.price < filters.price.minValue }
             }
             filters.price.maxValue > 0.0 -> {
-                filteredList.removeAll { it.price < filters.price.maxValue }
+                filteredList.removeAll { it.price > filters.price.maxValue }
             }
         }
 
