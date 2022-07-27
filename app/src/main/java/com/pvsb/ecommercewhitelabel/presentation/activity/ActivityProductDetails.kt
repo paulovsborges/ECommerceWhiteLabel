@@ -16,6 +16,7 @@ import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.CART_ID
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
+import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityProductDetailsBinding
@@ -37,7 +38,7 @@ class ActivityProductDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val data = intent?.getParcelableExtra<ProductDTO>("PRODUCT_NAME")
+        val data = intent?.getParcelableExtra<ProductDTO>(PRODUCT_DETAILS)
 
         data?.let {
             initialSetUp(it)
