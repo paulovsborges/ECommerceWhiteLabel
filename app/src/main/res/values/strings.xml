@@ -10,6 +10,9 @@
     <string name="error_mandatory_text_field_empty">Fill all the fields to save!</string>
     <string name="btn_next_text">Next</string>
 
+    <!--    Home-->
+    <string name="home_item_list_shipping_cost_placeholder">Free shipping</string>
+
     <!--    Bottom navigation menu names-->
     <string name="bottom_navigation_menu_title_home">Home</string>
     <string name="bottom_navigation_menu_title_search">Search</string>

@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.ecommercewhitelabel.databinding.ListItemBinding
 import com.pvsb.core.utils.ListAdapterDiffUtil
+import com.pvsb.core.utils.formatCurrency
+import com.pvsb.core.utils.formatLength
 
 class HomeAdapter(
     private val onItemClick: (ProductDTO) -> Unit
@@ -33,8 +35,8 @@ class HomeAdapter(
         fun bind(item: ProductDTO) {
 
             binding.apply {
-                tvProductTitle.text = item.title
-                tvProductPrice.text = item.price.toString()
+                tvProductTitle.text = item.title.formatLength(20)
+                tvProductPrice.text = item.price.formatCurrency()
 
                 Glide.with(itemView.context)
                     .load(item.imageUrl)
