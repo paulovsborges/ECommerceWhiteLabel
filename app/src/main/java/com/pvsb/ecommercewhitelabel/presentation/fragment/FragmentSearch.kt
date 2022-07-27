@@ -15,6 +15,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.*
+import com.pvsb.core.utils.Constants.FILTERS_BUNDLE_KEY
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -113,7 +114,7 @@ class FragmentSearch : Fragment() {
 
     private fun openFilters() {
         switchFragment(FragmentProductFilter(), saveBackStack = true)
-        getValueFromFragmentListener<Boolean>("bundle_key") {
+        getValueFromFragmentListener<Boolean>(FILTERS_BUNDLE_KEY) {
             setUpAppliedFilters()
         }
     }

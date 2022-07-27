@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.pvsb.core.model.ProductFilterCategories
+import com.pvsb.core.utils.Constants.FILTERS_BUNDLE_KEY
 import com.pvsb.core.utils.MockFactory.Filters.categoriesList
 import com.pvsb.core.utils.popBackStack
 import com.pvsb.core.utils.setResultToFragmentListener
@@ -62,7 +63,7 @@ class FragmentProductFilter : Fragment() {
 
             viewModel.minValue = minValue
             viewModel.maxValue = maxValue
-            setResultToFragmentListener(true, "bundle_key")
+            setResultToFragmentListener(true, FILTERS_BUNDLE_KEY)
             popBackStack()
         }
     }

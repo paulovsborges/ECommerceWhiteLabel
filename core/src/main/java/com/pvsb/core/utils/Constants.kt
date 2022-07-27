@@ -20,4 +20,5 @@ object Constants {
     }
 
     const val PRODUCT_DETAILS = "PRODUCT_DETAILS"
+    const val FILTERS_BUNDLE_KEY = "FILTERS_BUNDLE_KEY"
 }
