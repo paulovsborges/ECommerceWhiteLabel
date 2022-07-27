@@ -32,7 +32,19 @@ class FiltersViewModel @Inject constructor(
     }
 
     fun getProducts(): StateFlow<ResponseState> {
-        return buildStateFlow(filtersUseCase.getProducts(lastQuery, buildFilters()))
+        return if (selectedFilters.isNotEmpty() ||
+            minValue > 0.0 ||
+            maxValue > 0.0 ||
+            lastQuery.isNotEmpty()
+        ) {
+            buildStateFlow(
+                filtersUseCase.doSearch(
+                    lastQuery, buildFilters()
+                )
+            )
+        } else {
+            buildStateFlow(filtersUseCase.getProducts())
+        }
     }
 
     private fun buildFilters(): ProductFilters {
