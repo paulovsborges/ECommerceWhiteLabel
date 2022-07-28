@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightest_grey"
+    android:paddingTop="80dp"
     tools:context=".presentation.activity.ActivityUserFavoritesProducts">
 
     <androidx.constraintlayout.widget.ConstraintLayout

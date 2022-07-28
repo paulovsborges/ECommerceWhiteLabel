@@ -50,7 +50,7 @@ fun Context.openActivity(activity: Class<*>, data: ((Intent) -> Unit)? = null) {
 
 fun Double.formatCurrency(): String {
     val formatted = String.format("%.2f", this)
-    return "R$${formatted}"
+    return "$${formatted}"
 }
 
 fun String.formatLength(length: Int = 10): String {
