@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/lightest_grey">
 
+    <View
+        android:background="@color/light_grey"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistration"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvUserName"
         style="@style/TitleTextView"
