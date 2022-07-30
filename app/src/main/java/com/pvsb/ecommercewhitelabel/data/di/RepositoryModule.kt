@@ -1,6 +1,15 @@
 package com.pvsb.ecommercewhitelabel.data.di
 
-import com.pvsb.ecommercewhitelabel.data.repository.*
+import com.pvsb.ecommercewhitelabel.data.repository.AuthRepository
+import com.pvsb.ecommercewhitelabel.data.repository.AuthRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.CartRepository
+import com.pvsb.ecommercewhitelabel.data.repository.CartRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.HomeRepository
+import com.pvsb.ecommercewhitelabel.data.repository.HomeRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.NetworkRepository
+import com.pvsb.ecommercewhitelabel.data.repository.NetworkRepositoryImpl
+import com.pvsb.ecommercewhitelabel.data.repository.ProfileRepository
+import com.pvsb.ecommercewhitelabel.data.repository.ProfileRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

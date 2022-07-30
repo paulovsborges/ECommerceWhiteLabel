@@ -4,5 +4,5 @@ import com.pvsb.core.model.ProductDTO
 
 interface HomeRepository {
 
-    suspend fun getProducts() : List<ProductDTO>
+    suspend fun getProducts(): List<ProductDTO>
 }

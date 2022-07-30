@@ -1,22 +1,19 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.lifecycle.lifecycleScope
-import com.google.android.material.navigation.NavigationBarView
-import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_HOME
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_SEARCH
+import com.pvsb.core.utils.createBottomNavListener
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityMainBinding
-import com.pvsb.ecommercewhitelabel.presentation.fragment.*
 import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentCart
+import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentHome
+import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentProfile
+import com.pvsb.ecommercewhitelabel.presentation.fragment.FragmentSearch
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -33,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpBottomNav() {
         val navBottomListener = createBottomNavListener(
-            R.id.fcvMain, mapOf(
+            R.id.fcvMain,
+            mapOf(
                 R.id.navHome to FragmentHome(),
                 R.id.navSearch to FragmentSearch(),
                 R.id.navCart to FragmentCart(),

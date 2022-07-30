@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.CartProductsDTO
@@ -74,7 +73,8 @@ class FragmentCart : Fragment() {
         viewModel.getCartContent(cartId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<PopulateCartDTO>(state,
+                handleResponse<PopulateCartDTO>(
+                    state,
                     onSuccess = {
                         binding.apply {
                             vfMain.displayedChild = DATA_STATE
@@ -84,13 +84,14 @@ class FragmentCart : Fragment() {
 
                         mAdapter.submitList(it.products)
                     }, onError = {
-                        binding.vfMain.displayedChild = EMPTY_STATE
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }, onEmpty = {
-                        binding.clMainContent.visibility = View.VISIBLE
-                        binding.vfMain.displayedChild = EMPTY_STATE
-                    })
+                    binding.vfMain.displayedChild = EMPTY_STATE
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                        .show()
+                }, onEmpty = {
+                    binding.clMainContent.visibility = View.VISIBLE
+                    binding.vfMain.displayedChild = EMPTY_STATE
+                }
+                )
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
@@ -101,14 +102,16 @@ class FragmentCart : Fragment() {
                     viewModel.deleteProduct(cartId, product)
                         .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                         .onEach { state ->
-                            handleResponse<Boolean>(state,
+                            handleResponse<Boolean>(
+                                state,
                                 onSuccess = {
                                     getCartContent(cartId)
                                 }, onError = { e ->
-                                    binding.vfMain.displayedChild = EMPTY_STATE
-                                    Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT)
-                                        .show()
-                                })
+                                binding.vfMain.displayedChild = EMPTY_STATE
+                                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            )
                         }.launchIn(viewLifecycleOwner.lifecycleScope)
                 }
             }

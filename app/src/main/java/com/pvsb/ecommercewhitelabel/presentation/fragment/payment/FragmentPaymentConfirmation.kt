@@ -109,7 +109,8 @@ class FragmentPaymentConfirmation : Fragment() {
         hostViewModel.registerOder(cartId, userId, situation)
             ?.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             ?.onEach { state ->
-                handleResponse<Boolean>(state,
+                handleResponse<Boolean>(
+                    state,
                     onSuccess = {
                         context?.removeValueDS(stringPreferencesKey(CART_ID))
 
@@ -120,8 +121,8 @@ class FragmentPaymentConfirmation : Fragment() {
                         }
                     },
                     onError = {
-
-                    })
+                    }
+                )
             }
             ?.launchIn(viewLifecycleOwner.lifecycleScope)
     }

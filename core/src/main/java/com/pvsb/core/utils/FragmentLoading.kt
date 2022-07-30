@@ -33,5 +33,4 @@ class FragmentLoading : DialogFragment() {
         _binding = null
         super.onDestroy()
     }
-
 }

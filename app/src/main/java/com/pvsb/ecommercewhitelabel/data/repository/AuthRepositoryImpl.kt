@@ -4,7 +4,11 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pvsb.core.model.*
+import com.pvsb.core.model.CreateAccountReqDTO
+import com.pvsb.core.model.CreateAccountResDTO
+import com.pvsb.core.model.CreateUserRegistrationReqDTO
+import com.pvsb.core.model.LoginReqDTO
+import com.pvsb.core.model.UserPersonalData
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 

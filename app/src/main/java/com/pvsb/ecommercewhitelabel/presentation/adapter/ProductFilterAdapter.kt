@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pvsb.core.model.ProductFilterCategories
-import com.pvsb.core.model.ProductFilters
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.ecommercewhitelabel.databinding.FiltersListItemBinding
 

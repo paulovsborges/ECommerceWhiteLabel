@@ -65,9 +65,9 @@ class FragmentHome : Fragment() {
                         mAdapter.submitList(it)
                         binding.clMainContent.visibility = View.VISIBLE
                     }, onError = {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
                 )
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }

@@ -1,6 +1,10 @@
 package com.pvsb.ecommercewhitelabel.data.repository
 
-import com.pvsb.core.model.*
+import com.pvsb.core.model.CreateAccountReqDTO
+import com.pvsb.core.model.CreateAccountResDTO
+import com.pvsb.core.model.CreateUserRegistrationReqDTO
+import com.pvsb.core.model.LoginReqDTO
+import com.pvsb.core.model.UserPersonalData
 
 interface AuthRepository {
 

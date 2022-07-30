@@ -7,7 +7,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-
 fun FragmentActivity.showLoading() {
     if (supportFragmentManager.findFragmentByTag("loading") == null) {
         FragmentLoading().show(supportFragmentManager, "loading")

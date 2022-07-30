@@ -19,7 +19,6 @@ import com.pvsb.core.utils.onBackPress
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSelectAddressBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.SelectAddressAdapter
-import com.pvsb.ecommercewhitelabel.presentation.viewmodel.CartViewModel
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.PaymentViewModel
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,19 +77,19 @@ class FragmentSelectAddress : Fragment() {
         profileViewModel.getAddresses(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<List<UserAddressDTO>>(state,
+                handleResponse<List<UserAddressDTO>>(
+                    state,
                     onSuccess = {
                         mAdapter.submitList(it)
                     }, onEmpty = {
-                        Toast.makeText(context, "no address", Toast.LENGTH_SHORT).show()
-                    }, onError = {
-
-                    })
+                    Toast.makeText(context, "no address", Toast.LENGTH_SHORT).show()
+                }, onError = {
+                }
+                )
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun onDetailsClick(address: UserAddressDTO) {
-
     }
 }

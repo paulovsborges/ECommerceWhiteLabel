@@ -56,7 +56,8 @@ class ActivityUserRegistration : AppCompatActivity() {
         viewModel.getUserRegistration(userId)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<UserPersonalData>(state,
+                handleResponse<UserPersonalData>(
+                    state,
                     onSuccess = {
                         binding.apply {
                             Firebase.auth.currentUser?.email?.let { email ->
@@ -66,13 +67,14 @@ class ActivityUserRegistration : AppCompatActivity() {
                             tiBirthDate.editText?.setText(it.birth)
                         }
                     }, onError = {
-                        Toast.makeText(
-                            this@ActivityUserRegistration,
-                            it.message,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    })
+                    Toast.makeText(
+                        this@ActivityUserRegistration,
+                        it.message,
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+                )
             }.launchIn(lifecycleScope)
     }
 }

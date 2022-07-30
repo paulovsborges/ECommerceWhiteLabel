@@ -37,7 +37,8 @@ class PaymentViewModel @Inject constructor(
                     onSuccess = {
                         cartObj = it
                     },
-                    onError = {})
+                    onError = {}
+                )
             }.launchIn(viewModelScope)
     }
 

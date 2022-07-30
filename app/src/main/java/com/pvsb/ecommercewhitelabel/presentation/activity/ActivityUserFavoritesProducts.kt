@@ -1,10 +1,10 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -57,17 +57,18 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
         viewModel.getFavoriteProducts(userId)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<List<ProductDTO>>(state,
+                handleResponse<List<ProductDTO>>(
+                    state,
                     onSuccess = {
                         binding.clMainContent.visibility = View.VISIBLE
                         binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
                     }, onError = {
-
-                    }, onEmpty = {
-                        binding.clMainContent.visibility = View.VISIBLE
-                        binding.vfMain.displayedChild = EMPTY_STATE
-                    })
+                }, onEmpty = {
+                    binding.clMainContent.visibility = View.VISIBLE
+                    binding.vfMain.displayedChild = EMPTY_STATE
+                }
+                )
             }
             .launchIn(lifecycleScope)
     }
@@ -79,25 +80,25 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                     viewModel.deleteProductToUserFavorites(userId, product)
                         .flowWithLifecycle(lifecycle)
                         .onEach { state ->
-                            handleResponse<Unit>(state,
+                            handleResponse<Unit>(
+                                state,
                                 onSuccess = {
                                     getFavoritesProducts(userId)
                                 }, onError = {
-
-                                }, onEmpty = {
-                                    Toast.makeText(
-                                        this@ActivityUserFavoritesProducts,
-                                        "empty state",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                })
+                            }, onEmpty = {
+                                Toast.makeText(
+                                    this@ActivityUserFavoritesProducts,
+                                    "empty state",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            )
                         }
                         .launchIn(lifecycleScope)
                 }
             }
         }
     }
-
 
     companion object {
         const val DATA_STATE = 0

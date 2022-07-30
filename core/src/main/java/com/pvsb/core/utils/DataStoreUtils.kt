@@ -5,7 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 val Context.dataStoreImpl get() = DataStorePreferences(this)
 
@@ -67,5 +70,3 @@ class DataStorePreferences(private val context: Context) {
         context.dataStore.edit { it.clear() }
     }
 }
-
-

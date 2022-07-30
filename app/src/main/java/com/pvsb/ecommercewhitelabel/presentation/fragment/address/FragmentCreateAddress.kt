@@ -131,7 +131,8 @@ class FragmentCreateAddress : Fragment() {
         viewModel.getZipCodeInfo(zipCode)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<PostalCodeResDTO>(state = state,
+                handleResponse<PostalCodeResDTO>(
+                    state = state,
                     onSuccess = {
                         binding.apply {
                             setTextOnEditText(tiStreet, it.street)
@@ -142,7 +143,8 @@ class FragmentCreateAddress : Fragment() {
                     },
                     onError = {
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    })
+                    }
+                )
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -151,13 +153,15 @@ class FragmentCreateAddress : Fragment() {
         viewModel.saveAddress(userId, address)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<Boolean>(state,
+                handleResponse<Boolean>(
+                    state,
                     onSuccess = {
                         closeActivityAndNavigate(ActivityAddresses(), "")
                     }, onError = {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
-                            .show()
-                    })
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
+                        .show()
+                }
+                )
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }

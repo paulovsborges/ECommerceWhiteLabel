@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,7 +15,6 @@ import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.ecommercewhitelabel.databinding.FragmentAddressesListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.AddressesAdapter
-import com.pvsb.ecommercewhitelabel.presentation.fragment.orders.FragmentOrderDetails
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -71,15 +69,17 @@ class FragmentAddressesList : Fragment() {
         viewModel.getAddresses(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<List<UserAddressDTO>>(state,
+                handleResponse<List<UserAddressDTO>>(
+                    state,
                     onSuccess = {
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
                         switchFragment(FragmentCreateAddress())
                     }, onError = {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    })
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                }
+                )
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
@@ -99,12 +99,14 @@ class FragmentAddressesList : Fragment() {
                     viewModel.deleteAddress(userId, address)
                         .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                         .onEach { state ->
-                            handleResponse<Boolean>(state,
+                            handleResponse<Boolean>(
+                                state,
                                 onSuccess = {
                                     getAddresses(userId)
                                 }, onError = {
-                                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                                })
+                                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            }
+                            )
                         }
                         .launchIn(viewLifecycleOwner.lifecycleScope)
                 }

@@ -30,10 +30,11 @@ class HandleResponseStateTest {
                     Assert.assertEquals(showLoading, loading)
                     showLoading = false
                 }, onSuccess = { success ->
-                    Assert.assertEquals(expectedResult, success)
-                }, onError = { exception ->
-                    Assert.assertNull(exception)
-                })
+                Assert.assertEquals(expectedResult, success)
+            }, onError = { exception ->
+                Assert.assertNull(exception)
+            }
+            )
 
             when (emissionCount) {
                 1 -> {

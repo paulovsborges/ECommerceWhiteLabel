@@ -88,7 +88,8 @@ class FiltersUseCaseTest {
                     Assert.assertTrue(2 == it.size)
                     Assert.assertTrue(!it.contains(res[3]))
                     Assert.assertEquals(expected, it)
-                }, onError = { }, onLoading = {})
+                }, onError = { }, onLoading = {}
+            )
         }
     }
 
@@ -120,7 +121,8 @@ class FiltersUseCaseTest {
                     Assert.assertTrue(7 == it.size)
                     Assert.assertTrue(!it.contains(res[4]))
                     Assert.assertTrue(expected == it)
-                }, onError = {}, onLoading = {})
+                }, onError = {}, onLoading = {}
+            )
         }
     }
 
@@ -149,7 +151,8 @@ class FiltersUseCaseTest {
                     }
                     Assert.assertTrue(2 == it.size)
                 },
-                onError = {}, onLoading = {})
+                onError = {}, onLoading = {}
+            )
         }
     }
 
@@ -175,7 +178,8 @@ class FiltersUseCaseTest {
                         Assert.assertTrue(product.price < filters.price.maxValue)
                     }
                 },
-                onError = {}, onLoading = { })
+                onError = {}, onLoading = { }
+            )
         }
     }
 
@@ -201,7 +205,8 @@ class FiltersUseCaseTest {
                         Assert.assertTrue(product.price > filters.price.minValue)
                     }
                 },
-                onError = {}, onLoading = { })
+                onError = {}, onLoading = { }
+            )
         }
     }
 
@@ -231,7 +236,8 @@ class FiltersUseCaseTest {
                     Assert.assertTrue(1 == it.size)
                     Assert.assertTrue(res[6] == it.first())
                 },
-                onError = {}, onLoading = { })
+                onError = {}, onLoading = { }
+            )
         }
     }
 }

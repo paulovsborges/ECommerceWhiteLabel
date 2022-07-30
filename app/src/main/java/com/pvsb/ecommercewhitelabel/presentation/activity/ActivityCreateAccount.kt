@@ -78,7 +78,6 @@ class ActivityCreateAccount : AppCompatActivity() {
                         )
 
                         setResultAndFinish(obj)
-
                     }, onError = {
                         Toast.makeText(this@ActivityCreateAccount, it.message, Toast.LENGTH_SHORT)
                             .show()

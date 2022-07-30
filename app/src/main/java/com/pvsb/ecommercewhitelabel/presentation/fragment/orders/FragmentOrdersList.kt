@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.pvsb.core.model.OderModelReqDTO
 import com.pvsb.core.model.OderModelResDTO
 import com.pvsb.core.model.enums.OrderSituationEnum
-import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentOrdersListBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.OrdersAdapter

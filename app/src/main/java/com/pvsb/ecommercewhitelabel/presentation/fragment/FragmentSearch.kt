@@ -17,7 +17,6 @@ import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.FILTERS_BUNDLE_KEY
-import com.pvsb.core.utils.Constants.HOME_CATEGORY
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -61,24 +60,24 @@ class FragmentSearch : Fragment() {
             }
 
             tiSearch.editText?.setOnEditorActionListener(object :
-                TextView.OnEditorActionListener {
+                    TextView.OnEditorActionListener {
 
-                override fun onEditorAction(
-                    v: TextView?,
-                    actionId: Int,
-                    event: KeyEvent?
-                ): Boolean {
-                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    override fun onEditorAction(
+                        v: TextView?,
+                        actionId: Int,
+                        event: KeyEvent?
+                    ): Boolean {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                        val search = tiSearch.editText?.text.toString()
-                        if (search.isNotEmpty()) {
-                            setUpSearch(search)
+                            val search = tiSearch.editText?.text.toString()
+                            if (search.isNotEmpty()) {
+                                setUpSearch(search)
+                            }
+                            return true
                         }
-                        return true
+                        return false
                     }
-                    return false
-                }
-            })
+                })
 
             tiSearch.editText?.doAfterTextChanged {
                 if ((tiSearch.editText?.text.toString().isEmpty())) {
@@ -96,7 +95,8 @@ class FragmentSearch : Fragment() {
         viewModel.getProducts()
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<List<ProductDTO>>(state,
+                handleResponse<List<ProductDTO>>(
+                    state,
                     onSuccess = {
                         binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
@@ -107,7 +107,8 @@ class FragmentSearch : Fragment() {
                     onError = {
                         binding.vfMain.displayedChild = EMPTY_STATE
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    })
+                    }
+                )
             }
             .launchIn(lifecycleScope)
     }

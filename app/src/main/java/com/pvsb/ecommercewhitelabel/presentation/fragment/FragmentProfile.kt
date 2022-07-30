@@ -131,14 +131,16 @@ class FragmentProfile : Fragment() {
             viewModel.doLogin(req)
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .onEach { state ->
-                    handleResponse<UserPersonalData>(state,
+                    handleResponse<UserPersonalData>(
+                        state,
                         onSuccess = {
                             onLoginSuccessful(it)
                         },
                         onError = {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                                 .show()
-                        })
+                        }
+                    )
                 }.launchIn(viewLifecycleOwner.lifecycleScope)
         }
     }
@@ -148,14 +150,16 @@ class FragmentProfile : Fragment() {
         viewModel.doLogin(req)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<UserPersonalData>(state,
+                handleResponse<UserPersonalData>(
+                    state,
                     onSuccess = {
                         onLoginSuccessful(it)
                     },
                     onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
-                    })
+                    }
+                )
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 

@@ -64,12 +64,13 @@ class FragmentOrders : Fragment() {
         viewModel.getOrders(userId)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach { state ->
-                handleResponse<OderModelResDTO>(state,
+                handleResponse<OderModelResDTO>(
+                    state,
                     onSuccess = {
                         setUpViewPager(it)
                     }, onError = {
-
-                    })
+                }
+                )
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }

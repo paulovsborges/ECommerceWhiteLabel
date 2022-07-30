@@ -24,14 +24,14 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .document(cartId)
 
             db.runTransaction { transaction ->
-                    transaction.set(docRef, cart)
+                transaction.set(docRef, cart)
 
-                    transaction.update(
-                        docRef,
-                        "total",
-                        FieldValue.increment(value)
-                    )
-                }
+                transaction.update(
+                    docRef,
+                    "total",
+                    FieldValue.increment(value)
+                )
+            }
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(true))
                 }
@@ -55,27 +55,27 @@ class CartRepositoryImpl @Inject constructor() : CartRepository {
                 .document(cartId)
 
             db.runTransaction { transaction ->
-                    val snapShot = transaction.get(docRef)
-                    val currentValue = snapShot.getDouble("total")
-                    val data = snapShot.toObject(PopulateCartDTO::class.java)
-                    val products = data?.products?.map { it.product.title }
+                val snapShot = transaction.get(docRef)
+                val currentValue = snapShot.getDouble("total")
+                val data = snapShot.toObject(PopulateCartDTO::class.java)
+                val products = data?.products?.map { it.product.title }
 
-                    if (products?.contains(product.product.title) == true) {
-                        throw Exception("Product is already added on the cart")
+                if (products?.contains(product.product.title) == true) {
+                    throw Exception("Product is already added on the cart")
+                } else {
+                    if (currentValue != null) {
+                        transaction.update(
+                            docRef,
+                            "total",
+                            FieldValue.increment(value)
+                        )
                     } else {
-                        if (currentValue != null) {
-                            transaction.update(
-                                docRef,
-                                "total",
-                                FieldValue.increment(value)
-                            )
-                        } else {
-                            transaction.update(docRef, " total", value)
-                        }
-
-                        transaction.update(docRef, "products", FieldValue.arrayUnion(product))
+                        transaction.update(docRef, " total", value)
                     }
+
+                    transaction.update(docRef, "products", FieldValue.arrayUnion(product))
                 }
+            }
                 .addOnSuccessListener {
                     continuation.resumeWith(Result.success(true))
                 }

@@ -7,12 +7,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 fun FragmentActivity.switchFragment(
     fragment: Fragment,
@@ -50,7 +47,7 @@ fun Context.openActivity(activity: Class<*>, data: ((Intent) -> Unit)? = null) {
 
 fun Double.formatCurrency(): String {
     val formatted = String.format("%.2f", this)
-    return "$${formatted}"
+    return "$$formatted"
 }
 
 fun String.formatLength(length: Int = 10): String {

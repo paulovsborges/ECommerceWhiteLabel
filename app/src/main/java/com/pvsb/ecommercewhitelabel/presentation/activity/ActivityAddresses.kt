@@ -48,16 +48,16 @@ class ActivityAddresses : AppCompatActivity() {
         viewModel.getAddresses(userId)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<List<UserAddressDTO>>(state,
+                handleResponse<List<UserAddressDTO>>(
+                    state,
                     onSuccess = {
                         switchFragment(FragmentAddressesList(), R.id.fcvAddressContainer)
                     },
                     onEmpty = {
                         switchFragment(FragmentCreateAddress(), R.id.fcvAddressContainer)
                     }, onError = {
-
-                    })
-
+                }
+                )
             }
             .launchIn(lifecycleScope)
     }

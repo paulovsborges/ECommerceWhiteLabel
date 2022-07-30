@@ -68,12 +68,13 @@ class ActivityChangePassword : AppCompatActivity() {
         viewModel.changePassword(currentPassword, newPassword)
             .flowWithLifecycle(lifecycle)
             .onEach { state ->
-                handleResponse<Unit>(state,
+                handleResponse<Unit>(
+                    state,
                     onSuccess = {
                         finish()
                     }, onError = {
-
-                    })
+                }
+                )
             }
             .launchIn(lifecycleScope)
     }
