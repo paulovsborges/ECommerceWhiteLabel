@@ -57,7 +57,7 @@ class FiltersViewModel @Inject constructor(
         )
     }
 
-    fun cleanFilters() {
+    fun clearFilters() {
         selectedFilters.clear()
         minValue = 0.0
         maxValue = 0.0

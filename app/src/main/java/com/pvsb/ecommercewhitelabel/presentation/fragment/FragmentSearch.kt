@@ -60,24 +60,24 @@ class FragmentSearch : Fragment() {
             }
 
             tiSearch.editText?.setOnEditorActionListener(object :
-                    TextView.OnEditorActionListener {
+                TextView.OnEditorActionListener {
 
-                    override fun onEditorAction(
-                        v: TextView?,
-                        actionId: Int,
-                        event: KeyEvent?
-                    ): Boolean {
-                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                override fun onEditorAction(
+                    v: TextView?,
+                    actionId: Int,
+                    event: KeyEvent?
+                ): Boolean {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
-                            val search = tiSearch.editText?.text.toString()
-                            if (search.isNotEmpty()) {
-                                setUpSearch(search)
-                            }
-                            return true
+                        val search = tiSearch.editText?.text.toString()
+                        if (search.isNotEmpty()) {
+                            setUpSearch(search)
                         }
-                        return false
+                        return true
                     }
-                })
+                    return false
+                }
+            })
 
             tiSearch.editText?.doAfterTextChanged {
                 if ((tiSearch.editText?.text.toString().isEmpty())) {
@@ -100,6 +100,7 @@ class FragmentSearch : Fragment() {
                     onSuccess = {
                         binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
+                        mAdapter.notifyDataSetChanged()
                     },
                     onEmpty = {
                         binding.vfMain.displayedChild = EMPTY_STATE
@@ -142,6 +143,7 @@ class FragmentSearch : Fragment() {
                     it.id, it.name, false
                 )
             )
+            viewModel.clearFilters()
         }
         super.onPause()
     }

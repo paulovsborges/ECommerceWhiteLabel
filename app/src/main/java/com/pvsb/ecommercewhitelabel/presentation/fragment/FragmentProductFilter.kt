@@ -57,7 +57,7 @@ class FragmentProductFilter : Fragment() {
             }
         }
 
-        viewModel.cleanFilters()
+        viewModel.clearFilters()
         getFiltersAndGoBack()
     }
 
