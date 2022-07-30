@@ -55,7 +55,7 @@ class ActivityProductDetails : AppCompatActivity() {
 
     private fun initialSetUp(product: ProductDTO) {
         binding.apply {
-
+            ivBack.setOnClickListener { finish() }
             tvProductPrice.text = product.price.formatCurrency()
             tvProductTitle.text = product.title
 
