@@ -62,6 +62,9 @@ class FragmentCart : Fragment() {
             requireContext().getValueDS(stringPreferencesKey(CART_ID)) {
                 it?.let { id ->
                     getCartContent(id)
+                } ?: kotlin.run {
+                    binding.clMainContent.visibility = View.VISIBLE
+                    binding.vfMain.displayedChild = EMPTY_STATE
                 }
             }
         }
