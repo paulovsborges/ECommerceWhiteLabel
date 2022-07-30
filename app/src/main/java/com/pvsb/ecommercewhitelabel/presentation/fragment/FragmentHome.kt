@@ -14,13 +14,10 @@ import com.pvsb.core.model.HomeBanner
 import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.utils.*
-import com.pvsb.core.utils.Constants.HOME_CATEGORY
-import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_SEARCH
 import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
-import com.pvsb.ecommercewhitelabel.presentation.activity.MainActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeBannersAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeViewModel
@@ -64,7 +61,7 @@ class FragmentHome : Fragment() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(
                     state, onSuccess = {
-                        setBannersData(it)
+                        setUpBanners(it)
                         mAdapter.submitList(it)
                         binding.clMainContent.visibility = View.VISIBLE
                     }, onError = {
@@ -75,7 +72,7 @@ class FragmentHome : Fragment() {
             }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-    private fun setBannersData(products: List<ProductDTO>) {
+    private fun setUpBanners(products: List<ProductDTO>) {
         val banners = mutableListOf<HomeBanner>()
         val firstCategory = products.filter { it.categoryId == 1 }.take(2)
         val secondCategory = products.filter { it.categoryId == 2 }.take(2)
