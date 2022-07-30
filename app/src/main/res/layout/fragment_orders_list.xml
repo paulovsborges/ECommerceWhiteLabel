@@ -6,13 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/lightest_grey">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvOrders"
+    <ViewFlipper
+        android:id="@+id/vfMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/order_list_item" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOrders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/order_list_item" />
+
+        <TextView
+            android:id="@+id/tvEmptyText"
+            style="@style/DescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="@string/search_empty_results"
+            android:textAlignment="center" />
+    </ViewFlipper>
 </androidx.constraintlayout.widget.ConstraintLayout>

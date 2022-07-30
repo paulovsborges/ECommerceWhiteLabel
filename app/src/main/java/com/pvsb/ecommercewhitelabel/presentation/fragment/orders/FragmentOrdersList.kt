@@ -40,9 +40,23 @@ class FragmentOrdersList(
     private fun initialSetUp() {
         binding.apply {
             rvOrders.adapter = mAdapter
-        }
+            val filteredOrders = data.orders.filter { it.situation == getString(situation.label) }
 
-        mAdapter.submitList(data.orders.filter { it.situation == getString(situation.label) })
+            if (filteredOrders.isEmpty()) {
+                vfMain.displayedChild = EMPTY_STATE
+                val situationLabel = situation.label
+                tvEmptyText.text =
+                    getString(R.string.orders_empty_for_situation, getString(situationLabel))
+            } else {
+                vfMain.displayedChild = DATA_STATE
+                mAdapter.submitList(filteredOrders)
+            }
+        }
+    }
+
+    companion object {
+        const val DATA_STATE = 0
+        const val EMPTY_STATE = 1
     }
 
     override fun onDestroy() {
