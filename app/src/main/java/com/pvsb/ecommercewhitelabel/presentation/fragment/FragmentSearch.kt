@@ -98,12 +98,14 @@ class FragmentSearch : Fragment() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
+                        binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
                     },
                     onEmpty = {
-                        Toast.makeText(context, "No results found", Toast.LENGTH_SHORT).show()
+                        binding.vfMain.displayedChild = EMPTY_STATE
                     },
                     onError = {
+                        binding.vfMain.displayedChild = EMPTY_STATE
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     })
             }
@@ -141,6 +143,11 @@ class FragmentSearch : Fragment() {
             )
         }
         super.onPause()
+    }
+
+    companion object {
+        const val DATA_STATE = 0
+        const val EMPTY_STATE = 1
     }
 
     override fun onDestroy() {

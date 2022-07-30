@@ -47,15 +47,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tiSearch" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProductsSearch"
+
+    <ViewFlipper
+        android:id="@+id/vfMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="3dp"
         android:layout_marginTop="20dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tiSearch"
-        app:spanCount="2"
-        tools:listitem="@layout/list_item" />
+        app:layout_constraintTop_toBottomOf="@id/tiSearch">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProductsSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="3dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tiSearch"
+            app:spanCount="2"
+            tools:listitem="@layout/list_item" />
+
+        <TextView
+            style="@style/DescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/search_empty_results"
+            android:textAlignment="center" />
+    </ViewFlipper>
 </androidx.constraintlayout.widget.ConstraintLayout>

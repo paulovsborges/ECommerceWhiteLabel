@@ -31,6 +31,7 @@
     <string name="search_filters_edit_text_max_value_hint">Max value</string>
     <string name="search_filters_label">Filters</string>
     <string name="search_filters_clean_filters_label">Clean filters</string>
+    <string name="search_empty_results">No results!</string>
 
     <!--    Cart-->
     <string name="cart_label">Cart</string>
