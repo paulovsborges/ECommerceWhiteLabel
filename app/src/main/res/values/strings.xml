@@ -85,6 +85,10 @@
     <string name="profile_logout_button_text">Logout</string>
     <string name="profile_user_greetings">Hello %1$s!</string>
 
+    <!--    Registration-->
+    <string name="registration_label">Registration</string>
+
+
     <!--    Addresses -->
     <string name="addresses_create_address_postal_code_hint">Zip Code</string>
     <string name="addresses_create_address_street_hint">Street</string>

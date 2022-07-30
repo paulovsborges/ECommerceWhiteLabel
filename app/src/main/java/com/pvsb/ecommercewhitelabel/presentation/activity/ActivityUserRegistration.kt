@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
@@ -57,6 +59,9 @@ class ActivityUserRegistration : AppCompatActivity() {
                 handleResponse<UserPersonalData>(state,
                     onSuccess = {
                         binding.apply {
+                            Firebase.auth.currentUser?.email?.let { email ->
+                                tiEmail.editText?.setText(email)
+                            }
                             tiName.editText?.setText(it.name)
                             tiBirthDate.editText?.setText(it.birth)
                         }
