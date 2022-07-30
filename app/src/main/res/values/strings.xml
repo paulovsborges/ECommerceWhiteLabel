@@ -36,6 +36,7 @@
     <string name="cart_label">Cart</string>
     <string name="cart_button_purchase_text">Continue purchase</string>
     <string name="cart_button_list_item_amount_placeholder">Quantity: %1$s</string>
+    <string name="cart_empty_cart_message">Your cart is empty, let`s go shopping?</string>
 
     <!--    Product Details-->
     <string name="product_details_button_purchase_text">Buy</string>

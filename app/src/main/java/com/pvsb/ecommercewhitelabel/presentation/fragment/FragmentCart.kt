@@ -85,6 +85,7 @@ class FragmentCart : Fragment() {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
                     }, onEmpty = {
+                        binding.clMainContent.visibility = View.VISIBLE
                         binding.vfMain.displayedChild = EMPTY_STATE
                     })
             }.launchIn(viewLifecycleOwner.lifecycleScope)

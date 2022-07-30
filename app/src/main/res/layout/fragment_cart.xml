@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMainContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightest_grey">
+    android:background="@color/lightest_grey"
+    android:visibility="invisible"
+    tools:visibility="visible">
 
     <TextView
         android:id="@+id/tvCartLabel"
@@ -24,7 +27,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvCartLabel">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clMainContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="invisible"
@@ -69,10 +71,11 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/DescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="empty" />
+                android:text="@string/cart_empty_cart_message" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ViewFlipper>
 </androidx.constraintlayout.widget.ConstraintLayout>
