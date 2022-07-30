@@ -73,7 +73,12 @@ class ActivityChangePassword : AppCompatActivity() {
                     onSuccess = {
                         finish()
                     }, onError = {
-                }
+                        Snackbar.make(
+                            binding.tiNewPasswordConfirmation,
+                            it.message ?: getString(R.string.change_password_error_generic),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 )
             }
             .launchIn(lifecycleScope)

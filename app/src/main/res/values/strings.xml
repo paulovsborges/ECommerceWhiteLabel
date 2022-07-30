@@ -134,4 +134,5 @@
     <string name="change_password_btn_text">Change Password</string>
     <string name="change_password_error_passwords_fields_mandatory">All the fields are mandatory.</string>
     <string name="change_password_error_new_and_confirm_password_do_not_match">New passwords don`t match.</string>
+    <string name="change_password_error_generic">Verify your password.</string>
 </resources>
