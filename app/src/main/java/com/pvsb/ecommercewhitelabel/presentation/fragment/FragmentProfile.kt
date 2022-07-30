@@ -97,7 +97,9 @@ class FragmentProfile : Fragment() {
             lifecycleScope.launch {
                 context?.getValueDS(stringPreferencesKey(USER_NAME)) {
                     it?.let {
-                        val name = it.replaceFirstChar { fChar -> fChar.uppercase() }
+                        val name = it.getUserFirstName().replaceFirstChar { fChar ->
+                            fChar.uppercase()
+                        }
                         tvUserName.text = getString(R.string.profile_user_greetings, name)
                     }
                 }

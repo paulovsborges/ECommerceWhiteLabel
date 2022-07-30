@@ -88,3 +88,19 @@ fun String.formatDate(): String {
 
     return result
 }
+
+fun String.getUserFirstName(): String {
+    var firstName = ""
+    val whiteSpaceIndex = this.indexOf(" ")
+    var index = 0
+    for (c in this.toCharArray()) {
+        if (index < whiteSpaceIndex) {
+            firstName += c.toString()
+        } else {
+            break
+        }
+        index += 1
+    }
+
+    return firstName
+}
