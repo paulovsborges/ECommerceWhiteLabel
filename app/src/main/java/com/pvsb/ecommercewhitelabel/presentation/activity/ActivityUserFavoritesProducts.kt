@@ -2,6 +2,7 @@ package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -58,11 +59,14 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
             .onEach { state ->
                 handleResponse<List<ProductDTO>>(state,
                     onSuccess = {
+                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
                     }, onError = {
 
                     }, onEmpty = {
-                        Toast.makeText(this, "empty state", Toast.LENGTH_SHORT).show()
+                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.vfMain.displayedChild = EMPTY_STATE
                     })
             }
             .launchIn(lifecycleScope)
@@ -92,5 +96,11 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                 }
             }
         }
+    }
+
+
+    companion object {
+        const val DATA_STATE = 0
+        const val EMPTY_STATE = 1
     }
 }

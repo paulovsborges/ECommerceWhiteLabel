@@ -1,45 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clMainContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightest_grey"
     android:paddingTop="80dp"
-    tools:context=".presentation.activity.ActivityUserFavoritesProducts">
+    android:visibility="invisible"
+    tools:context=".presentation.activity.ActivityUserFavoritesProducts"
+    tools:visibility="visible">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:contentDescription="@null"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back_icon_2__1_"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFavoritesLabel"
+        style="@style/TitleTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/favorites_label"
+        app:layout_constraintTop_toBottomOf="@id/ivBack" />
 
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:contentDescription="@null"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back_icon_2__1_"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ViewFlipper
+        android:id="@+id/vfMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFavoritesLabel">
 
-        <TextView
-            android:id="@+id/tvFavoritesLabel"
-            style="@style/TitleTextView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:text="@string/favorites_label"
-            app:layout_constraintTop_toBottomOf="@id/ivBack" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvFavoritesList"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFavoritesList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/favorite_list_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvFavoritesLabel"
-            tools:listitem="@layout/favorite_list_item" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ViewFlipper>
+            android:layout_height="match_parent"
+            android:padding="30dp">
+
+            <TextView
+                style="@style/DescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/favorites_empty_message"
+                android:textAlignment="center" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ViewFlipper>
+</androidx.constraintlayout.widget.ConstraintLayout>

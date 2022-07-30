@@ -100,6 +100,7 @@
 
     <!--    Favorites -->
     <string name="favorites_label">Favorites</string>
+    <string name="favorites_empty_message">You have none products added to your favorites yet!</string>
 
     <!--    Orders -->
     <string name="orders_list_label">Orders</string>
