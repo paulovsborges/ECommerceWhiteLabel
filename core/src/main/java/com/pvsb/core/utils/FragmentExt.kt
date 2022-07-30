@@ -54,7 +54,7 @@ fun Fragment.switchFragment(
 inline fun <reified T : Any> Fragment.switchFragmentWithArgs(
     fragment: Fragment,
     data: T? = null,
-    animation: Boolean = false,
+    animation: Boolean = true,
     saveBackStack: Boolean = false
 ) {
 

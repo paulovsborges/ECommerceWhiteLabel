@@ -14,8 +14,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.ProductFilterCategories
 import com.pvsb.core.utils.*
 import com.pvsb.core.utils.Constants.FILTERS_BUNDLE_KEY
+import com.pvsb.core.utils.Constants.HOME_CATEGORY
 import com.pvsb.ecommercewhitelabel.databinding.FragmentSearchBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
@@ -31,6 +33,7 @@ class FragmentSearch : Fragment() {
     private val binding get() = _binding!!
     private val mAdapter = HomeAdapter(::navigateToDetails)
     private val viewModel: FiltersViewModel by activityViewModels()
+    private var homeCategory: ProductFilterCategories? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +46,10 @@ class FragmentSearch : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeCategory = deserializeObjFromArguments()
+        homeCategory?.let {
+            viewModel.handleFilterSelection(it)
+        }
         initialSetUp()
     }
 

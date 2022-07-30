@@ -9,15 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pvsb.core.model.HomeBanner
 import com.pvsb.core.model.ProductDTO
+import com.pvsb.core.model.ProductFilterCategories
+import com.pvsb.core.utils.*
+import com.pvsb.core.utils.Constants.HOME_CATEGORY
+import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_SEARCH
 import com.pvsb.core.utils.Constants.PRODUCT_DETAILS
-import com.pvsb.core.utils.handleResponse
-import com.pvsb.core.utils.openActivity
-import com.pvsb.core.utils.putValueOnBundle
+import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.FragmentHomeBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityProductDetails
+import com.pvsb.ecommercewhitelabel.presentation.activity.MainActivity
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeAdapter
 import com.pvsb.ecommercewhitelabel.presentation.adapter.HomeBannersAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.HomeViewModel
@@ -80,24 +83,33 @@ class FragmentHome : Fragment() {
 
         banners.add(
             HomeBanner(
-                "Hardware",
-                1,
+                ProductFilterCategories(
+                    1,
+                    "Hardware",
+                    true
+                ),
                 firstCategory.first().imageUrl,
                 firstCategory[1].imageUrl
             )
         )
         banners.add(
             HomeBanner(
-                "Peripherals",
-                2,
+                ProductFilterCategories(
+                    2,
+                    "Peripherals",
+                    true
+                ),
                 secondCategory.first().imageUrl,
                 secondCategory[1].imageUrl
             )
         )
         banners.add(
             HomeBanner(
-                "Cases",
-                3,
+                ProductFilterCategories(
+                    3,
+                    "Cases",
+                    true
+                ),
                 thirdCategory.first().imageUrl,
                 thirdCategory[1].imageUrl
             )
@@ -107,14 +119,15 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: ProductDTO) {
-
         requireContext().openActivity(ActivityProductDetails::class.java) {
             it.putValueOnBundle(PRODUCT_DETAILS, item)
         }
     }
 
-    private fun onBannerClick(id: Int) {
-
+    private fun onBannerClick(category: ProductFilterCategories) {
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.mainBottomNav)
+        bottomNav.selectedItemId = R.id.navSearch
+        switchFragmentWithArgs(FragmentSearch(), data = category)
     }
 
     override fun onDestroy() {

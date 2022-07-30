@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@color/dark6"
+        app:layout_constraintDimensionRatio="21:9"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp">

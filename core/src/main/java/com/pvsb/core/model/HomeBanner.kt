@@ -1,8 +1,7 @@
 package com.pvsb.core.model
 
 data class HomeBanner(
-    val title: String,
-    val id: Int,
+    var categoryFilter: ProductFilterCategories,
     val image1: String,
     val image2: String
 )
