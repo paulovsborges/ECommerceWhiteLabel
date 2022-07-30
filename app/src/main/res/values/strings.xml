@@ -18,7 +18,7 @@
 
     <!--    Home-->
     <string name="home_item_list_shipping_cost_placeholder">Free shipping</string>
-    <string name="home_label">Gaming store</string>
+    <string name="home_label">Hardware store</string>
     <string name="home_products_label">Most viewed</string>
     <string name="home_categories_label">Categories</string>
 
