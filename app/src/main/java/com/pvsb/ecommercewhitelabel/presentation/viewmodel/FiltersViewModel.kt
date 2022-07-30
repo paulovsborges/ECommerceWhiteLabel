@@ -22,11 +22,11 @@ class FiltersViewModel @Inject constructor(
     var lastQuery = ""
 
     fun handleFilterSelection(item: ProductFilterCategories) {
-        if (item.isChecked && !selectedFilters.contains(item)) {
+        if (item.isChecked && !selectedFilters.map { it.id }.contains(item.id)) {
             selectedFilters.add(item)
         } else {
-            if (selectedFilters.contains(item)) {
-                selectedFilters.remove(item)
+            if (selectedFilters.map { it.id }.contains(item.id)) {
+                selectedFilters.removeIf { it.id == item.id }
             }
         }
     }

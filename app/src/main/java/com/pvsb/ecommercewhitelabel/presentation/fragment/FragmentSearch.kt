@@ -132,6 +132,17 @@ class FragmentSearch : Fragment() {
         }
     }
 
+    override fun onPause() {
+        homeCategory?.let {
+            viewModel.handleFilterSelection(
+                ProductFilterCategories(
+                    it.id, it.name, false
+                )
+            )
+        }
+        super.onPause()
+    }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
