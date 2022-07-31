@@ -20,6 +20,10 @@ class AuthViewModel @Inject constructor(
     private val authUseCase: AuthUseCase
 ) : CoroutineViewModel() {
 
+    /**
+     * Here i used this approach to prevent the state flow to replay the last cached emission on the ui
+     * and still keep the job instance alive
+     */
     fun doLogin(data: LoginReqDTO): SharedFlow<ResponseState> {
         val sharedFlow = MutableSharedFlow<ResponseState>(
             extraBufferCapacity = 1,
