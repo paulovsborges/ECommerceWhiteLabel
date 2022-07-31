@@ -115,10 +115,7 @@ class FragmentProfile : Fragment() {
             btnLogin.setOnClickListener { doLogin() }
             btnCreateAccount.setOnClickListener {
                 createAccountListenerLauncher.launch(
-                    Intent(
-                        requireContext(),
-                        ActivityCreateAccount::class.java
-                    )
+                    Intent(requireContext(), ActivityCreateAccount::class.java)
                 )
             }
         }
@@ -137,7 +134,6 @@ class FragmentProfile : Fragment() {
                         state,
                         onSuccess = {
                             onLoginSuccessful(it)
-
                         },
                         onError = {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
