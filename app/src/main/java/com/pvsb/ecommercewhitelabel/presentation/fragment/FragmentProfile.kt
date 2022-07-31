@@ -25,7 +25,9 @@ import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.*
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -135,6 +137,7 @@ class FragmentProfile : Fragment() {
                         state,
                         onSuccess = {
                             onLoginSuccessful(it)
+
                         },
                         onError = {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
@@ -146,25 +149,14 @@ class FragmentProfile : Fragment() {
     }
 
     private fun doLoginAfterAccountCreation(data: CreateAccountResDTO) {
-        val req = LoginReqDTO(data.email, data.password)
-        viewModel.doLogin(req)
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .onEach { state ->
-                handleResponse<UserPersonalData>(
-                    state,
-                    onSuccess = {
-                        onLoginSuccessful(it)
-                    },
-                    onError = {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                )
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+        binding.iclLoginLayout.apply {
+            tiEmail.editText?.setText(data.email)
+            tiPassword.editText?.setText(data.password)
+            doLogin()
+        }
     }
 
     private suspend fun onLoginSuccessful(data: UserPersonalData) {
-
         binding.iclLoginLayout.apply {
             tiEmail.editText?.text?.clear()
             tiPassword.editText?.text?.clear()
