@@ -1,5 +1,7 @@
 package com.pvsb.ecommercewhitelabel.presentation.fragment
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -116,9 +118,21 @@ class FragmentHome : Fragment() {
     }
 
     private fun navigateToDetails(item: ProductDTO) {
-        requireContext().openActivity(ActivityProductDetails::class.java) {
-            it.putValueOnBundle(PRODUCT_DETAILS, item)
-        }
+
+        val view = requireActivity().findViewById<View>(R.id.viewShared)
+        val intent = Intent(requireContext(), ActivityProductDetails::class.java)
+        intent.putValueOnBundle(PRODUCT_DETAILS, item)
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            requireActivity(),
+            view,
+            "my_element"
+        )
+
+        startActivity(intent, options.toBundle())
+
+//        requireContext().openActivity(ActivityProductDetails::class.java) {
+//            it.putValueOnBundle(PRODUCT_DETAILS, item)
+//        }
     }
 
     private fun onBannerClick(category: ProductFilterCategories) {

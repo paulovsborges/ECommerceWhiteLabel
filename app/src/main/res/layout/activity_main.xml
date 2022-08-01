@@ -22,4 +22,11 @@
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/main_bottom_navigation_menu" />
+
+    <View
+        android:id="@+id/viewShared"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:transitionName="my_element"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

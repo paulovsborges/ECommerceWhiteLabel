@@ -1,7 +1,9 @@
 package com.pvsb.ecommercewhitelabel.presentation.activity
 
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_CART
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_HOME
 import com.pvsb.core.utils.Constants.Navigator.BOTTOM_NAV_PROFILE
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+        window.sharedElementsUseOverlay = false
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
