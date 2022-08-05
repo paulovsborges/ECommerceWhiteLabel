@@ -66,10 +66,11 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                         binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
                     }, onError = {
-                }, onEmpty = {
-                    binding.clMainContent.visibility = View.VISIBLE
-                    binding.vfMain.displayedChild = EMPTY_STATE
-                }
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    }, onEmpty = {
+                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.vfMain.displayedChild = EMPTY_STATE
+                    }
                 )
             }
             .launchIn(lifecycleScope)
@@ -87,13 +88,13 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                                 onSuccess = {
                                     getFavoritesProducts(userId)
                                 }, onError = {
-                            }, onEmpty = {
-                                Toast.makeText(
-                                    this@ActivityUserFavoritesProducts,
-                                    "empty state",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                                }, onEmpty = {
+                                    Toast.makeText(
+                                        this@ActivityUserFavoritesProducts,
+                                        "empty state",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             )
                         }
                         .launchIn(lifecycleScope)
