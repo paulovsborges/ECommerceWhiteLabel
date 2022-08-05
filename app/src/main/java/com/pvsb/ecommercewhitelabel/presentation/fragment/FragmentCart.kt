@@ -17,6 +17,7 @@ import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.openActivity
+import com.pvsb.core.utils.visible
 import com.pvsb.ecommercewhitelabel.databinding.FragmentCartBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.ActivityPayment
 import com.pvsb.ecommercewhitelabel.presentation.adapter.CartProductsAdapter
@@ -62,7 +63,7 @@ class FragmentCart : Fragment() {
                 it?.let { id ->
                     getCartContent(id)
                 } ?: kotlin.run {
-                    binding.clMainContent.visibility = View.VISIBLE
+                    binding.clMainContent.visible()
                     binding.vfMain.displayedChild = EMPTY_STATE
                 }
             }
@@ -78,7 +79,7 @@ class FragmentCart : Fragment() {
                     onSuccess = {
                         binding.apply {
                             vfMain.displayedChild = DATA_STATE
-                            clMainContent.visibility = View.VISIBLE
+                            clMainContent.visible()
                             tvCartValue.text = it.total.formatCurrency()
                         }
 
@@ -88,7 +89,7 @@ class FragmentCart : Fragment() {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                         .show()
                 }, onEmpty = {
-                    binding.clMainContent.visibility = View.VISIBLE
+                    binding.clMainContent.visible()
                     binding.vfMain.displayedChild = EMPTY_STATE
                 }
                 )

@@ -63,7 +63,7 @@ class FragmentProfile : Fragment() {
                     } else {
                         profileSetUp()
                     }
-                    root.visibility = View.VISIBLE
+                    root.visible()
                 }
             }
         }

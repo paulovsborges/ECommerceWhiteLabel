@@ -10,6 +10,7 @@ import com.pvsb.core.model.CartProductsDTO
 import com.pvsb.core.utils.ListAdapterDiffUtil
 import com.pvsb.core.utils.formatCurrency
 import com.pvsb.core.utils.formatLength
+import com.pvsb.core.utils.invisible
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.CartListProductItemBinding
 
@@ -34,7 +35,7 @@ class PaymentConfirmationProductsAdapter :
 
         fun bind(item: CartProductsDTO) {
             binding.apply {
-                ivArrow.visibility = View.INVISIBLE
+                ivArrow.invisible()
 
                 Glide.with(itemView.context)
                     .load(item.product.imageUrl)

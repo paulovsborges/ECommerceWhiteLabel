@@ -13,6 +13,7 @@ import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
 import com.pvsb.core.utils.setSharedViewAnim
+import com.pvsb.core.utils.visible
 import com.pvsb.ecommercewhitelabel.databinding.ActivityUserFavoritesProductsBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.FavoritesAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
@@ -62,13 +63,13 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
                 handleResponse<List<ProductDTO>>(
                     state,
                     onSuccess = {
-                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.clMainContent.visible()
                         binding.vfMain.displayedChild = DATA_STATE
                         mAdapter.submitList(it)
                     }, onError = {
                         Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     }, onEmpty = {
-                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.clMainContent.visible()
                         binding.vfMain.displayedChild = EMPTY_STATE
                     }
                 )

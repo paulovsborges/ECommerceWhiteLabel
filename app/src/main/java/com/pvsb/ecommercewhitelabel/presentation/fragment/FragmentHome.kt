@@ -65,7 +65,7 @@ class FragmentHome : Fragment() {
                     state, onSuccess = {
                         setUpBanners(it)
                         mAdapter.submitList(it)
-                        binding.clMainContent.visibility = View.VISIBLE
+                        binding.clMainContent.visible()
                     }, onError = {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT)
                             .show()
