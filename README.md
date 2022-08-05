@@ -60,6 +60,7 @@ Mostrar o meu nível técnico atual nas tecnologias utilizadas no projeto.
 - Integração completa com o Firebase Firestore
 - Integrar Firebase Auth
 - Utilizar Ktor para consumir api
+- Registro de endereços
 - Registro de pedidos do usuário no Firestore
 - Registro de produtos favoritos do usuário no Firestore
 - Atualização de senha do usuário
