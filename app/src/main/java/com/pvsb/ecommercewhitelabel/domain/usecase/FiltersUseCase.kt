@@ -37,15 +37,24 @@ class FiltersUseCase @Inject constructor(
         val filteredList = mutableListOf<ProductDTO>()
         filteredList.addAll(res)
 
+        if (filters.categories.isNotEmpty()) {
+            val listByCategories = mutableListOf<ProductDTO>()
+
+            filters.categories.forEach { category ->
+                listByCategories.addAll(filteredList.filter { it.categoryId == category.id })
+            }
+
+            if (listByCategories.isNotEmpty()) {
+                filteredList.clear()
+                filteredList.addAll(listByCategories)
+            }
+        }
+
         if (!search.isNullOrEmpty()) {
             filteredList.removeAll {
                 val title = it.title.lowercase()
                 !title.contains(search)
             }
-        }
-
-        filters.categories.forEach { category ->
-            filteredList.removeAll { it.categoryId != category.id }
         }
 
         when {

@@ -77,6 +77,24 @@ sealed class MockFactory {
                 price = 149.90,
                 categoryId = 1
             ),
+            ProductDTO(
+                10,
+                "Case corsair",
+                price = 349.90,
+                categoryId = 3
+            ),
+            ProductDTO(
+                11,
+                "Case cooler master",
+                price = 549.99,
+                categoryId = 3
+            ),
+            ProductDTO(
+                12,
+                "Case aorus",
+                price = 149.90,
+                categoryId = 3
+            ),
         )
     }
 }

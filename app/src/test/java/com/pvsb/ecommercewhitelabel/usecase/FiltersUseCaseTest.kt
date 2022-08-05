@@ -240,4 +240,58 @@ class FiltersUseCaseTest {
             )
         }
     }
+
+    @Test
+    fun `filter by several categories`() = runTest {
+        val filters = ProductFilters(
+            price = ProductFiltersPrice(
+                maxValue = 0.00,
+                minValue = 0.00
+            ),
+            categories = listOf(
+                ProductFilterCategories(
+                    id = 3,
+                    name = "Cases"
+                ),
+                ProductFilterCategories(
+                    id = 2,
+                    name = "Peripherals"
+                )
+            )
+        )
+
+        val query = ""
+        val res = productsList
+        coEvery { repository.getProducts() } returns res
+        val result = useCase.doSearch(query, filters)
+
+        result.collect { state ->
+            state.handleResponseState<List<ProductDTO>>(
+                onSuccess = {
+                    Assert.assertTrue(5 == it.size)
+                    Assert.assertTrue(
+                        it.contains(
+                            ProductDTO(
+                                5,
+                                "Keyboard corsair",
+                                price = 249.90,
+                                categoryId = 2
+                            )
+                        )
+                    )
+                    Assert.assertTrue(
+                        !it.contains(
+                            ProductDTO(
+                                4,
+                                "AMD Ryzen 7 5800X",
+                                price = 2300.00,
+                                categoryId = 1
+                            )
+                        )
+                    )
+                },
+                onError = {}, onLoading = { }
+            )
+        }
+    }
 }
