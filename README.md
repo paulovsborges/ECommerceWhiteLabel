@@ -2,14 +2,14 @@
 # Hardware E-Commerce
 #### Clean arquitecture | Coroutines | Dagger Hilt | MVVM | Firebase | Ktor | Data Store | Mocck 
 
-**Tecnologias aplicadas**
-
 (Clique nos links para ir direto aos arquivos ou pastas relacionadas) 
 
 * Kotlin
 * [Hilt](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/app/src/main/java/com/pvsb/ecommercewhitelabel/data/di)
 * [Ktor](https://github.com/paulovsborges/ECommerceWhiteLabel/blob/master/app/src/main/java/com/pvsb/ecommercewhitelabel/data/di/KtorModule.kt)
-
+* [View model](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/app/src/main/java/com/pvsb/ecommercewhitelabel/presentation/viewmodel)
+* [Testes unitários modulo core](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/core/src/test/java/com/pvsb/core)
+* [Testes unitários modulo app](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/app/src/test/java/com/pvsb/ecommercewhitelabel/usecase)
 
 <h1 align="center">Sobre o projeto</h1>
 
