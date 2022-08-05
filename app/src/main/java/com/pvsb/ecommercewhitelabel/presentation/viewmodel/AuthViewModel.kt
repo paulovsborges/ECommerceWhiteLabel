@@ -1,5 +1,6 @@
 package com.pvsb.ecommercewhitelabel.presentation.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import com.pvsb.core.model.CreateAccountReqDTO
 import com.pvsb.core.model.LoginReqDTO
 import com.pvsb.core.utils.CoroutineViewModel
@@ -12,6 +13,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,11 +32,10 @@ class AuthViewModel @Inject constructor(
             extraBufferCapacity = 1,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
-        launch {
-            authUseCase.doLogin(data).collectLatest {
-                sharedFlow.emit(it)
-            }
-        }
+
+        authUseCase.doLogin(data).onEach {
+            sharedFlow.emit(it)
+        }.launchIn(viewModelScope)
 
         return sharedFlow
     }
