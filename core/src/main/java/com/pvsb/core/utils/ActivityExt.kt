@@ -133,7 +133,7 @@ fun FragmentActivity.openActivityWithAnim(
 fun FragmentActivity.setSharedViewAnim(
     sharedViewName: String
 ) {
-    window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+//    window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
     findViewById<View>(android.R.id.content).transitionName = sharedViewName
     setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
     window.sharedElementEnterTransition = MaterialContainerTransform().apply {

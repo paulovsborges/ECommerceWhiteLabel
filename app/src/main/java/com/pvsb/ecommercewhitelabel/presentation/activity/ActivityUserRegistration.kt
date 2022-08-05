@@ -38,7 +38,7 @@ class ActivityUserRegistration : AppCompatActivity() {
     private fun initialSetUp() {
         binding.apply {
             ivBack.setOnClickListener {
-                finish()
+                onBackPressed()
             }
         }
 

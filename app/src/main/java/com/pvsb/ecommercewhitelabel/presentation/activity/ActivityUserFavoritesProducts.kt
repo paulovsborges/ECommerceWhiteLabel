@@ -42,7 +42,7 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
             rvFavoritesList.adapter = mAdapter
 
             ivBack.setOnClickListener {
-                finish()
+                onBackPressed()
             }
         }
 

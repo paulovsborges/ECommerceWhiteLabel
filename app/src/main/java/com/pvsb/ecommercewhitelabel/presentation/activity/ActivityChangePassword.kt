@@ -32,7 +32,7 @@ class ActivityChangePassword : AppCompatActivity() {
     private fun initialSetUp() {
         binding.apply {
             ivBack.setOnClickListener {
-                finish()
+                onBackPressed()
             }
             btnChangePassword.setOnClickListener {
                 validatePasswords()
