@@ -75,8 +75,6 @@ class FragmentProfile : Fragment() {
             btnLogout.setOnClickListener { doLogout() }
 
             btnRegistration.setOnClickListener {
-//                context?.openActivity(ActivityUserRegistration::class.java)
-
                 requireActivity().openActivityWithAnim(
                     ActivityUserRegistration::class.java,
                     R.id.viewOnRight,
@@ -86,9 +84,6 @@ class FragmentProfile : Fragment() {
             }
 
             btnFavorites.setOnClickListener {
-//                context?.openActivity(ActivityUserFavoritesProducts::class.java)
-
-
                 requireActivity().openActivityWithAnim(
                     ActivityUserFavoritesProducts::class.java,
                     R.id.viewOnRight,
@@ -97,9 +92,6 @@ class FragmentProfile : Fragment() {
             }
 
             btnAddresses.setOnClickListener {
-//                context?.openActivity(ActivityAddresses::class.java)
-
-
                 requireActivity().openActivityWithAnim(
                     ActivityAddresses::class.java,
                     R.id.viewOnRight,
@@ -108,9 +100,6 @@ class FragmentProfile : Fragment() {
             }
 
             btnOrders.setOnClickListener {
-//                context?.openActivity(ActivityOrders::class.java)
-
-
                 requireActivity().openActivityWithAnim(
                     ActivityOrders::class.java,
                     R.id.viewOnRight,
@@ -119,9 +108,6 @@ class FragmentProfile : Fragment() {
             }
 
             btnChangePassword.setOnClickListener {
-//                context?.openActivity(ActivityChangePassword::class.java)
-
-
                 requireActivity().openActivityWithAnim(
                     ActivityChangePassword::class.java,
                     R.id.viewOnRight,
