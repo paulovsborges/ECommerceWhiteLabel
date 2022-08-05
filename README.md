@@ -10,6 +10,7 @@
 * [View model](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/app/src/main/java/com/pvsb/ecommercewhitelabel/presentation/viewmodel)
 * [Testes unitários modulo core](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/core/src/test/java/com/pvsb/core)
 * [Testes unitários modulo app](https://github.com/paulovsborges/ECommerceWhiteLabel/tree/master/app/src/test/java/com/pvsb/ecommercewhitelabel/usecase)
+* [Data Store](https://github.com/paulovsborges/ECommerceWhiteLabel/blob/master/core/src/main/java/com/pvsb/core/utils/DataStoreUtils.kt)
 
 <h1 align="center">Sobre o projeto</h1>
 
@@ -74,7 +75,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android?hl=pt-br)
 - [Coroutines](https://developer.android.com/kotlin/coroutines?hl=pt-br)
 - [Lottie](https://github.com/airbnb/lottie-android)
-- [Preferences Date store](https://developer.android.com/topic/libraries/architecture/datastore?hl=pt-br)
+- [Preferences Data store](https://developer.android.com/topic/libraries/architecture/datastore?hl=pt-br)
 - [Ktor](https://ktor.io/)
 - [Firestore](https://firebase.google.com/docs/firestore?authuser=0)
 - [Firebase Auth](https://firebase.google.com/products/auth?gclid=Cj0KCQjw_7KXBhCoARIsAPdPTfhAPoOXIAtQmMhG-SspUis7Rb1cTWPCfn0vRS7u1VvB940tuDCaga4aAl4rEALw_wcB&gclsrc=aw.ds)
