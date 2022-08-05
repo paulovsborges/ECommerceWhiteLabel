@@ -7,6 +7,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.setSharedViewAnim
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityChangePasswordBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
@@ -21,6 +22,7 @@ class ActivityChangePassword : AppCompatActivity() {
     private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setSharedViewAnim("sharedElementOnRightSide")
         super.onCreate(savedInstanceState)
         binding = ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)

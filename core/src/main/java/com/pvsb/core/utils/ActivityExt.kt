@@ -1,8 +1,15 @@
 package com.pvsb.core.utils
 
+import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
+import android.view.Window
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.transition.platform.MaterialContainerTransform
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
+import com.pvsb.core.R
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -102,4 +109,35 @@ inline fun <reified T : Any> FragmentActivity.getValueFromBundle(key: String): T
     }
 
     return value
+}
+
+fun FragmentActivity.openActivityWithAnim(
+    activity: Class<*>,
+    viewId: Int,
+    sharedViewName: String,
+    data: ((Intent) -> Unit)? = null
+) {
+
+    val view = findViewById<View>(viewId)
+    val intent = Intent(this, activity)
+    data?.invoke(intent)
+    val options = ActivityOptions.makeSceneTransitionAnimation(
+        this,
+        view,
+        sharedViewName
+    )
+
+    startActivity(intent, options.toBundle())
+}
+
+fun FragmentActivity.setSharedViewAnim(
+    sharedViewName: String
+) {
+    window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+    findViewById<View>(android.R.id.content).transitionName = sharedViewName
+    setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+    window.sharedElementEnterTransition = MaterialContainerTransform().apply {
+        addTarget(android.R.id.content)
+        duration = 400L
+    }
 }

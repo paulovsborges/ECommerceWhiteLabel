@@ -25,9 +25,7 @@ import com.pvsb.ecommercewhitelabel.databinding.FragmentProfileBinding
 import com.pvsb.ecommercewhitelabel.presentation.activity.*
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
@@ -77,23 +75,58 @@ class FragmentProfile : Fragment() {
             btnLogout.setOnClickListener { doLogout() }
 
             btnRegistration.setOnClickListener {
-                context?.openActivity(ActivityUserRegistration::class.java)
+//                context?.openActivity(ActivityUserRegistration::class.java)
+
+                requireActivity().openActivityWithAnim(
+                    ActivityUserRegistration::class.java,
+                    R.id.viewOnRight,
+                    "sharedElementOnRightSide"
+                )
+
             }
 
             btnFavorites.setOnClickListener {
-                context?.openActivity(ActivityUserFavoritesProducts::class.java)
+//                context?.openActivity(ActivityUserFavoritesProducts::class.java)
+
+
+                requireActivity().openActivityWithAnim(
+                    ActivityUserFavoritesProducts::class.java,
+                    R.id.viewOnRight,
+                    "sharedElementOnRightSide"
+                )
             }
 
             btnAddresses.setOnClickListener {
-                context?.openActivity(ActivityAddresses::class.java)
+//                context?.openActivity(ActivityAddresses::class.java)
+
+
+                requireActivity().openActivityWithAnim(
+                    ActivityAddresses::class.java,
+                    R.id.viewOnRight,
+                    "sharedElementOnRightSide"
+                )
             }
 
             btnOrders.setOnClickListener {
-                context?.openActivity(ActivityOrders::class.java)
+//                context?.openActivity(ActivityOrders::class.java)
+
+
+                requireActivity().openActivityWithAnim(
+                    ActivityOrders::class.java,
+                    R.id.viewOnRight,
+                    "sharedElementOnRightSide"
+                )
             }
 
             btnChangePassword.setOnClickListener {
-                context?.openActivity(ActivityChangePassword::class.java)
+//                context?.openActivity(ActivityChangePassword::class.java)
+
+
+                requireActivity().openActivityWithAnim(
+                    ActivityChangePassword::class.java,
+                    R.id.viewOnRight,
+                    "sharedElementOnRightSide"
+                )
             }
 
             lifecycleScope.launch {

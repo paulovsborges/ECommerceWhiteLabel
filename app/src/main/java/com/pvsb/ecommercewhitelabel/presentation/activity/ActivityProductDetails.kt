@@ -39,13 +39,13 @@ class ActivityProductDetails : AppCompatActivity() {
     private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-        findViewById<View>(android.R.id.content).transitionName = "my_element"
-        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
-            addTarget(android.R.id.content)
-            duration = 250L
-        }
+//        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+//        findViewById<View>(android.R.id.content).transitionName = "my_element"
+//        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+//        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
+//            addTarget(android.R.id.content)
+//            duration = 250L
+//        }
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -66,7 +66,7 @@ class ActivityProductDetails : AppCompatActivity() {
 
     private fun initialSetUp(product: ProductDTO) {
         binding.apply {
-            ivBack.setOnClickListener { finish() }
+            ivBack.setOnClickListener { onBackPressed() }
             tvProductPrice.text = product.price.formatCurrency()
             tvProductTitle.text = product.title
 

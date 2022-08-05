@@ -13,6 +13,7 @@ import com.pvsb.core.model.UserPersonalData
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.setSharedViewAnim
 import com.pvsb.ecommercewhitelabel.databinding.ActivityUserRegistrationBinding
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,7 @@ class ActivityUserRegistration : AppCompatActivity() {
     private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setSharedViewAnim("sharedElementOnRightSide")
         super.onCreate(savedInstanceState)
         binding = ActivityUserRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -119,7 +119,7 @@ class FragmentHome : Fragment() {
 
     private fun navigateToDetails(item: ProductDTO) {
 
-        val view = requireActivity().findViewById<View>(R.id.viewShared)
+        val view = requireActivity().findViewById<View>(R.id.viewOnRight)
         val intent = Intent(requireContext(), ActivityProductDetails::class.java)
         intent.putValueOnBundle(PRODUCT_DETAILS, item)
         val options = ActivityOptions.makeSceneTransitionAnimation(

@@ -10,6 +10,7 @@ import com.pvsb.core.model.UserAddressDTO
 import com.pvsb.core.utils.Constants
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.setSharedViewAnim
 import com.pvsb.core.utils.switchFragment
 import com.pvsb.ecommercewhitelabel.R
 import com.pvsb.ecommercewhitelabel.databinding.ActivityAddressesBinding
@@ -28,6 +29,7 @@ class ActivityAddresses : AppCompatActivity() {
     private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setSharedViewAnim("sharedElementOnRightSide")
         super.onCreate(savedInstanceState)
         binding = ActivityAddressesBinding.inflate(layoutInflater)
         setContentView(binding.root)

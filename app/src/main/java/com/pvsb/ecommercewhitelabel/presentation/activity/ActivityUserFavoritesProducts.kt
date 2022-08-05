@@ -12,6 +12,7 @@ import com.pvsb.core.model.ProductDTO
 import com.pvsb.core.utils.Constants.PrefsKeys.USER_ID
 import com.pvsb.core.utils.getValueDS
 import com.pvsb.core.utils.handleResponse
+import com.pvsb.core.utils.setSharedViewAnim
 import com.pvsb.ecommercewhitelabel.databinding.ActivityUserFavoritesProductsBinding
 import com.pvsb.ecommercewhitelabel.presentation.adapter.FavoritesAdapter
 import com.pvsb.ecommercewhitelabel.presentation.viewmodel.ProfileViewModel
@@ -28,6 +29,7 @@ class ActivityUserFavoritesProducts : AppCompatActivity() {
     private val mAdapter = FavoritesAdapter(::deleteProductFromFavorites)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setSharedViewAnim("sharedElementOnRightSide")
         super.onCreate(savedInstanceState)
         binding = ActivityUserFavoritesProductsBinding.inflate(layoutInflater)
         setContentView(binding.root)
